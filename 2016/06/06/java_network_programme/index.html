@@ -1,0 +1,764 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="网络基础
+所有现代计算机网络都是包交换网络。
+
+icmp：traceroute，pingtcp：ftp，http，smtpudp：dns，nfshttp：soap，xml-rpc, rest apis
+
+java不支持ICMP，java支持的协议只有tcp和udp，以及建立在tcp和udp之上的应用层协议。其他的协议在java中只能通过链接到原生代码来实现。
+
+1-1023的端口号保留给已知的服务">
+<meta property="og:type" content="article">
+<meta property="og:title" content="yunsheng's blog">
+<meta property="og:url" content="http://yoursite.com/2016/06/06/java_network_programme/index.html">
+<meta property="og:site_name" content="yunsheng's blog">
+<meta property="og:description" content="网络基础
+所有现代计算机网络都是包交换网络。
+
+icmp：traceroute，pingtcp：ftp，http，smtpudp：dns，nfshttp：soap，xml-rpc, rest apis
+
+java不支持ICMP，java支持的协议只有tcp和udp，以及建立在tcp和udp之上的应用层协议。其他的协议在java中只能通过链接到原生代码来实现。
+
+1-1023的端口号保留给已知的服务">
+<meta property="og:updated_time" content="2016-06-06T12:57:26.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="yunsheng's blog">
+<meta name="twitter:description" content="网络基础
+所有现代计算机网络都是包交换网络。
+
+icmp：traceroute，pingtcp：ftp，http，smtpudp：dns，nfshttp：soap，xml-rpc, rest apis
+
+java不支持ICMP，java支持的协议只有tcp和udp，以及建立在tcp和udp之上的应用层协议。其他的协议在java中只能通过链接到原生代码来实现。
+
+1-1023的端口号保留给已知的服务">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title>  | yunsheng's blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?05a33c79ef299df2c5289fb197aecddf";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">yunsheng's blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-06-06T20:57:26+08:00" content="2016-06-06">
+              2016-06-06
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/06/06/java_network_programme/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/06/06/java_network_programme/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="网络基础"><a href="#网络基础" class="headerlink" title="网络基础"></a>网络基础</h2><ul>
+<li><p>所有现代计算机网络都是包交换网络。</p>
+</li>
+<li><p>icmp：traceroute，ping<br>tcp：ftp，http，smtp<br>udp：dns，nfs<br>http：soap，xml-rpc, rest apis</p>
+</li>
+<li><p>java不支持ICMP，java支持的协议只有tcp和udp，以及建立在tcp和udp之上的应用层协议。其他的协议在java中只能通过链接到原生代码来实现。</p>
+</li>
+<li><p>1-1023的端口号保留给已知的服务。</p>
+</li>
+</ul>
+<h2 id="流"><a href="#流" class="headerlink" title="流"></a>流</h2><ul>
+<li><p>基本的流是阻塞的。<br>流操作的是字节。<br>reader和writer操作的是字符。、</p>
+</li>
+<li><p>不管有没有必要，对输出流总是记得flush()一下，总是好的。</p>
+</li>
+<li><p>java7引入的带资源的try，以代替try-finally释放资源的固有模式。但是有一个要求是，被释放的对象必须实现了closeable接口。</p>
+</li>
+<li><p>inputStream类还有三个不太常用的方法，允许程序备份和重新读取已经读取的数据。用mark()标记位置，在以后的某个时刻，可以reset()回这个位置，再重新进行读取。但是注意不能随意的向前重置，mark有个参数limit。如果超出了这个limit去reset()会抛出IO异常。<br>另外，一个流任何时候只能有一个标记，新标记的位置会清楚前一个标记。<br>还有，不是所有的流都支持这个，要先用markSupported()方法检查一下。这个设计不好。实际上支持标记的流只有BufferedInputStream和ByteArrayInputStream。</p>
+</li>
+<li><p>BufferedInputStream默认缓冲区大小是2048个字节，BufferedOutputStream默认缓冲区大小是512个字节。<br>BufferedReader和BufferedWriter的默认缓冲区大小是8192个字符</p>
+</li>
+</ul>
+<h2 id="线程"><a href="#线程" class="headerlink" title="线程"></a>线程</h2><ul>
+<li><p>单线程程序是在main()方法返回时退出。多线程程序在main()方法以及所有非守护线程都返回时退出。（守护线程完成后台任务，并不会阻止虚拟机退出）。</p>
+</li>
+<li><p>避免在构造函数中启动线程，尤其是线程还会回调该对象的情况。</p>
+</li>
+<li><p>Excutors，callable，future组合使用隐藏多线程回调的诸多细节。future的get()会阻塞，知道结果可获取。  </p>
+</li>
+<li><p>Collections里有几个对集合包装的方法，得到集合的线程安全视图。</p>
+<pre><code>List&lt;String&gt; srcList = new ArrayList&lt;String&gt;();
+srcList.add(&quot;a&quot;);
+List&lt;String&gt; synchronizedList = Collections.synchronizedList(srcList);
+</code></pre><p>不过以后对srcList的访问，都必须通过syn版本。</p>
+</li>
+<li><p>线程调度。为了能让其他线程有机会运行，一个线程有10种方式暂停或者指示它准备暂停。包括：  </p>
+<ol>
+<li>可以对IO阻塞。 </li>
+<li>可以对同步对象阻塞。<br>不过不管对于io阻塞还是锁阻塞，线程都不会释放线程锁持有的锁。  </li>
+<li>可以放弃。<br>Thread.yield()显式让步。不会释放锁。因此在让步时不应该做任何同步。其他线程获取不到锁也执行不了，随后还是回到让步的这个线程，这就没意义了。</li>
+<li>可以休眠。<br>Thread.sleep(),更强力的一种放弃。yield是线程表示我愿意暂停，咱们来一起抢。sleep是不管有没有其他线程在等待执行，sleep都会导致线程暂停。记住sleep也不会释放锁。要使线程从sleep状态中醒来，调用该线程的interrupt方法。</li>
+<li>可以连接另一个线程。<br>join()允许一个线程在继续执行前等待另一个线程结束。即将另一个线程的执行插入进来。当前join基本可以使用executor+future来代替了。</li>
+<li>可以等待一个对象。<br>object.wait会释放对象锁。所以在wait之前，希望暂停的线程应该已经获得了对象锁。线程会释放这个object的对象锁，不会释放该线程拥有的其他对象锁。唤醒wait的三种方式：时间到期，线程被中断，对象得到通知。注意醒来要重新获得锁。通知notify和notifyall也是object的方法，所以notify和notifyall之前也要得到object的锁。notify基本上是随机选择一个等待这个对象的线程，notifyall是通知所有等待这个对象的线程。一定要将wait放在检测状态的代码中，不能假定线程醒来之后，对象的状态就是可用的。</li>
+<li>可以结束。</li>
+<li>可以被更高优先级线程抢占。</li>
+<li>可以被挂起。</li>
+<li>可以停止。<br>最后这两种已经废弃不用，可能会让对象处于不一致状态。</li>
+</ol>
+</li>
+</ul>
+<h3 id="线程池"><a href="#线程池" class="headerlink" title="线程池"></a>线程池</h3><pre><code>ExecutorService pool = Executors.newFixedThreadPool(4);
+
+// 完成所有等待的任务后结束
+pool.shutdown();
+
+// 立即停止，返回未执行的任务
+pool.shutdownNow();
+</code></pre><h2 id="IP地址"><a href="#IP地址" class="headerlink" title="IP地址"></a>IP地址</h2><ul>
+<li>ipv4。4个字节的无符号数。点分十进制。</li>
+<li>ipv6。16字节长。冒号分隔8个区块。每块2个字节，作为4个16进制数。<br>0的简写形式。  </li>
+</ul>
+<h3 id="InetAddress类"><a href="#InetAddress类" class="headerlink" title="InetAddress类"></a>InetAddress类</h3><p>java.net.InetAddress是java对ip地址(包括ipv4和ipv6)的高层表示。</p>
+<pre><code>    try
+    {
+        InetAddress address = InetAddress.getByName(&quot;www.baidu.com&quot;);
+        System.out.println(address);
+    }
+    catch (UnknownHostException e)
+    {
+        // TODO Auto-generated catch block
+        System.out.println(&quot;can&apos;t find ...&quot;);
+    }
+
+
+www.baidu.com/112.80.248.74
+</code></pre><p>这个方法第一次调用时，会和本地的DNS服务器建立连接，来查名字和地址。然后会缓存起来，下一次查就不会建立网络连接了，直接查缓存。</p>
+<pre><code>InetAddress[] allByName = InetAddress.getAllByName(&quot;www.baidu.com&quot;);
+</code></pre><p>使用<code>getAllByName</code>返回所有服务器的地址。  </p>
+<p>使用<code>InetAddress.getLocalHost()</code>返回本机地址。  </p>
+<p>使用<code>getByAddress(byte[] paramArrayOfByte)</code>或者<code>getByAddress(String paramString,byte[] paramArrayOfByte)</code>直接设定地址，不与DNS连接查询。  </p>
+<pre><code>InetAddress local = InetAddress.getByAddress(new byte[] {(byte) 192, (byte) 168, 0,
+        (byte) 243});
+</code></pre><p>java对不成功的DNS查询只缓存10秒。</p>
+<pre><code>java.security.Security.setProperty(&quot;networkaddress.cache.ttl&quot;, &quot;-1&quot;);
+System.out.println(java.security.Security.getProperty(&quot;networkaddress.cache.ttl&quot;));
+
+java.security.Security.setProperty(&quot;networkaddress.negative.ttl&quot;, &quot;10&quot;);
+System.out.println(java.security.Security.getProperty(&quot;networkaddress.negative.ttl&quot;));
+</code></pre><p>可以通过对系统参数的设置来控制缓存的时间。</p>
+<p>当使用<code>getByName</code>然后以ip传为参数时，不会查DNS，所以也可以使用实际不存在的ip创建inetaddress对象。域名相对ip地址来说要稳定的多，优先选用域名。  </p>
+<pre><code>InetAddress localHost = InetAddress.getLocalHost();
+// 知道主机名，不查DNS
+localHost.getHostName();
+
+// 知道主机名，也要去查DNS
+localHost.getCanonicalHostName();
+</code></pre><p><code>getAddress</code>方法返回的是byte[]，因为java中没有无符号字节，所以大于127的会被当做负数，要做一下转换：<code>b &gt;= 0 ? b : b + 256</code>  </p>
+<ul>
+<li><p>使用<code>isReachable(int timeout)</code>或者<code>isReachable(NetworkInterface interface, int ttl , int timeout)</code>来判断ip是否可达。</p>
+</li>
+<li><p>InetAddress类重写的equals和hashcode方法都是只根据ip地址来处理，即ip地址相同的两个InetAddress对象就是相等的，不管主机名是啥。  </p>
+</li>
+<li><p>Inet4Address和Inet6Address是InetAddress的子类，一般不用。判断getAddress()返回的字节数组的大小就可以了。  </p>
+</li>
+</ul>
+<h3 id="NetworkInterface类"><a href="#NetworkInterface类" class="headerlink" title="NetworkInterface类"></a>NetworkInterface类</h3><p>NetworkInterface代表网卡，不能随便构造。提供了很多静态方法。  </p>
+<h2 id="URL"><a href="#URL" class="headerlink" title="URL"></a>URL</h2><ul>
+<li><p>URL由ASCII字母数字组成[a-zA-Z0-9]。还可以使用-_.!~。定界符/？&amp;=有特殊意义。希望所谓普通字符需要%转义。非ASCII字符用%转义后面跟该字符的UTF-8编码的十六进制码。</p>
+</li>
+<li><p>URI会告诉你这个资源是什么，但是不能告诉你资源的地址和获取方式，这是URI和URL的区别。</p>
+</li>
+<li><p>URL中访问的资源如果是映射到服务器的文件系统。那么资源的路径是相对于服务器指定的可访问资源的文档根目录，而不是服务器的系统根目录。  </p>
+</li>
+<li><p>java.net.URL类是不可变的。构造一个URL对象后，其字段就是不变的，是线程安全的。  </p>
+</li>
+</ul>
+<h3 id="从url获取数据"><a href="#从url获取数据" class="headerlink" title="从url获取数据"></a>从url获取数据</h3><p>几个关键方法：<code>openStream</code>,<code>openConnection</code>,<code>getContent</code></p>
+<h3 id="分解url"><a href="#分解url" class="headerlink" title="分解url"></a>分解url</h3><p>URL提供了几个分解url获取各部分的方法。见api。<br>其中getPath和getFile容易混淆，这两个方法都会返回完整的路径加文件名，区别是getFile连查询部分都会返回。  </p>
+<h3 id="比较URL"><a href="#比较URL" class="headerlink" title="比较URL"></a>比较URL</h3><p>URL的equals方法，会调用DNS去解析主机是否相等。这说明URL的equals的方法是阻塞的！！也不会比较URL标示的资源是否是一样的。他只是字面上去比较。  </p>
+<p>在编码时首先URI类，他的equals方法不是阻塞的。URL主要用于从服务器下载内容。有toURL方法。</p>
+<h3 id="URL编码"><a href="#URL编码" class="headerlink" title="URL编码"></a>URL编码</h3><p><code>System.out.println(URLEncoder.encode(&quot;to encode*to+to%to汉字&quot;, &quot;utf-8&quot;));</code><br>输出：<code>to+encode*to%2Bto%25to%E6%B1%89%E5%AD%97</code><br>一般选择转成utf-8.适用性更好。<br>问题在于，encode盲目的进行编码。对特殊字符/&amp;=:也直接编码了，所以通常的用法不是直接对整个url编码，而是分段编码。</p>
+<h3 id="代理"><a href="#代理" class="headerlink" title="代理"></a>代理</h3><p>基于URl的java程序可以使用大多数常见的代理服务器和协议，出于这个原因，应该使用URL类。</p>
+<h2 id="URI"><a href="#URI" class="headerlink" title="URI"></a>URI</h2><p>和URL类相比，URI类的相关规范更一致，URI类没有网络获取功能，主要用于解析和处理字符串。  </p>
+<ul>
+<li><p>URI使用的字符不限于ASCII，还可以使用unicode字符。</p>
+</li>
+<li><p>URI实现了Comparable接口，因此可以排序。</p>
+</li>
+<li><p>URL的equals不区分大小写，和URL不同的是，URI不是单纯的字符串比较。另外转义在比较之前不解码。</p>
+</li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/06/06/Maven讲解/" rel="next" title="">
+                <i class="fa fa-chevron-left"></i> 
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/06/06/MarkDown语法备忘/" rel="prev" title="">
+                 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/06/06/java_network_programme/"
+           data-title="" data-url="http://yoursite.com/2016/06/06/java_network_programme/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/me.jpg"
+               alt="yunsheng" />
+          <p class="site-author-name" itemprop="name">yunsheng</p>
+          <p class="site-description motion-element" itemprop="description">云胜的笔记</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">29</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#网络基础"><span class="nav-number">1.</span> <span class="nav-text">网络基础</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#流"><span class="nav-number">2.</span> <span class="nav-text">流</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线程"><span class="nav-number">3.</span> <span class="nav-text">线程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#线程池"><span class="nav-number">3.1.</span> <span class="nav-text">线程池</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#IP地址"><span class="nav-number">4.</span> <span class="nav-text">IP地址</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#InetAddress类"><span class="nav-number">4.1.</span> <span class="nav-text">InetAddress类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#NetworkInterface类"><span class="nav-number">4.2.</span> <span class="nav-text">NetworkInterface类</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#URL"><span class="nav-number">5.</span> <span class="nav-text">URL</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#从url获取数据"><span class="nav-number">5.1.</span> <span class="nav-text">从url获取数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分解url"><span class="nav-number">5.2.</span> <span class="nav-text">分解url</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#比较URL"><span class="nav-number">5.3.</span> <span class="nav-text">比较URL</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#URL编码"><span class="nav-number">5.4.</span> <span class="nav-text">URL编码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代理"><span class="nav-number">5.5.</span> <span class="nav-text">代理</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#URI"><span class="nav-number">6.</span> <span class="nav-text">URI</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">yunsheng</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"yunsheng-notes"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+  
+
+
+
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>

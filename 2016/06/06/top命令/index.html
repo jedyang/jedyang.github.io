@@ -1,0 +1,702 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="top命令top命令是Linux下常用的性能分析工具，能够实时显示系统中各个进程的资源占用状况，类似于Windows的任务管理器。top是一个动态显示过程,自动刷新（默认3秒），也可以通过用户按键来不断刷新当前状态.如果在前台执行该命令,它将独占前台,直到用户终止该程序为止.比较准确的说,top命令提供了实时的对系统处理器的状态监视.它将显示系统中CPU最“敏感”的任务列表.该命令可以按CPU使用">
+<meta property="og:type" content="article">
+<meta property="og:title" content="yunsheng's blog">
+<meta property="og:url" content="http://yoursite.com/2016/06/06/top命令/index.html">
+<meta property="og:site_name" content="yunsheng's blog">
+<meta property="og:description" content="top命令top命令是Linux下常用的性能分析工具，能够实时显示系统中各个进程的资源占用状况，类似于Windows的任务管理器。top是一个动态显示过程,自动刷新（默认3秒），也可以通过用户按键来不断刷新当前状态.如果在前台执行该命令,它将独占前台,直到用户终止该程序为止.比较准确的说,top命令提供了实时的对系统处理器的状态监视.它将显示系统中CPU最“敏感”的任务列表.该命令可以按CPU使用">
+<meta property="og:updated_time" content="2016-06-06T12:57:27.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="yunsheng's blog">
+<meta name="twitter:description" content="top命令top命令是Linux下常用的性能分析工具，能够实时显示系统中各个进程的资源占用状况，类似于Windows的任务管理器。top是一个动态显示过程,自动刷新（默认3秒），也可以通过用户按键来不断刷新当前状态.如果在前台执行该命令,它将独占前台,直到用户终止该程序为止.比较准确的说,top命令提供了实时的对系统处理器的状态监视.它将显示系统中CPU最“敏感”的任务列表.该命令可以按CPU使用">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title>  | yunsheng's blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?05a33c79ef299df2c5289fb197aecddf";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">yunsheng's blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-06-06T20:57:27+08:00" content="2016-06-06">
+              2016-06-06
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/06/06/top命令/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/06/06/top命令/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="top命令"><a href="#top命令" class="headerlink" title="top命令"></a>top命令</h2><p>top命令是Linux下常用的性能分析工具，能够实时显示系统中各个进程的资源占用状况，类似于Windows的任务管理器。top是一个动态显示过程,自动刷新（默认3秒），也可以通过用户按键来不断刷新当前状态.如果在前台执行该命令,它将独占前台,直到用户终止该程序为止.比较准确的说,top命令提供了实时的对系统处理器的状态监视.它将显示系统中CPU最“敏感”的任务列表.该命令可以按CPU使用.内存使用和执行时间对任务进行排序。</p>
+<h3 id="top"><a href="#top" class="headerlink" title="top"></a>top</h3><p>输出：</p>
+<pre><code> top - 14:52:42 up 4 days, 21:28,  2 users,  load average: 0.91, 1.50, 2.13
+Tasks: 168 total,   1 running, 165 sleeping,   0 stopped,   2 zombie
+Cpu(s):  1.6%us,  2.1%sy,  0.0%ni, 96.3%id,  0.0%wa,  0.0%hi,  0.0%si,  0.0%st
+Mem:     15953M total,    10881M used,     5072M free,      546M buffers
+Swap:     2053M total,       15M used,     2038M free,     4756M cached
+
+  PID USER      PR  NI  VIRT  RES  SHR S   %CPU %MEM    TIME+  COMMAND                                                                                                                                                                     
+20074 controll  20   0 11.1g 3.6g  18m S      9 22.9  22:01.95 java                                                                                                                                                                         
+ 8131 omm       20   0 91476 8412 1628 S      1  0.1  14:53.10 ha.bin                                                                                                                                                                       
+11868 mongodb   20   0 12.9g  38m 7620 S      1  0.2  36:52.68 mongod                                                                                                                                                                       
+ 1352 root      20   0 19308 1116  832 S      0  0.0   0:33.45 syslog-ng                                                                                                                                                                    
+ 2900 root      20   0  130m  924  788 S      0  0.0   1:31.15 nscd                                                                                                                                                                         
+ 3098 root      20   0  187m  16m 3864 S      0  0.1  17:28.66 X                                                                                                                                                                            
+ 7273 controll  20   0 4443m 135m  10m S      0  0.8   3:16.95 java                                                                                                                                                                         
+ 9622 omm       20   0  671m 187m  11m S      0  1.2  11:13.91 java                                                                                                                                                                         
+ 9639 omm       20   0 4669m 227m  11m S      0  1.4  11:12.22 java                                                                                                                                                                         
+10354 omm       20   0 4754m 235m  11m S      0  1.5   5:38.90 java                                                                                                                                                                         
+11839 omm       20   0  103m  11m 3324 S      0  0.1  10:03.19 omm_agent.bin                                                                                                                                                                
+19262 mongodb   20   0  384m  56m  26m S      0  0.4  19:07.57 mongod                                                                                                                                                                       
+22360 mongodb   20   0  134m 9240 3808 S      0  0.1   9:02.65 mongos                                                                                                                                                                       
+28769 root      20   0     0    0    0 S      0  0.0   0:01.85 kworker/2:2                                                                                                                                                                  
+    1 root      20   0 10540  736  700 S      0  0.0   0:27.31 init                                                                                                                                                                         
+    2 root      20   0     0    0    0 S      0  0.0   0:02.48 kthreadd                                                                                                                                                                     
+    3 root      20   0     0    0    0 S      0  0.0   0:13.02 ksoftirqd/0                                                                                                                                                                  
+    6 root      RT   0     0    0    0 S      0  0.0   1:02.22 migration/0                                                                                                                                                                  
+    7 root      RT   0     0    0    0 S      0  0.0   1:04.67 watchdog/0                                                                                                                                                                   
+    8 root      RT   0     0    0    0 S      0  0.0   1:10.59 migration/1                                                                                                                                                                  
+   10 root      20   0     0    0    0 S      0  0.0   0:06.69 ksoftirqd/1                                                                                                                                                                  
+   12 root      RT   0     0    0    0 S      0  0.0   0:21.46 watchdog/1                                                                                                                                                                   
+   13 root      RT   0     0    0    0 S      0  0.0   1:21.14 migration/2                                                                                                                                                                  
+   15 root      20   0     0    0    0 S      0  0.0   0:05.63 ksoftirqd/2                                                                                                                                                                  
+   16 root      RT   0     0    0    0 S      0  0.0   0:24.26 watchdog/2                                                                                                                                                                   
+   17 root      RT   0     0    0    0 S      0  0.0   1:12.33 migration/3                                                                                                                                                                  
+   19 root      20   0     0    0    0 S      0  0.0   0:06.10 ksoftirqd/3                                                                                                                                                                  
+   20 root      RT   0     0    0    0 S      0  0.0   0:52.91 watchdog/3        
+</code></pre><p>参数说明：<br>第一行：<br>     14:52:42 ： 当前系统时间<br>     up 4 days, 21:28, ：系统持续运行4天21小时28分，没有重启过<br>     2 users,：当前有两个用户登录<br>     load average: 0.91, 1.50, 2.13   ：1分钟，5分钟，15分钟的负载情况。load average数据是每隔5秒钟检查一次活跃的进程数，然后按特定算法计算出的数值。如果这个数除以逻辑CPU的数量，<strong>结果高于5的时候就表明系统在超负荷运转了。</strong>     </p>
+<p>第二行：<br>当前有168个进程，及状态。（zambie是僵尸状态）  </p>
+<p>第三行：<br>cpu信息。<br>5.9%us — 用户空间占用CPU的百分比。</p>
+<p>3.4% sy — 内核空间占用CPU的百分比。</p>
+<p>0.0% ni — 改变过优先级的进程占用CPU的百分比</p>
+<p>90.4% id — 空闲CPU百分比</p>
+<p>0.0% wa — IO等待占用CPU的百分比</p>
+<p>0.0% hi — 硬中断（Hardware IRQ）占用CPU的百分比</p>
+<p>0.2% si — 软中断（Software Interrupts）占用CPU的百分比</p>
+<p>备注：在这里CPU的使用比率和windows概念不同，需要理解linux系统用户空间和内核空间的相关知识！</p>
+<p>第四行,内存状态，具体信息如下：</p>
+<p>32949016k total — 物理内存总量（32GB）</p>
+<p>14411180k used — 使用中的内存总量（14GB）</p>
+<p>18537836k free — 空闲内存总量（18GB）</p>
+<p>169884k buffers — 缓存的内存量 （169M）</p>
+<p>第五行，swap交换分区信息，具体信息说明如下：</p>
+<p>32764556k total — 交换区总量（32GB）</p>
+<p>0k used — 使用的交换区总量（0K）</p>
+<p>32764556k free — 空闲交换区总量（32GB）</p>
+<p>3612636k cached — 缓冲的交换区总量（3.6GB）</p>
+<p>备注：</p>
+<p><strong>第四行中使用中的内存总量（used）指的是现在系统内核控制的内存数，空闲内存总量（free）是内核还未纳入其管控范围的数量。纳入内核管理的内存不见得都在使用中，还包括过去使用过的现在可以被重复利用的内存，内核并不把这些可被重新使用的内存交还到free中去，因此在linux上free内存会越来越少，但不用为此担心。</strong></p>
+<p>如果出于习惯去计算可用内存数，这里有个近似的计算公式：第四行的free + 第四行的buffers + 第五行的cached，按这个公式此台服务器的可用内存：18537836k +169884k +3612636k = 22GB左右。</p>
+<p>对于内存监控，在top里我们要时刻监控第五行swap交换分区的used，如果这个数值在不断的变化，说明内核在不断进行内存和swap的数据交换，这是真正的内存不够用了。</p>
+<p>第六行，空行。</p>
+<p>第七行以下：各进程（任务）的状态监控，项目列信息说明如下：</p>
+<p>PID — 进程id</p>
+<p>USER — 进程所有者</p>
+<p>PR — 进程优先级</p>
+<p>NI — nice值。负值表示高优先级，正值表示低优先级</p>
+<p>VIRT — 进程使用的虚拟内存总量，单位kb。VIRT=SWAP+RES</p>
+<p>RES — 进程使用的、未被换出的物理内存大小，单位kb。RES=CODE+DATA</p>
+<p>SHR — 共享内存大小，单位kb</p>
+<p>S — 进程状态。D=不可中断的睡眠状态 R=运行 S=睡眠 T=跟踪/停止 Z=僵尸进程</p>
+<p>%CPU — 上次更新到现在的CPU时间占用百分比</p>
+<p>%MEM — 进程使用的物理内存百分比</p>
+<p>TIME+ — 进程使用的CPU时间总计，单位1/100秒</p>
+<p>COMMAND — 进程名称（命令名/命令行）        </p>
+<h3 id="在top基本视图中，按键盘数字“1”，可监控每个逻辑CPU的状况"><a href="#在top基本视图中，按键盘数字“1”，可监控每个逻辑CPU的状况" class="headerlink" title="在top基本视图中，按键盘数字“1”，可监控每个逻辑CPU的状况"></a>在top基本视图中，按键盘数字“1”，可监控每个逻辑CPU的状况</h3><pre><code>top - 15:04:23 up 4 days, 21:39,  2 users,  load average: 9.77, 7.73, 5.35
+Tasks: 173 total,   5 running, 166 sleeping,   0 stopped,   2 zombie
+Cpu0  :  4.7%us,  9.4%sy,  0.0%ni, 85.9%id,  0.0%wa,  0.0%hi,  0.0%si,  0.0%st
+Cpu1  :  1.3%us,  2.7%sy,  0.0%ni, 96.0%id,  0.0%wa,  0.0%hi,  0.0%si,  0.0%st
+Cpu2  :  0.4%us, 14.8%sy,  0.0%ni, 84.4%id,  0.0%wa,  0.0%hi,  0.4%si,  0.0%st
+Cpu3  :  0.0%us, 50.5%sy,  0.0%ni, 49.5%id,  0.0%wa,  0.0%hi,  0.0%si,  0.0%st
+Cpu4  :  3.1%us,  2.4%sy,  0.0%ni, 94.2%id,  0.0%wa,  0.0%hi,  0.3%si,  0.0%st
+Cpu5  :  2.4%us,  2.7%sy,  0.0%ni, 94.6%id,  0.0%wa,  0.0%hi,  0.3%si,  0.0%st
+Cpu6  :  2.0%us, 98.0%sy,  0.0%ni,  0.0%id,  0.0%wa,  0.0%hi,  0.0%si,  0.0%st
+Cpu7  :  0.3%us,  0.3%sy,  0.0%ni, 98.7%id,  0.0%wa,  0.0%hi,  0.7%si,  0.0%st
+Mem:     15953M total,    13559M used,     2394M free,      532M buffers
+Swap:     2053M total,       15M used,     2038M free,     3664M cached
+
+  PID USER      PR  NI  VIRT  RES  SHR S   %CPU %MEM    TIME+  COMMAND       
+</code></pre><p>如图，显示当前8个cpu的使用情况。<br>再按1回到基本视图。</p>
+<h3 id="基本视图下，按b高亮run状态的进程。其实和y有点重复，在高亮状态下，y是显示run的进程，按x，高亮当前排序的列，默认是按cpu使用率排序的。按shift-gt-或者-lt-改变排序列。"><a href="#基本视图下，按b高亮run状态的进程。其实和y有点重复，在高亮状态下，y是显示run的进程，按x，高亮当前排序的列，默认是按cpu使用率排序的。按shift-gt-或者-lt-改变排序列。" class="headerlink" title="基本视图下，按b高亮run状态的进程。其实和y有点重复，在高亮状态下，y是显示run的进程，按x，高亮当前排序的列，默认是按cpu使用率排序的。按shift+&gt;或者&lt;,改变排序列。"></a>基本视图下，按b高亮run状态的进程。其实和y有点重复，在高亮状态下，y是显示run的进程，按x，高亮当前排序的列，默认是按cpu使用率排序的。按shift+&gt;或者&lt;,改变排序列。</h3><h3 id="top-c-显示完整的command"><a href="#top-c-显示完整的command" class="headerlink" title="top -c 显示完整的command"></a>top -c 显示完整的command</h3><h3 id="top-b-批处理显示，不方便看，适合导出转存。"><a href="#top-b-批处理显示，不方便看，适合导出转存。" class="headerlink" title="top -b 批处理显示，不方便看，适合导出转存。"></a>top -b 批处理显示，不方便看，适合导出转存。</h3><h3 id="top-n-数字-：设置刷新次数"><a href="#top-n-数字-：设置刷新次数" class="headerlink" title="top -n 数字  ：设置刷新次数"></a>top -n 数字  ：设置刷新次数</h3><h3 id="top-d-数字-设置刷新周期"><a href="#top-d-数字-设置刷新周期" class="headerlink" title="top -d 数字  : 设置刷新周期"></a>top -d 数字  : 设置刷新周期</h3><h3 id="top-p-进程号-：-显示特定进程"><a href="#top-p-进程号-：-显示特定进程" class="headerlink" title="top -p 进程号 ： 显示特定进程"></a>top -p 进程号 ： 显示特定进程</h3>
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/06/06/关于session&cookie/" rel="next" title="">
+                <i class="fa fa-chevron-left"></i> 
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/06/06/web开发相关/" rel="prev" title="">
+                 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/06/06/top命令/"
+           data-title="" data-url="http://yoursite.com/2016/06/06/top命令/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/me.jpg"
+               alt="yunsheng" />
+          <p class="site-author-name" itemprop="name">yunsheng</p>
+          <p class="site-description motion-element" itemprop="description">云胜的笔记</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">29</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#top命令"><span class="nav-number">1.</span> <span class="nav-text">top命令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#top"><span class="nav-number">1.1.</span> <span class="nav-text">top</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在top基本视图中，按键盘数字“1”，可监控每个逻辑CPU的状况"><span class="nav-number">1.2.</span> <span class="nav-text">在top基本视图中，按键盘数字“1”，可监控每个逻辑CPU的状况</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基本视图下，按b高亮run状态的进程。其实和y有点重复，在高亮状态下，y是显示run的进程，按x，高亮当前排序的列，默认是按cpu使用率排序的。按shift-gt-或者-lt-改变排序列。"><span class="nav-number">1.3.</span> <span class="nav-text">基本视图下，按b高亮run状态的进程。其实和y有点重复，在高亮状态下，y是显示run的进程，按x，高亮当前排序的列，默认是按cpu使用率排序的。按shift+>或者<,改变排序列。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#top-c-显示完整的command"><span class="nav-number">1.4.</span> <span class="nav-text">top -c 显示完整的command</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#top-b-批处理显示，不方便看，适合导出转存。"><span class="nav-number">1.5.</span> <span class="nav-text">top -b 批处理显示，不方便看，适合导出转存。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#top-n-数字-：设置刷新次数"><span class="nav-number">1.6.</span> <span class="nav-text">top -n 数字  ：设置刷新次数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#top-d-数字-设置刷新周期"><span class="nav-number">1.7.</span> <span class="nav-text">top -d 数字  : 设置刷新周期</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#top-p-进程号-：-显示特定进程"><span class="nav-number">1.8.</span> <span class="nav-text">top -p 进程号 ： 显示特定进程</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">yunsheng</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"yunsheng-notes"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+  
+
+
+
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>

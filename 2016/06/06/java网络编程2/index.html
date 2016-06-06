@@ -1,0 +1,924 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="HTTPhttp说是一种协议，更准确的说是定义了一种数据格式。    
+
+每个http1.0请求包含4个步骤。
+
+客户端在端口80或这指定端口打开一个tcp连接
+客户端向服务器发送消息，请求指定路径上的资源。
+服务器向客户端发送相应。
+服务器关闭连接。
+
+
+http1.1之后。可以在一个tcp连接上多次发送请求和响应。
+
+格式。请求和响应是一样的基本格式： 一个首部行，一个包含元数据的http首部">
+<meta property="og:type" content="article">
+<meta property="og:title" content="yunsheng's blog">
+<meta property="og:url" content="http://yoursite.com/2016/06/06/java网络编程2/index.html">
+<meta property="og:site_name" content="yunsheng's blog">
+<meta property="og:description" content="HTTPhttp说是一种协议，更准确的说是定义了一种数据格式。    
+
+每个http1.0请求包含4个步骤。
+
+客户端在端口80或这指定端口打开一个tcp连接
+客户端向服务器发送消息，请求指定路径上的资源。
+服务器向客户端发送相应。
+服务器关闭连接。
+
+
+http1.1之后。可以在一个tcp连接上多次发送请求和响应。
+
+格式。请求和响应是一样的基本格式： 一个首部行，一个包含元数据的http首部">
+<meta property="og:updated_time" content="2016-06-06T12:57:26.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="yunsheng's blog">
+<meta name="twitter:description" content="HTTPhttp说是一种协议，更准确的说是定义了一种数据格式。    
+
+每个http1.0请求包含4个步骤。
+
+客户端在端口80或这指定端口打开一个tcp连接
+客户端向服务器发送消息，请求指定路径上的资源。
+服务器向客户端发送相应。
+服务器关闭连接。
+
+
+http1.1之后。可以在一个tcp连接上多次发送请求和响应。
+
+格式。请求和响应是一样的基本格式： 一个首部行，一个包含元数据的http首部">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title>  | yunsheng's blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?05a33c79ef299df2c5289fb197aecddf";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">yunsheng's blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-06-06T20:57:26+08:00" content="2016-06-06">
+              2016-06-06
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/06/06/java网络编程2/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/06/06/java网络编程2/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="HTTP"><a href="#HTTP" class="headerlink" title="HTTP"></a>HTTP</h2><p>http说是一种协议，更准确的说是定义了一种数据格式。    </p>
+<ul>
+<li><p>每个http1.0请求包含4个步骤。</p>
+<ol>
+<li>客户端在端口80或这指定端口打开一个tcp连接</li>
+<li>客户端向服务器发送消息，请求指定路径上的资源。</li>
+<li>服务器向客户端发送相应。</li>
+<li>服务器关闭连接。</li>
+</ol>
+</li>
+<li><p>http1.1之后。可以在一个tcp连接上多次发送请求和响应。</p>
+</li>
+<li>格式。<br>请求和响应是一样的基本格式： 一个首部行，一个包含元数据的http首部，一个空行\r\n\r\n，一个消息体（get没有）。<br>请求格式：<br>首部行的第一行的请求行，方法+资源路径+协议版本<br>然后一般会在请求行下包含一些信息，以key：value形式，key不区分大小写，value有时区分有时不区分。。ASCII。如果一个值太长，可以在下一行加一个空格或tab继续。<br>如host：服务器的名，是web服务器可以区分ip相同但不同名的主机。<br>user-agent：浏览器信息<br>accept：告诉服务器客户端可以处理的数据类型。但服务器常常忽略这个。mime类型分为两级，类型/子类型。<br>服务器看到这个空行，他就开始通过同一个tcp连接发送相应。<br>响应先是一个状态行，然后是头部信息，空行，报文主体。  </li>
+</ul>
+<h3 id="http方法"><a href="#http方法" class="headerlink" title="http方法"></a>http方法</h3><p>http的请求和响应都是无状态的。<br>get 安全且幂等。<br>put 不安全但幂等。<br>delete 不安全但幂等。<br>post 不安全且不幂等。<br>如今post在web上大量滥用，不完成提交的所有安全操作应当使用get，而不是post。只有真正提交的操作才应当使用post。    </p>
+<p>head：相当于get，只不过他只返回资源的首部，不返回具体数据。这个方法经常用于检查文件的修改日期，查看本地缓存的文件副本是否仍然有效。  </p>
+<p>options：客户端可询问服务器可以如何处理一个指定的资源。  </p>
+<p>trace：会回显客户端请求来进行调试，特别是在代理服务器工作不正常时。  </p>
+<p>java不支持其他的如copy、move等方法。  </p>
+<h2 id="Cookie"><a href="#Cookie" class="headerlink" title="Cookie"></a>Cookie</h2><ul>
+<li>作用：存储持久的客户端状态，指示会话id，登陆凭证，购物车内容，用户首选项等。</li>
+<li>存在：存在于请求和响应的http头部中，key-value对。他是在服务器端生成的，从服务器端传到客户端，再从客户端传回服务器端。</li>
+<li>只能是非空白的ASCII文本</li>
+<li>第一次服务器set-Cookie，以后大家来往用Cookie。服务器可以设置不止一个cookie。</li>
+<li>cookie有多个属性，过期时间，域，路径，语言，端口，版本，安全选项等等。<br>Set-Cookie     lang=zh; Expires=Wed, 21-Oct-15 07:36:47 GMT; Path=/; Domain=.yunsheng.com<br>这个域包含所有yunsheng.com的子域。就是说浏览器可以把这个cookie会给demo.yunsheng.com。  path指定了cookie可以使用的范围。<br>Max-Age=1000，可以设置cookie在多少秒后过期，而不是一个具体的时间。<br>secure ： 一个无值的属性，意思是浏览器应拒绝通过非安全通道发送这种cookie，意味着用https替代http<br>httponly ： 也是一个无值的属性，告诉浏览器只通过http和https返回cookie，特别强调不能由javascript返回。这针对cookie窃取攻击。  </li>
+</ul>
+<h3 id="java中的cookie"><a href="#java中的cookie" class="headerlink" title="java中的cookie"></a>java中的cookie</h3><ul>
+<li><p>CookieManager。用来接收cookie。</p>
+<pre><code>CookieManager cookieManager = new CookieManager();
+        // 设置cookie的策略
+        // CookiePolicy.ACCEPT_ORIGINAL_SERVER:只接受正在对话的服务器的cookie
+        //        CookiePolicy.ACCEPT_ALL:全部接受
+        //        CookiePolicy.ACCEPT_NONE:不接受
+//        cookieManager.setCookiePolicy(CookiePolicy.ACCEPT_ORIGINAL_SERVER);
+        cookieManager.setCookiePolicy(new myCookiePolicy());
+        CookieHandler.setDefault(cookieManager);
+</code></pre></li>
+</ul>
+<pre><code>/**
+ * 更精细的policy控制
+ * 实现CookiePolicy接口。实现shoudAccept方法
+ */
+class myCookiePolicy implements CookiePolicy
+{
+
+    @Override
+    public boolean shouldAccept(URI paramURI, HttpCookie paramHttpCookie)
+    {
+        if (paramURI.getAuthority().equalsIgnoreCase(&quot;yunsheng.com&quot;)
+                || paramHttpCookie.getDomain().equalsIgnoreCase(&quot;yunsheng.com&quot;))
+        {
+            return true;
+        }
+        return false;
+    }
+
+}
+</code></pre><ul>
+<li>CookieStore用来存放cookie<br><code>CookieStore cookieStore = cookieManager.getCookieStore();</code><br>然后就可以增删查HttpCookie。</li>
+</ul>
+<h2 id="URLConnection"><a href="#URLConnection" class="headerlink" title="URLConnection"></a>URLConnection</h2><p>URL类和URLConnection之间的区别并不明显，URLConnection提供了对http首部的访问，可以配置发送给服务器的请求参数，除了可以读取服务器数据外，还可以向服务器写入数据。  </p>
+<ul>
+<li>http默认的编码方式是iso-8859-1</li>
+<li><p>手动断开连接，<code>disconnect()</code> </p>
+<pre><code>URL myUrl = new URL(&quot;http://www.yunsheng.com/cn/&quot;);
+URLConnection connection = myUrl.openConnection();
+HttpURLConnection httpURLConnection = (HttpURLConnection) connection;
+httpURLConnection.disconnect();
+</code></pre></li>
+</ul>
+<h2 id="客户端Socket"><a href="#客户端Socket" class="headerlink" title="客户端Socket"></a>客户端Socket</h2><p>Socket使我们可以将网络连接看作是另外一个可以读写字节的流。隐藏了网络实现的细节。<br>Socket类是java完成客户端TCP操作的基础类，这个类本身使用原始代码与主机操作系统的本地TCP栈进行通信。</p>
+<h3 id="使用socket"><a href="#使用socket" class="headerlink" title="使用socket"></a>使用socket</h3><p>socket是两台机器之间的一个连接，它完成7个基本操作。</p>
+<ul>
+<li>连接远程机器</li>
+<li>发送数据</li>
+<li>接收数据</li>
+<li>关闭连接<br>这四个是客户端和服务器端socket都可用的</li>
+<li>绑定端口</li>
+<li>监听入站数据</li>
+<li><p>在绑定端口上接受来自远程机器的连接。<br>这三个只有服务器端socket可用。<br>连接是全双工的。  </p>
+<pre><code> try (Socket socket = new Socket(&quot;localhost&quot;, 8080))
+{
+    // 建议为连接设置超时时间单位毫秒
+    // 防止服务器接受了连接，但是之后出问题了，一直连接但是又没有响应，又不会断开。
+    socket.setSoTimeout(10000);
+    // 接受服务器信息
+    InputStream in = socket.getInputStream();
+    Reader r = new InputStreamReader(in, &quot;UTF-8&quot;);
+    BufferedReader reader = new BufferedReader(r);
+    for (String line = reader.readLine(); !line.equals(&quot;.&quot;); line = reader
+            .readLine())
+    {
+        System.out.println(line);
+    }
+
+    // 向服务器发送消息
+    OutputStream out = socket.getOutputStream();
+    Writer writer = new OutputStreamWriter(out, &quot;UTF-8&quot;);
+    writer.write(&quot;hello,yunsheng&quot;);
+    writer.flush();
+
+}
+</code></pre></li>
+<li><p>前面用的socket构造器是构造对象且连接的。<br>还有其他构造器只构造，不连接。分步来。</p>
+<pre><code>Socket s = new Socket();
+// SocketAddress存储socket连接信息
+SocketAddress addr = new InetSocketAddress(&quot;localhost&quot;, 8888);
+try
+{
+    // 第二个参数是超时时间，0表示无限等待
+    s.connect(addr, 0);
+}
+catch (IOException e)
+{
+    // TODO Auto-generated catch block
+    e.printStackTrace();
+}
+</code></pre></li>
+</ul>
+<p>可以用SocketAddress存储已经连接的地址信息，以备下次再用。</p>
+<pre><code>SocketAddress localAddr = s.getLocalSocketAddress();
+SocketAddress remoteAddr = s.getRemoteSocketAddress();
+</code></pre><p>###关闭</p>
+<ul>
+<li>socket的close()方法同时关闭socket，以及socket的输入和输出。所以只要在finally中close掉socket就好。</li>
+<li>shutdownInput()方法和shutdownOutput()方法可以只关闭一半，并不会关闭socket。</li>
+<li>即使shutdown了input和output，仍然需要手动关闭socket。那两个只关闭流。</li>
+<li>可以用isInputShutdown()和isOutputShutdown()方法确认流的状态。</li>
+<li>用isClosed()判断socket是否关闭。不过如果一个socket从一开始从未连接，那么isClosed()返回false。</li>
+<li>isConnected()方法，这个方法不是返回当前是否连接着，而是返回是否曾经连接过。。。所以判断一个socket当前是否连接着，应该是isConnected返回true，isClosed()返回false。</li>
+<li>isBound()方法返回当前socket是否成功绑定到本地系统上的出端口，这对server端socket很重要。</li>
+</ul>
+<h3 id="设置socket选项"><a href="#设置socket选项" class="headerlink" title="设置socket选项"></a>设置socket选项</h3><p>指定java所依赖的原生socket如何发送和接受数据。客户端socket支持9个选项。</p>
+<ul>
+<li><code>s.setTcpNoDelay(true);</code>确保包尽可能快的发送，而不管包的大小。包一旦准备好就发，不再去缓冲。</li>
+<li><code>s.setSoLinger(true, 0);</code>设置socket关闭时，如何处理还没发送的数据报。默认的，close()方法将立即返回，但系统仍然会尝试发送剩下的数据。当延迟设置为0时，那么关闭socket时，未发送的会被直接丢弃。设置为正数，阻塞这么多秒去尝试发送。</li>
+<li><code>s.setSoTimeout(0);</code>默认下，从socket读取数据时，read()会阻塞尽可能长的时间。这个方法设置阻塞时间。</li>
+<li><p><code>s.setReceiveBufferSize(1000);s.setSendBufferSize(1000);</code>设置缓冲区的大小。</p>
+</li>
+<li><p><code>s.setKeepAlive(true);</code>打开这个功能后，客户端一般每两个小时会通过一个空闲的连接，发送一个空包，以确认服务器没有挂掉。如果挂掉了，尝试12分钟之后，会干掉这个socket。如果不开启这个功能，那么连接着挂掉的服务器的socket会一直存在下去。</p>
+</li>
+<li><p><code>s.setOOBInline(true);</code>设置可以接收处理紧急数据</p>
+<h2 id="ServerSocket"><a href="#ServerSocket" class="headerlink" title="ServerSocket"></a>ServerSocket</h2><h3 id="基本使用"><a href="#基本使用" class="headerlink" title="基本使用"></a>基本使用</h3><p>  // 服务器端socket基本生命周期如下<br>  public static void main(String[] args)<br>  {</p>
+<pre><code>ServerSocket serverSocket = null;
+try
+{
+    // 1，在特定端口创建一个serverSocket
+    serverSocket = new ServerSocket(8888);
+    System.out.println(&quot;start server socket=================&quot;);
+
+    while (true)
+    {
+        // 2，使用accept()方法监听入站连接，accept()会一直阻塞，直到有一个客户端尝试连接，accept()会返回一个Socket
+        Socket clientSocket = null;
+        try
+        {
+            // 区分server端和client的异常
+            clientSocket = serverSocket.accept();
+            System.out.println(&quot;get a connection----------&quot;);
+            // 3,根据服务的不同，调用clientSocket的getOutputStream()或getInputStream()得到客户端的输入或输出
+            OutputStream outputStream = clientSocket.getOutputStream();
+            InputStream inputStream = clientSocket.getInputStream();
+
+            // 4,得到输入输出流之后，开始交互
+            Reader reader = new InputStreamReader(inputStream);
+            BufferedReader bufferedReader = new BufferedReader(reader);
+            Writer writer = new OutputStreamWriter(outputStream);
+            StringBuilder content = new StringBuilder();
+            for (String line = bufferedReader.readLine(); !line
+                    .equals(&quot;&quot;); line = bufferedReader.readLine())
+            {
+                content.append(line);
+            }
+            writer.write(&quot;content is : &quot; + content.toString());
+            writer.flush();
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+        finally
+        {
+            if (null != clientSocket)
+            {
+                // 5,双方有一方或者双方都关闭连接
+                // 服务器端不要依赖客户端一定会关闭socket。可以自己控制。
+                clientSocket.close();
+            }
+        }
+    }
+    // 6,服务端返回状态2
+}
+catch (IOException e)
+{
+    // TODO Auto-generated catch block
+    e.printStackTrace();
+}
+finally
+{
+    if (null != serverSocket)
+    {
+        try
+        {
+            serverSocket.close();
+        }
+        catch (IOException e)
+        {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
+}
+</code></pre><p>  }</p>
+</li>
+</ul>
+<h3 id="多线程使用"><a href="#多线程使用" class="headerlink" title="多线程使用"></a>多线程使用</h3><p>操作系统将指向某个特定端口的入站请求存储在一个FIFO的队列中，java默认的长度是50，但不同的操作系统会有不同。队列长度最大不能超过操作系统支持的最大大小。</p>
+<pre><code>@Test
+public void test1()
+{
+    ExecutorService pool = Executors.newFixedThreadPool(50);
+    try (ServerSocket serverSocket = new ServerSocket(8888))
+    {
+        while (true)
+        {
+            Socket connection = serverSocket.accept();
+            ThreadTask task = new ThreadTask(connection);
+            pool.submit(task);
+        }
+    }
+    catch (IOException e)
+    {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+    }
+
+}
+
+private static class ThreadTask implements Callable&lt;Void&gt;
+{
+
+    Socket socket;
+
+    public ThreadTask(Socket connection)
+    {
+        this.socket = connection;
+    }
+
+    @Override
+    public Void call() throws Exception
+    {
+        try
+        {
+            Writer out = new OutputStreamWriter(socket.getOutputStream());
+            out.write(&quot;hello,yunsheng&quot;);
+            out.flush();
+        }
+        finally
+        {
+            if (null != socket)
+            {
+                try
+                {
+                    socket.close();
+                }
+                catch (IOException e)
+                {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return null;
+
+    }
+
+}
+</code></pre><h3 id="关闭"><a href="#关闭" class="headerlink" title="关闭"></a>关闭</h3><p>java7中ServerSocket类实现了AutoCloseable接口。所以可以使用try-with-resource模式。低版本的jdk注意还是要用try-finally中if-not-null模式关闭。<br>close()之后，可以使用isClosed()方法检查。<br>注意isBound()方法可检查该serverSocket是否已经绑定了端口，但是同socket一样，如果曾经绑定过，但是该serversocket已经关掉了，isBound仍然返回true。  </p>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/06/06/linux2/" rel="next" title="">
+                <i class="fa fa-chevron-left"></i> 
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/06/06/java_gather/" rel="prev" title="">
+                 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/06/06/java网络编程2/"
+           data-title="" data-url="http://yoursite.com/2016/06/06/java网络编程2/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/me.jpg"
+               alt="yunsheng" />
+          <p class="site-author-name" itemprop="name">yunsheng</p>
+          <p class="site-description motion-element" itemprop="description">云胜的笔记</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">29</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#HTTP"><span class="nav-number">1.</span> <span class="nav-text">HTTP</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#http方法"><span class="nav-number">1.1.</span> <span class="nav-text">http方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Cookie"><span class="nav-number">2.</span> <span class="nav-text">Cookie</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#java中的cookie"><span class="nav-number">2.1.</span> <span class="nav-text">java中的cookie</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#URLConnection"><span class="nav-number">3.</span> <span class="nav-text">URLConnection</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#客户端Socket"><span class="nav-number">4.</span> <span class="nav-text">客户端Socket</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#使用socket"><span class="nav-number">4.1.</span> <span class="nav-text">使用socket</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设置socket选项"><span class="nav-number">4.2.</span> <span class="nav-text">设置socket选项</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ServerSocket"><span class="nav-number">5.</span> <span class="nav-text">ServerSocket</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基本使用"><span class="nav-number">5.1.</span> <span class="nav-text">基本使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多线程使用"><span class="nav-number">5.2.</span> <span class="nav-text">多线程使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关闭"><span class="nav-number">5.3.</span> <span class="nav-text">关闭</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">yunsheng</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"yunsheng-notes"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+  
+
+
+
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>

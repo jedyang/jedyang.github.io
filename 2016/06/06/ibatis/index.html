@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="todo," />
+  <meta name="keywords" content="Hexo, NexT" />
 
 
 
@@ -84,22 +84,34 @@
 
 
 
-<meta name="description" content="博客迁移
-日常提醒app
-看下netty">
+<meta name="description" content="##mybatis
+ibatis
+目前项目中用的是ibatis
+isNotNull 和 isNotEmpty的区别： 在iBATIS中isNull用于判断参数是否为Null，isNotNull相反。isEmpty判断参数是否为Null或者空，满足其中一个条件则其trueisNotEmpty相反，当参数既不为Null也不为空是其为true判断之后做相对应的表达式操作
+
+如下代码：
+&amp;lt;selec">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Todo List">
-<meta property="og:url" content="http://yoursite.com/2016/06/06/Todo-List/index.html">
+<meta property="og:title" content="yunsheng's blog">
+<meta property="og:url" content="http://yoursite.com/2016/06/06/ibatis/index.html">
 <meta property="og:site_name" content="yunsheng's blog">
-<meta property="og:description" content="博客迁移
-日常提醒app
-看下netty">
-<meta property="og:updated_time" content="2016-06-06T09:43:51.000Z">
+<meta property="og:description" content="##mybatis
+ibatis
+目前项目中用的是ibatis
+isNotNull 和 isNotEmpty的区别： 在iBATIS中isNull用于判断参数是否为Null，isNotNull相反。isEmpty判断参数是否为Null或者空，满足其中一个条件则其trueisNotEmpty相反，当参数既不为Null也不为空是其为true判断之后做相对应的表达式操作
+
+如下代码：
+&amp;lt;selec">
+<meta property="og:updated_time" content="2016-06-06T12:57:26.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Todo List">
-<meta name="twitter:description" content="博客迁移
-日常提醒app
-看下netty">
+<meta name="twitter:title" content="yunsheng's blog">
+<meta name="twitter:description" content="##mybatis
+ibatis
+目前项目中用的是ibatis
+isNotNull 和 isNotEmpty的区别： 在iBATIS中isNull用于判断参数是否为Null，isNotNull相反。isEmpty判断参数是否为Null或者空，满足其中一个条件则其trueisNotEmpty相反，当参数既不为Null也不为空是其为true判断之后做相对应的表达式操作
+
+如下代码：
+&amp;lt;selec">
 
 
 
@@ -117,7 +129,7 @@
   };
 </script>
 
-  <title> Todo List | yunsheng's blog </title>
+  <title>  | yunsheng's blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -267,7 +279,7 @@
             
             
               
-                Todo List
+                
               
             
           </h1>
@@ -279,7 +291,7 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-06-06T16:44:34+08:00" content="2016-06-06">
+            <time itemprop="dateCreated" datetime="2016-06-06T20:57:26+08:00" content="2016-06-06">
               2016-06-06
             </time>
           </span>
@@ -290,8 +302,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/06/06/Todo-List/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/06/06/Todo-List/" itemprop="commentsCount"></span>
+                <a href="/2016/06/06/ibatis/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/06/06/ibatis/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -314,11 +326,67 @@
       
 
       
-        <ul>
-<li>博客迁移</li>
-<li>日常提醒app</li>
-<li>看下netty</li>
+        <p>##mybatis</p>
+<h3 id="ibatis"><a href="#ibatis" class="headerlink" title="ibatis"></a>ibatis</h3><ol>
+<li>目前项目中用的是ibatis</li>
+<li>isNotNull 和 isNotEmpty的区别：<br> 在iBATIS中isNull用于判断参数是否为Null，isNotNull相反。<br>isEmpty判断参数是否为Null或者空，满足其中一个条件则其true<br>isNotEmpty相反，当参数既不为Null也不为空是其为true<br>判断之后做相对应的表达式操作</li>
+</ol>
+<p>如下代码：</p>
+<pre><code>&lt;select id=&quot;getCustomerRegNum&quot; resultClass=&quot;int&quot; parameterClass=&quot;QueryCustomerCondition&quot;&gt;  
+                  select count(cus_id) from cus_customer_tbl   
+                  &lt;dynamic prepend=&quot;WHERE&quot;&gt;  
+                    &lt;isNotEmpty prepend=&quot;AND&quot; property=&quot;cusWebFrom&quot;&gt;  
+                        ( CUS_CUSTOMER_TBL.CUS_WEB_FROM LIKE &apos;%$cusWebFrom$%&apos;)  
+                    &lt;/isNotEmpty&gt;  
+                    &lt;isNotEmpty prepend=&quot;AND&quot; property=&quot;cusWebAgent&quot;&gt;  
+                        ( CUS_CUSTOMER_TBL.CUS_WEB_AGENT LIKE &apos;%$cusWebAgent$%&apos;)  
+                    &lt;/isNotEmpty&gt;  
+                  &lt;/dynamic&gt;  
+           &lt;/select&gt;  
+</code></pre><p>当之传入参数 cusWebForm 而不传入 cusWebAgent 时，产生的SQL语句为：</p>
+<pre><code>select count(cus_id) from cus_customer_tbl    WHERE      ( CUS_CUSTOMER_TBL.CUS_WEB_FROM LIKE &apos;%baidu%&apos;)
+</code></pre><p>而当XML代码用<isnotnull> 配置时（注意他们的区别），</isnotnull></p>
+<pre><code>&lt;select id=&quot;getCustomerRegNum&quot; resultClass=&quot;int&quot; parameterClass=&quot;QueryCustomerCondition&quot;&gt;  
+      select count(cus_id) from cus_customer_tbl   
+      &lt;dynamic prepend=&quot;WHERE&quot;&gt;  
+        &lt;isNotNull prepend=&quot;AND&quot; property=&quot;cusWebFrom&quot;&gt;  
+            ( CUS_CUSTOMER_TBL.CUS_WEB_FROM LIKE &apos;%$cusWebFrom$%&apos;)  
+        &lt;/isNotNull&gt;  
+        &lt;isNotNull prepend=&quot;AND&quot; property=&quot;cusWebAgent&quot;&gt;  
+            ( CUS_CUSTOMER_TBL.CUS_WEB_AGENT LIKE &apos;%$cusWebAgent$%&apos;)  
+        &lt;/isNotNull&gt;  
+      &lt;/dynamic&gt;  
+&lt;/select&gt;  
+</code></pre><p>同样 ，当之传入参数 cusWebForm 而不传入 cusWebAgent 时，产生的SQL语句为：</p>
+<pre><code>select count(cus_id) from cus_customer_tbl     WHERE     ( CUS_CUSTOMER_TBL.CUS_WEB_FROM LIKE &apos;%baidu%&apos;)      AND        (CUS_CUSTOMER_TBL.CUS_WEB_AGENT LIKE &apos;%%&apos;)
+</code></pre><p>对于string的参数，用isnotempty  </p>
+<ol>
+<li>mybatis 和 ibatis的区别  </li>
+</ol>
+<ul>
+<li>以前用的parameterClass在mybatis中已经永不了了，mybatis里应该使用parameterType。另外resultMap里面也不能继续使用了改成了type  </li>
+<li>dynamic标签不能使用了  </li>
+<li>数据类型的声明和ibatis有了很大的差别，ibatis可以像下面这样写  </li>
 </ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">insert into M_HEALTHSPECIALYTYPE(FCODE,FCHARGE,FTYPECONTENT,FID,FMARK)   </span><br><span class="line">values (#FCODE:VARCHAR2#,#FCHARGE:VARCHAR2#,#FTYPECONTENT:VARCHAR2#,#FID#,#FMARK:VARCHAR2#)</span><br></pre></td></tr></table></figure>
+<p>在mybatis的话一般是这样弄的</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">insert into M_HEALTHSPECIALYTYPE(FCODE,FCHARGE,FTYPECONTENT,FID,FMARK)   </span><br><span class="line">    values (#&#123;FCODE,jdbcType=VARCHAR&#125;,#&#123;FCHARGE,jdbcType=VARCHAR&#125;,#&#123;FTYPECONTENT,jdbcType=VARCHAR&#125;,#&#123;FID&#125;,#&#123;FMARK,jdbcType=VARCHAR&#125;)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>加了一个叫映射器的新东西，只需要写出接口而不需要实现类就能够操作数据如  </li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">	 import java.util.List;</span><br><span class="line">	 import org.lxh.vo.HealthspecialytypeInfo;    </span><br><span class="line">	 public interface HealthMapper &#123;  </span><br><span class="line">    public List&lt;HealthspecialytypeInfo&gt; getRecordByList(HealthspecialytypeInfo info);  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在映射文件里要记得namespace写成接口的类全名，sql语句的id写成接口里的方法名就可以了</p>
+<pre><code>&lt;select id=&quot;getRecordByList&quot; parameterType=&quot;org.lxh.vo.HealthspecialytypeInfo&quot; resultMap=&quot;resultMap&quot;&gt;   
+    select * from M_HEALTHSPECIALYTYPE where FCODE in  
+    &lt;foreach item=&quot;item&quot; index=&quot;index&quot; collection=&quot;list&quot;  
+      open=&quot;(&quot; separator=&quot;,&quot; close=&quot;)&quot;&gt;  
+      #{item}  
+    &lt;/foreach&gt;  
+&lt;/select&gt;  
+</code></pre><p>调用的时候就像下面</p>
+<pre><code>HealthMapper m=ses.getMapper(HealthMapper.class);  
+List&lt;HealthspecialytypeInfo&gt; record=m.getRecordByList(h);  
+</code></pre><p>就这样就可以直接进行数据的操作了</p>
 
       
     </div>
@@ -338,26 +406,20 @@
 
     <footer class="post-footer">
       
-        <div class="post-tags">
-          
-            <a href="/tags/todo/" rel="tag">#todo</a>
-          
-        </div>
-      
 
       
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/06/04/期待的生活/" rel="next" title="期待的生活">
-                <i class="fa fa-chevron-left"></i> 期待的生活
+              <a href="/2016/06/06/awk的使用/" rel="next" title="">
+                <i class="fa fa-chevron-left"></i> 
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2016/06/06/jersy的使用2/" rel="prev" title="">
+              <a href="/2016/06/06/MongoDB进阶/" rel="prev" title="">
                  <i class="fa fa-chevron-right"></i>
               </a>
             
@@ -385,8 +447,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/06/06/Todo-List/"
-           data-title="Todo List" data-url="http://yoursite.com/2016/06/06/Todo-List/">
+      <div class="ds-thread" data-thread-key="2016/06/06/ibatis/"
+           data-title="" data-url="http://yoursite.com/2016/06/06/ibatis/">
       </div>
     
   </div>
@@ -477,7 +539,7 @@
               
             
             
-              <p class="post-toc-empty">此文章未包含目录</p>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#ibatis"><span class="nav-number">1.</span> <span class="nav-text">ibatis</span></a></li></ol></div>
             
           </div>
         </section>

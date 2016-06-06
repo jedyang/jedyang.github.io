@@ -1,0 +1,807 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="dom4j快速入门参考自此处
+解析XMl用dom4j解析某种xml文件很简单，示例代码：
+import java.net.URL;
+
+import org.dom4j.Document;
+import org.dom4j.DocumentException;
+import org.dom4j.io.SAXReader;
+
+public class Foo {
+
+    public Documen">
+<meta property="og:type" content="article">
+<meta property="og:title" content="yunsheng's blog">
+<meta property="og:url" content="http://yoursite.com/2016/06/06/dom4j快速入门/index.html">
+<meta property="og:site_name" content="yunsheng's blog">
+<meta property="og:description" content="dom4j快速入门参考自此处
+解析XMl用dom4j解析某种xml文件很简单，示例代码：
+import java.net.URL;
+
+import org.dom4j.Document;
+import org.dom4j.DocumentException;
+import org.dom4j.io.SAXReader;
+
+public class Foo {
+
+    public Documen">
+<meta property="og:updated_time" content="2016-06-06T12:57:26.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="yunsheng's blog">
+<meta name="twitter:description" content="dom4j快速入门参考自此处
+解析XMl用dom4j解析某种xml文件很简单，示例代码：
+import java.net.URL;
+
+import org.dom4j.Document;
+import org.dom4j.DocumentException;
+import org.dom4j.io.SAXReader;
+
+public class Foo {
+
+    public Documen">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title>  | yunsheng's blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?05a33c79ef299df2c5289fb197aecddf";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">yunsheng's blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-06-06T20:57:26+08:00" content="2016-06-06">
+              2016-06-06
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/06/06/dom4j快速入门/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/06/06/dom4j快速入门/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="dom4j快速入门"><a href="#dom4j快速入门" class="headerlink" title="dom4j快速入门"></a>dom4j快速入门</h2><p><a href="http://dom4j.sourceforge.net/dom4j-1.6.1/guide.html" target="_blank" rel="external">参考自此处</a></p>
+<h3 id="解析XMl"><a href="#解析XMl" class="headerlink" title="解析XMl"></a>解析XMl</h3><p>用dom4j解析某种xml文件很简单，示例代码：</p>
+<pre><code>import java.net.URL;
+
+import org.dom4j.Document;
+import org.dom4j.DocumentException;
+import org.dom4j.io.SAXReader;
+
+public class Foo {
+
+    public Document parse(URL url) throws DocumentException {
+        SAXReader reader = new SAXReader();
+        Document document = reader.read(url);
+        return document;
+    }
+}
+</code></pre><p>reader.read有很多重载方法。都是读取xml文件，转为document。</p>
+<h3 id="使用迭代器"><a href="#使用迭代器" class="headerlink" title="使用迭代器"></a>使用迭代器</h3><p>document使用标准的java迭代器返回子元素，然后进行各种操作。</p>
+<pre><code>public void bar(Document document) throws DocumentException {
+
+        Element root = document.getRootElement();
+
+        // iterate through child elements of root
+        for ( Iterator i = root.elementIterator(); i.hasNext(); ) {
+            Element element = (Element) i.next();
+            // do something
+        }
+
+        // iterate through child elements of root with element name &quot;foo&quot;
+        for ( Iterator i = root.elementIterator( &quot;foo&quot; ); i.hasNext(); ) {
+            Element foo = (Element) i.next();
+            // do something
+        }
+
+        // iterate through attributes of root 
+        for ( Iterator i = root.attributeIterator(); i.hasNext(); ) {
+            Attribute attribute = (Attribute) i.next();
+            // do something
+        }
+     }
+</code></pre><h3 id="使用xpath进行强大的定位"><a href="#使用xpath进行强大的定位" class="headerlink" title="使用xpath进行强大的定位"></a>使用xpath进行强大的定位</h3><p>xpath表达式可以在dom4j的document及其任何节点中执行，这样可以进行复杂的节点定位。</p>
+<pre><code>public void bar(Document document) {
+        // 直接找到foo下的bar节点list，而不需要一层层的迭代器循环
+        List list = document.selectNodes( &quot;//foo/bar&quot; );
+
+        // 直接找到某个节点
+        Node node = document.selectSingleNode( &quot;//foo/bar/author&quot; );
+
+        String name = node.valueOf( &quot;@name&quot; );
+    }
+</code></pre><p>如想在XHTML文档中找出所有的超链接，可以这样做：</p>
+<pre><code>public void findLinks(Document document) throws DocumentException {
+
+    List list = document.selectNodes( &quot;//a/@href&quot; );
+
+    for (Iterator iter = list.iterator(); iter.hasNext(); ) {
+        Attribute attribute = (Attribute) iter.next();
+        String url = attribute.getValue();
+    }
+}
+</code></pre><p>对于xpath的用法，请参考<a href="http://www.zvon.org/xxl/XPathTutorial/General/examples.html" target="_blank" rel="external">此处</a></p>
+<h3 id="快速循环"><a href="#快速循环" class="headerlink" title="快速循环"></a>快速循环</h3><p>如果循环一个非常大的文档有性能问题，建议使用下面这种快速循环，已避免创建迭代器的消耗。  </p>
+<pre><code>public void treeWalk(Document document) {
+    treeWalk( document.getRootElement() );
+}
+
+public void treeWalk(Element element) {
+    for ( int i = 0, size = element.nodeCount(); i &lt; size; i++ ) {
+        Node node = element.node(i);
+        if ( node instanceof Element ) {
+            treeWalk( (Element) node );
+        }
+        else {
+            // do something....
+        }
+    }
+}
+</code></pre><p>其实是使用递归，以空间换时间。</p>
+<h3 id="创建document"><a href="#创建document" class="headerlink" title="创建document"></a>创建document</h3><p>有时可能需要创建一个document，以保存抓出来的数据。</p>
+<p>import org.dom4j.Document;<br>import org.dom4j.DocumentHelper;<br>import org.dom4j.Element;</p>
+<pre><code>public class Foo {
+
+    public Document createDocument() {
+        Document document = DocumentHelper.createDocument();
+        Element root = document.addElement( &quot;root&quot; );
+
+        Element author1 = root.addElement( &quot;author&quot; )
+            .addAttribute( &quot;name&quot;, &quot;James&quot; )
+            .addAttribute( &quot;location&quot;, &quot;UK&quot; )
+            .addText( &quot;James Strachan&quot; );
+
+        Element author2 = root.addElement( &quot;author&quot; )
+            .addAttribute( &quot;name&quot;, &quot;Bob&quot; )
+            .addAttribute( &quot;location&quot;, &quot;US&quot; )
+            .addText( &quot;Bob McWhirter&quot; );
+
+        return document;
+    }
+}
+</code></pre><h3 id="将document写入文件"><a href="#将document写入文件" class="headerlink" title="将document写入文件"></a>将document写入文件</h3><p>你创建了一个document，然后想持久化保存。<br>最简单快捷的方法是使用document(或者节点)的write()方法。</p>
+<pre><code>FileWriter out = new FileWriter( &quot;foo.xml&quot; );
+document.write( out );
+</code></pre><p>但是如果你想要控制输出的格式，或者想用Writer/OutputStream作为目标而不是文件，你可以使用XMLWriter类。</p>
+<pre><code>import org.dom4j.Document;
+import org.dom4j.io.OutputFormat;
+import org.dom4j.io.XMLWriter;
+
+public class Foo {
+
+    public void write(Document document) throws IOException {
+
+        // lets write to a file
+        XMLWriter writer = new XMLWriter(
+            new FileWriter( &quot;output.xml&quot; )
+        );
+        writer.write( document );
+        writer.close();
+
+
+        // Pretty print the document to System.out
+        OutputFormat format = OutputFormat.createPrettyPrint();
+        writer = new XMLWriter( System.out, format );
+        writer.write( document );
+
+        // Compact format to System.out
+        format = OutputFormat.createCompactFormat();
+        writer = new XMLWriter( System.out, format );
+        writer.write( document );
+    }
+}
+</code></pre><h3 id="和字符创的转换"><a href="#和字符创的转换" class="headerlink" title="和字符创的转换"></a>和字符创的转换</h3><p>document/element转成string</p>
+<pre><code>Document document = ...;
+String text = document.asXML();
+</code></pre><p>xml格式的string转成document</p>
+<pre><code>String text = &quot;&lt;person&gt; &lt;name&gt;James&lt;/name&gt; &lt;/person&gt;&quot;;
+Document document = DocumentHelper.parseText(text);
+</code></pre><h3 id="使用XSLT对document进行格式转换"><a href="#使用XSLT对document进行格式转换" class="headerlink" title="使用XSLT对document进行格式转换"></a>使用XSLT对document进行格式转换</h3><p>XSLT即将XML格式的文档转为其他格式，如XHTML。比较直接的方式是使用JAXP的api。然后你可以使用XSLT转换引擎，如Xalan或SAXON。下面的例子是使用JAXP去创建一个转换器，然后转换document。</p>
+<pre><code>import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerFactory;
+
+import org.dom4j.Document;
+import org.dom4j.io.DocumentResult;
+import org.dom4j.io.DocumentSource;
+
+public class Foo {
+
+    public Document styleDocument(Document document, String styleshee) throws Exception 
+    {
+
+        // load the transformer using JAXP
+        TransformerFactory factory = TransformerFactory.newInstance();
+        Transformer transformer = factory.newTransformer( 
+            new StreamSource( stylesheet ) 
+        );
+
+        // now lets style the given document
+        DocumentSource source = new DocumentSource( document );
+        DocumentResult result = new DocumentResult();
+        transformer.transform( source, result );
+
+        // return the transformed document
+        Document transformedDoc = result.getDocument();
+        return transformedDoc;
+    }
+}
+</code></pre>
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/06/06/java_gather/" rel="next" title="">
+                <i class="fa fa-chevron-left"></i> 
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/06/06/awk的使用/" rel="prev" title="">
+                 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/06/06/dom4j快速入门/"
+           data-title="" data-url="http://yoursite.com/2016/06/06/dom4j快速入门/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/me.jpg"
+               alt="yunsheng" />
+          <p class="site-author-name" itemprop="name">yunsheng</p>
+          <p class="site-description motion-element" itemprop="description">云胜的笔记</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">29</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#dom4j快速入门"><span class="nav-number">1.</span> <span class="nav-text">dom4j快速入门</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#解析XMl"><span class="nav-number">1.1.</span> <span class="nav-text">解析XMl</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用迭代器"><span class="nav-number">1.2.</span> <span class="nav-text">使用迭代器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用xpath进行强大的定位"><span class="nav-number">1.3.</span> <span class="nav-text">使用xpath进行强大的定位</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#快速循环"><span class="nav-number">1.4.</span> <span class="nav-text">快速循环</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建document"><span class="nav-number">1.5.</span> <span class="nav-text">创建document</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#将document写入文件"><span class="nav-number">1.6.</span> <span class="nav-text">将document写入文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#和字符创的转换"><span class="nav-number">1.7.</span> <span class="nav-text">和字符创的转换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用XSLT对document进行格式转换"><span class="nav-number">1.8.</span> <span class="nav-text">使用XSLT对document进行格式转换</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">yunsheng</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"yunsheng-notes"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+  
+
+
+
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>

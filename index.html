@@ -263,8 +263,8 @@
             
               
                 
-                <a class="post-title-link" href="/2016/06/06/Todo-List/" itemprop="url">
-                  Todo List
+                <a class="post-title-link" href="/2016/06/06/osgi/" itemprop="url">
+                  未命名
                 </a>
               
             
@@ -277,7 +277,7 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-06-06T16:44:34+08:00" content="2016-06-06">
+            <time itemprop="dateCreated" datetime="2016-06-06T20:57:27+08:00" content="2016-06-06">
               2016-06-06
             </time>
           </span>
@@ -288,8 +288,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/06/06/Todo-List/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/06/06/Todo-List/" itemprop="commentsCount"></span>
+                <a href="/2016/06/06/osgi/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/06/06/osgi/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -314,9 +314,1438 @@
       
         
           
-            <ul>
-<li>博客迁移</li>
-<li>日常提醒app</li>
+            <h2 id="osgi学习笔记"><a href="#osgi学习笔记" class="headerlink" title="osgi学习笔记"></a>osgi学习笔记</h2><ol>
+<li><p>bundle依赖解析规则：<br>当多个bundle的导出包满足该bundle的import-package依赖时，优先级如下：</p>
+<ol>
+<li>已解析的（resolved）bundle优先级高，未解析的（installed）bundle优先级低。</li>
+<li>bundle状态一样，版本高者优先，版本也相同，择选最先安装的bundle。</li>
+</ol>
+</li>
+<li><p>一般bundle都会是resolved状态，这样如果bundleA导入了bundleB导出的版本为1的包，然后bundleC又导出了同名的版本为2的包，<br>这样如果BundleA的代码中有显式import或者继承bundleB的代码，需要用uses限制export-package<br><a href="http://course.tianmaying.com/osgi-toturial/lesson/osgi-module-layer#22" target="_blank" rel="external">uses具体链接</a></p>
+</li>
+<li><p>bundle的生命周期<br><img src="http://tmy-course.oss-cn-beijing.aliyuncs.com/osgi-toturial%2F03%2F00005.jpg" alt="bundle状态"><br>生命周期层的基础实施：</p>
+<pre><code>public interface BundleActivator {
+  public void start(BundleContext context) throws Exception;
+  public void stop(BundleContext context) throws Exception;
+}
+</code></pre><p>当bundle的状态属于active时，BundleContext才有意义。<br>为了bundle的安全和资源分配，不能随意传到bundlecontext。<br>Bundle定义了一系列api，用于管理bundle的生命周期。  </p>
+</li>
+</ol>
+<p>4.bundleId越大，bundle的启动顺序越靠后。只有系统bundle（system bundle）的bundleId可以为0。</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/06/06/使用jersy提供rest服务1/" itemprop="url">
+                  未命名
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-06-06T20:57:27+08:00" content="2016-06-06">
+              2016-06-06
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/06/06/使用jersy提供rest服务1/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/06/06/使用jersy提供rest服务1/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="java模拟http请求"><a href="#java模拟http请求" class="headerlink" title="java模拟http请求"></a>java模拟http请求</h2><h3 id="下载jersy相关的jar包"><a href="#下载jersy相关的jar包" class="headerlink" title="下载jersy相关的jar包"></a>下载jersy相关的jar包</h3><p><a href="http://www.java2s.com/Code/Jar/j/Downloadjerseyserver117jar.htm" target="_blank" rel="external">http://www.java2s.com/Code/Jar/j/Downloadjerseyserver117jar.htm</a><br>或者<a href="mvnrepository.com/artifact/com.sun.jersey">mvnrepository.com/artifact/com.sun.jersey</a><br>我这边下载了：<br>jersey-client-1.17.jar<br>jersey-server-1.17.jar<br>jersey-servlet-1.17.jar<br>jersey-json-1.17.jar<br>jersey-core-1.17.jar<br>asm-3.3.1.jar</p>
+<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><ol>
+<li>将jar加入classpath</li>
+<li><p>web.xml  </p>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;web-app xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns=&quot;http://java.sun.com/xml/ns/javaee&quot; xmlns:web=&quot;http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd&quot; xsi:schemaLocation=&quot;http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd&quot; id=&quot;WebApp_ID&quot; version=&quot;2.5&quot;&gt;
+  &lt;display-name&gt;sample&lt;/display-name&gt;
+  &lt;servlet&gt;
+    &lt;servlet-name&gt;Jersey REST Service&lt;/servlet-name&gt;
+    &lt;servlet-class&gt;com.sun.jersey.spi.container.servlet.ServletContainer&lt;/servlet-class&gt;
+    &lt;init-param&gt;
+      &lt;param-name&gt;com.sun.jersey.config.property.packages&lt;/param-name&gt;
+        &lt;!-- 响应代码所在的包 --&gt;
+      &lt;param-value&gt;sample&lt;/param-value&gt;
+    &lt;/init-param&gt;
+    &lt;load-on-startup&gt;1&lt;/load-on-startup&gt;
+  &lt;/servlet&gt;
+  &lt;servlet-mapping&gt;
+    &lt;servlet-name&gt;Jersey REST Service&lt;/servlet-name&gt;
+     &lt;!-- url:http://ip:port/RestfulDemo(项目名) + 下面的参数 --&gt;
+    &lt;url-pattern&gt;/rest/*&lt;/url-pattern&gt;
+  &lt;/servlet-mapping&gt;
+&lt;/web-app&gt; 
+</code></pre></li>
+<li><p>响应代码  </p>
+<pre><code>package sample;
+
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+
+//Sets the path to base URL + /hello
+@Path(&quot;/hello&quot;)
+public class Hello {
+
+// This method is called if TEXT_PLAIN is request
+@GET
+@Produces(MediaType.TEXT_PLAIN)
+public String sayPlainTextHello() {
+    return &quot;Hello Jersey&quot;;
+}
+
+// This method is called if XML is request
+@GET
+@Produces(MediaType.TEXT_XML)
+public String sayXMLHello() {
+    return &quot;&lt;?xml version=\&quot;1.0\&quot;?&gt;&quot; + &quot;&lt;hello&gt; Hello Jersey&quot; + &quot;&lt;/hello&gt;&quot;;
+}
+
+// This method is called if HTML is request
+@GET
+@Produces(MediaType.TEXT_HTML)
+public String sayHtmlHello() {
+    return &quot;&lt;html&gt; &quot; + &quot;&lt;title&gt;&quot; + &quot;Hello Jersey&quot; + &quot;&lt;/title&gt;&quot;
+            + &quot;&lt;body&gt;&lt;h1&gt;&quot; + &quot;Hello Jersey&quot; + &quot;&lt;/body&gt;&lt;/h1&gt;&quot; + &quot;&lt;/html&gt; &quot;;
+}
+
+}
+</code></pre></li>
+<li><p>测试代码  </p>
+<pre><code>package sample;
+
+import java.net.URI;
+
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.UriBuilder;
+
+import com.sun.jersey.api.client.Client;
+import com.sun.jersey.api.client.ClientResponse;
+import com.sun.jersey.api.client.WebResource;
+import com.sun.jersey.api.client.config.ClientConfig;
+import com.sun.jersey.api.client.config.DefaultClientConfig;
+
+public class Test {
+    public static void main(String[] args) {
+        ClientConfig config = new DefaultClientConfig();
+        Client client = Client.create(config);
+        WebResource service = client.resource(getBaseURI());
+        // Fluent interfaces
+        System.out.println(service.path(&quot;rest&quot;).path(&quot;hello&quot;)
+                .accept(MediaType.TEXT_PLAIN).get(ClientResponse.class)
+                .toString());
+        // Get plain text
+        System.out.println(service.path(&quot;rest&quot;).path(&quot;hello&quot;)
+                .accept(MediaType.TEXT_PLAIN).get(String.class));
+        // Get XML
+        System.out.println(service.path(&quot;rest&quot;).path(&quot;hello&quot;)
+                .accept(MediaType.TEXT_XML).get(String.class));
+        // The HTML
+        System.out.println(service.path(&quot;rest&quot;).path(&quot;hello&quot;)
+                .accept(MediaType.TEXT_HTML).get(String.class));
+
+}
+
+/*
+public static void main(String[] args)
+{
+    Client client = Client.create();
+    //
+    String url = &quot;http://localhost:8080/RestfulDemo/rest/hello&quot;;
+    WebResource webResource = client.resource(url);
+
+    ClientResponse response = webResource.type(&quot;application/json&quot;).get(
+            ClientResponse.class);
+
+    //如果调用查询不成功
+    if (200 != response.getStatus())
+    {
+        System.out.println(&quot;query failed:&quot;
+                + response.getEntity(String.class));
+    }
+    System.out.println(response.getEntity(String.class));
+}
+*/
+
+private static URI getBaseURI() {
+    return UriBuilder.fromUri(&quot;http://localhost:8080/RestfulDemo&quot;).build();
+}
+
+}
+</code></pre></li>
+<li><p>发布服务</p>
+</li>
+</ol>
+<p>tomcat</p>
+<h3 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h3><ol>
+<li>java.lang.ClassNotFoundException: com.sun.jersey.spi.container.servlet.ServletContainer<br>解决：要将jar包，放到WEB-INF的lib下，然后project -&gt; properties -&gt; development assembly -&gt; add -&gt; java build path entries.关联发布</li>
+</ol>
+<ol>
+<li><p>asm缺包<br>报错：  </p>
+<pre><code>java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor
+    com.sun.jersey.api.core.ScanningResourceConfig.init(ScanningResourceConfig.java:79)
+    com.sun.jersey.api.core.servlet.WebAppResourceConfig.init(WebAppResourceConfig.java:102)
+    com.sun.jersey.api.core.servlet.WebAppResourceConfig.&lt;init&gt;(WebAppResourceConfig.java:89)
+    com.sun.jersey.api.core.servlet.WebAppResourceConfig.&lt;init&gt;(WebAppResourceConfig.java:74)
+    com.sun.jersey.spi.container.servlet.WebComponent.getWebAppResourceConfig(WebComponent.java:672)
+    com.sun.jersey.spi.container.servlet.ServletContainer.getDefaultResourceConfig(ServletContainer.java:415)
+    com.sun.jersey.spi.container.servlet.ServletContainer.getDefaultResourceConfig(ServletContainer.java:582)
+    com.sun.jersey.spi.container.servlet.WebServletConfig.getDefaultResourceConfig(WebServletConfig.java:87)
+    com.sun.jersey.spi.container.servlet.WebComponent.createResourceConfig(WebComponent.java:703)
+    com.sun.jersey.spi.container.servlet.WebComponent.createResourceConfig(WebComponent.java:678)
+    com.sun.jersey.spi.container.servlet.WebComponent.init(WebComponent.java:203)
+    com.sun.jersey.spi.container.servlet.ServletContainer.init(ServletContainer.java:374)
+    com.sun.jersey.spi.container.servlet.ServletContainer.init(ServletCont
+</code></pre><p>原因：<br>   缺包，<a href="www.java2s.com/Code/Jar/a/Downloadasm331jar.htm">asm-3.3.1</a></p>
+</li>
+</ol>
+<ol>
+<li>发布服务后，登陆不了<br>将”Deploy Path”的默认值”wtpwebapps”改为”webapps”,也就是tomcat中发布项目所在的文件夹名字。<br><a href="http://bbs.itbookstudy.com/t/41011/1/1" target="_blank" rel="external">解决</a></li>
+</ol>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/06/06/高效实用Eclipse/" itemprop="url">
+                  未命名
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-06-06T20:57:27+08:00" content="2016-06-06">
+              2016-06-06
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/06/06/高效实用Eclipse/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/06/06/高效实用Eclipse/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="Eclipse的高效实用"><a href="#Eclipse的高效实用" class="headerlink" title="Eclipse的高效实用"></a>Eclipse的高效实用</h2><ol>
+<li><p>神迹，根据方法返回值自动生成局部变量，CTRL+2 再加L</p>
+</li>
+<li><p>Ctrl + Shift + x ： 选中的字符变大写</p>
+</li>
+<li><p>Ctrl + Shift + y ： 选中的字符变小写</p>
+</li>
+</ol>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/06/06/ZooKeeper开发/" itemprop="url">
+                  未命名
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-06-06T20:57:27+08:00" content="2016-06-06">
+              2016-06-06
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/06/06/ZooKeeper开发/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/06/06/ZooKeeper开发/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/06/06/ZooKeeper学习/" itemprop="url">
+                  未命名
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-06-06T20:57:27+08:00" content="2016-06-06">
+              2016-06-06
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/06/06/ZooKeeper学习/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/06/06/ZooKeeper学习/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>#Zookeeper</p>
+<p>###什么是zookeeper？<br>一句话描述：zookeeper是一个开源的高可靠的分布式系统<strong>协调器</strong>。<br>主要提供：配置管理，命名，分布式锁，组服务。这些服务如果在自己的分布式应用中实现和维护起来会有很大工作量。有了zookeeper，我们可以直接拿来用它的一致性，组管理，leader选举等功能，也可以在此基础上构建自己的应用。  </p>
+<h2 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h2><ul>
+<li>zookeeper提供的是分布式应用所需的分布式协同服务。它提供了一系列基本要件供分布式应用去构建自己的高级分布式服务。zookeeper被设计的容易对其进行编程，使用的是类似于目录树的一种数据模型。<br>众所周知，构建正确的分布式协同服务很难，很容易产生竞态条件和死锁，zookeeper的目标就是将我们从构建自己的分布式应用的协同器中解放出来。  </li>
+</ul>
+<h3 id="设计目标"><a href="#设计目标" class="headerlink" title="设计目标"></a>设计目标</h3><ol>
+<li>简单。 zookeeper允许各分布式进程间通过共享一个类似于文件目录树结构的有层级的命名空间来实现彼此间的协同，该命名空间是有一系列注册数据点组成，称为znode。和文件系统很像，所不同的是，znodes是保存在内存中，使zookeeper可以保持高性能低延迟。<br>zookeeper实现高性能，高可用性，严格的顺序访问，使它可以应用于大型分布式系统。</li>
+<li>备份。zookeeper服务本身也是由多台server组成的整体。各台server互相知道彼此，他们在自己的内存中放了各server的状态，只要server集群中一半以上的服务可用，整个zookeeper服务就是可用的。<br><img src="https://zookeeper.apache.org/doc/r3.4.6/images/zkservice.jpg" alt=""><br>client只会连到一台server，client和server间保持tcp连接，以发送请求，获取响应，发送心跳，得到watch事件，一旦tcp连接断掉，client会同另一台server建立tcp连接。</li>
+<li>有序。ZooKeeper会在每一个更新上打上数字标记，以表示这个ZooKeeper事务的顺序。这样以后的操作可以根据这个标记实现更高级的抽象，如同步原语。</li>
+<li>快速。尤其是在读操作占大多数的场景下。ZooKeeper的读写速度相差大约10:1。</li>
+</ol>
+<p>###数据模型<br>前面讲了，非常像文件模型。每一个node都以路径来唯一标识。<br><img src="https://zookeeper.apache.org/doc/r3.4.6/images/zknamespace.jpg" alt=""><br>ZooKeeper的Node可以有子Node，也可以存储数据，存储的数据用来处理协同，主要有状态信息，配置，位置信息等，通常很小。一般将node称为znode。<br>znode存储的数据中有个版本号，一旦数据有更新，这个版本号会自增。client在此获取数据时，会得到新的版本号。<br>znode中数据的读写都是原子的。每个node都有访问控制列表acl来严格控制谁可以做什么。<br>还有一种临时node（ephemeral nodes),这个临时node的生存周期是创建它的session的生存周期，一旦这个session断掉，这个临时node就会被删除，这是很有用的一个特性，可以用来实现分布式锁。  </p>
+<h3 id="状态更新和监视"><a href="#状态更新和监视" class="headerlink" title="状态更新和监视"></a>状态更新和监视</h3><p>client可以在znode上设置watch，当znode的状态变化时将触发watch。当client和server的连接断掉，client会收到本地提醒。  </p>
+<h3 id="保证"><a href="#保证" class="headerlink" title="保证"></a>保证</h3><ul>
+<li>一致性。按照client发送请求的顺序执行。</li>
+<li>原子性。</li>
+<li>单系统视图。不管client连到哪台server，它看到的服务视图都是一致的。</li>
+<li>可靠性。</li>
+<li>实时性。</li>
+</ul>
+<h3 id="api"><a href="#api" class="headerlink" title="api"></a>api</h3><p>ZooKeeper的设计目标有一个是简单性，所以它提供的api也设计的很简单。</p>
+<ul>
+<li>create。创建一个node  </li>
+<li>delete。</li>
+<li>exists。判断在这个location是否存在node</li>
+<li>get data。从node获取数据。</li>
+<li>set data。向node写数据。</li>
+<li>get children。获取该node的子列表。</li>
+<li>sync。等待数据传播完成。</li>
+</ul>
+<h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><p><img src="https://zookeeper.apache.org/doc/r3.4.6/images/zkcomponents.jpg" alt=""><br>上图为ZooKeeper服务的抽象组件。每个server都会有一份自己的组件。<br>replicated database是内存数据库，存放着整个service数据。也就是说每个server都有全部的信息。更新操作会记日志到硬盘中已备恢复。写操作是先序列化到硬盘中，再应用到内存数据库。<br>从上图可以看出，读操作是直接从该client连的server 执行。<br>写操作要通过一致性协议来执行。<br>所有的写操作都会被转发到leader，由leader进行转发。所以ZooKeeper的读能力比写强大很多。<br>信息转发这层称为messaging层，负责维持leader和同步follower与leader的信息。messaging层使用原子性的信息协议，messaging层是原子性的，所以他可以保证每一个本地的信息复制都是可靠地。当leader收到一个写请求，计算写请求提交时的系统状态，然后将其转为一个投票事务，再计算新的状态（后面详细讲解）。<br>原子化广播（atomic broadcast）保证了每一个进程按照相同的顺序投递同一个消息。  </p>
+<h2 id="安装小试"><a href="#安装小试" class="headerlink" title="安装小试"></a>安装小试</h2><ol>
+<li><a href="https://zookeeper.apache.org/" target="_blank" rel="external">下载一个稳定版</a>,我下面的操作以3.4.6为例</li>
+<li>解压，找到conf/zoo_simple.cfg,一般将其改个名字，如zoo.cfg。<br><a href="http://www.cnblogs.com/sunddenly/articles/4071730.html" target="_blank" rel="external">参数解释(转帖-感谢)</a>  </li>
+<li><p>启动ZooKeeper的Server：bin/zkServer.sh start；<br>关闭ZooKeeper的Server：bin/zkServer.sh stop</p>
+</li>
+<li><p>连接。sh zkCli.sh -server 127.0.0.1:2181<br>连接成功，会看到如</p>
+<blockquote>
+<p>[zk: 127.0.0.1:2181(CONNECTED) 0] </p>
+</blockquote>
+</li>
+</ol>
+<p>在这个视图下，可以输入zookeeper的命令了。<br>help：显示所有命令。<br>如：</p>
+<pre><code>[zk: 127.0.0.1:2181(CONNECTED) 2] ls /  
+[zookeeper]
+</code></pre><p>然后创建一个自己的znode，</p>
+<pre><code>[zk: 127.0.0.1:2181(CONNECTED) 3] create /my_node my_data
+Created /my_node
+[zk: 127.0.0.1:2181(CONNECTED) 4] ls /
+[zookeeper, my_node]
+</code></pre><p>获取一下my_node的信息，</p>
+<pre><code>[zk: 127.0.0.1:2181(CONNECTED) 5] get /my_node
+my_data
+cZxid = 0x6
+ctime = Thu Jan 21 15:53:08 CST 2016
+mZxid = 0x6
+mtime = Thu Jan 21 15:53:08 CST 2016
+pZxid = 0x6
+cversion = 0
+dataVersion = 0
+aclVersion = 0
+ephemeralOwner = 0x0
+dataLength = 7
+numChildren = 0
+</code></pre><p>我们也可以用set修改关联的data，</p>
+<pre><code>[zk: 127.0.0.1:2181(CONNECTED) 6] set /my_node yunsheng
+cZxid = 0x6
+ctime = Thu Jan 21 15:53:08 CST 2016
+mZxid = 0x7
+mtime = Thu Jan 21 15:56:32 CST 2016
+pZxid = 0x6
+cversion = 0
+dataVersion = 1
+aclVersion = 0
+ephemeralOwner = 0x0
+dataLength = 8
+numChildren = 0
+[zk: 127.0.0.1:2181(CONNECTED) 7] get /my_node
+yunsheng
+cZxid = 0x6
+ctime = Thu Jan 21 15:53:08 CST 2016
+mZxid = 0x7
+mtime = Thu Jan 21 15:56:32 CST 2016
+pZxid = 0x6
+cversion = 0
+dataVersion = 1
+aclVersion = 0
+ephemeralOwner = 0x0
+dataLength = 8
+numChildren = 0
+</code></pre><p>最后，删除，</p>
+<pre><code>[zk: 127.0.0.1:2181(CONNECTED) 8] delete /my_node
+[zk: 127.0.0.1:2181(CONNECTED) 9] ls /
+[zookeeper]
+</code></pre><p>5.集群  </p>
+<pre><code>tickTime=2000
+dataDir=/var/lib/zookeeper
+clientPort=2181
+initLimit=5//5个tickTime内，允许其他server连接并初始化数据，如果zooKeeper管理的数据较大，则应相应增大这个值。
+syncLimit=2//2个tickTime内，允许follower同步，如果follower落后太多，则会被丢弃。
+server.1=zoo1:2888:3888
+server.2=zoo2:2888:3888
+server.3=zoo3:2888:3888
+// server.x的x要写在myid文件中，决定当前机器的id
+// 第一个port用于连接leader
+// 第二个用于leader选举。
+// hostname也可以填ip
+</code></pre><p>比如配一个三台的集群，可以搞在一台机器上起三个zkServer做假集群，也可以找三台机器，起三个zkServer。我手头没有那么多机器，以假集群演示，其实真集群配起来更简单。<br>例子：<br>配置conf</p>
+<ul>
+<li><p>  mongo:~/zookeeper/zookeeper-3.4.6/conf # ll<br>  total 20<br>  -rw-rw-r– 1 test yunsheng  535 Feb 20  2014 configuration.xsl<br>  -rw-rw-r– 1 test yunsheng 2161 Feb 20  2014 log4j.properties<br>  -rw-rw-r– 1 test yunsheng 1073 Jan 21 17:21 zoo1.cfg<br>  -rw-r–r– 1 root root     1073 Jan 21 17:21 zoo2.cfg<br>  -rw-r–r– 1 root root     1073 Jan 21 17:22 zoo3.cfg<br>  mongo:~/zookeeper/zookeeper-3.4.6/conf # cat zoo1.cfg </p>
+<h1 id="The-number-of-milliseconds-of-each-tick"><a href="#The-number-of-milliseconds-of-each-tick" class="headerlink" title="The number of milliseconds of each tick"></a>The number of milliseconds of each tick</h1><p>  tickTime=2000</p>
+<h1 id="The-number-of-ticks-that-the-initial"><a href="#The-number-of-ticks-that-the-initial" class="headerlink" title="The number of ticks that the initial"></a>The number of ticks that the initial</h1><h1 id="synchronization-phase-can-take"><a href="#synchronization-phase-can-take" class="headerlink" title="synchronization phase can take"></a>synchronization phase can take</h1><p>  initLimit=10</p>
+<h1 id="The-number-of-ticks-that-can-pass-between"><a href="#The-number-of-ticks-that-can-pass-between" class="headerlink" title="The number of ticks that can pass between"></a>The number of ticks that can pass between</h1><h1 id="sending-a-request-and-getting-an-acknowledgement"><a href="#sending-a-request-and-getting-an-acknowledgement" class="headerlink" title="sending a request and getting an acknowledgement"></a>sending a request and getting an acknowledgement</h1><p>  syncLimit=5</p>
+<h1 id="the-directory-where-the-snapshot-is-stored"><a href="#the-directory-where-the-snapshot-is-stored" class="headerlink" title="the directory where the snapshot is stored."></a>the directory where the snapshot is stored.</h1><h1 id="do-not-use-tmp-for-storage-tmp-here-is-just"><a href="#do-not-use-tmp-for-storage-tmp-here-is-just" class="headerlink" title="do not use /tmp for storage, /tmp here is just"></a>do not use /tmp for storage, /tmp here is just</h1><h1 id="example-sakes"><a href="#example-sakes" class="headerlink" title="example sakes."></a>example sakes.</h1><p>  dataDir=/root/zookeeper/dataDir1</p>
+<p>  dataLogDir=/root/zookeeper/logs1</p>
+<h1 id="the-port-at-which-the-clients-will-connect"><a href="#the-port-at-which-the-clients-will-connect" class="headerlink" title="the port at which the clients will connect"></a>the port at which the clients will connect</h1><p>  clientPort=2181</p>
+<h1 id="the-maximum-number-of-client-connections"><a href="#the-maximum-number-of-client-connections" class="headerlink" title="the maximum number of client connections."></a>the maximum number of client connections.</h1><h1 id="increase-this-if-you-need-to-handle-more-clients"><a href="#increase-this-if-you-need-to-handle-more-clients" class="headerlink" title="increase this if you need to handle more clients"></a>increase this if you need to handle more clients</h1><p>  #maxClientCnxns=60<br>  #</p>
+<h1 id="Be-sure-to-read-the-maintenance-section-of-the"><a href="#Be-sure-to-read-the-maintenance-section-of-the" class="headerlink" title="Be sure to read the maintenance section of the"></a>Be sure to read the maintenance section of the</h1><h1 id="administrator-guide-before-turning-on-autopurge"><a href="#administrator-guide-before-turning-on-autopurge" class="headerlink" title="administrator guide before turning on autopurge."></a>administrator guide before turning on autopurge.</h1><p>  #</p>
+<h1 id="http-zookeeper-apache-org-doc-current-zookeeperAdmin-html-sc-maintenance"><a href="#http-zookeeper-apache-org-doc-current-zookeeperAdmin-html-sc-maintenance" class="headerlink" title="http://zookeeper.apache.org/doc/current/zookeeperAdmin.html#sc_maintenance"></a><a href="http://zookeeper.apache.org/doc/current/zookeeperAdmin.html#sc_maintenance" target="_blank" rel="external">http://zookeeper.apache.org/doc/current/zookeeperAdmin.html#sc_maintenance</a></h1><p>  #</p>
+<h1 id="The-number-of-snapshots-to-retain-in-dataDir"><a href="#The-number-of-snapshots-to-retain-in-dataDir" class="headerlink" title="The number of snapshots to retain in dataDir"></a>The number of snapshots to retain in dataDir</h1><p>  #autopurge.snapRetainCount=3</p>
+<h1 id="Purge-task-interval-in-hours"><a href="#Purge-task-interval-in-hours" class="headerlink" title="Purge task interval in hours"></a>Purge task interval in hours</h1><h1 id="Set-to-“0”-to-disable-auto-purge-feature"><a href="#Set-to-“0”-to-disable-auto-purge-feature" class="headerlink" title="Set to “0” to disable auto purge feature"></a>Set to “0” to disable auto purge feature</h1><p>  #autopurge.purgeInterval=1<br>  server.1=192.168.111.118:2881:3881<br>  server.2=192.168.111.118:2882:3882<br>  server.3=192.168.111.118:2883:3883</p>
+</li>
+</ul>
+<p>zoo2和zoo3的配置大同小异，注意分开各自的dataDir和dataLogDir<br>配myid<br>-<br>然后去各自的dataDir下创建myid，如：</p>
+<pre><code>mongo:~/zookeeper/dataDir1 # cat myid 
+1    
+</code></pre><p>创建一个名叫myid的文件，里面的内容就是server.x的x  </p>
+<p>启动server<br>-<br>分别启动三个</p>
+<pre><code>mongo:~/zookeeper/zookeeper-3.4.6/bin # sh zkServer.sh start zoo1.cfg
+JMX enabled by default
+Using config: /root/zookeeper/zookeeper-3.4.6/bin/../conf/zoo1.cfg
+Starting zookeeper ... STARTED
+mongo:~/zookeeper/zookeeper-3.4.6/bin # sh zkServer.sh start zoo2.cfg
+JMX enabled by default
+Using config: /root/zookeeper/zookeeper-3.4.6/bin/../conf/zoo2.cfg
+Starting zookeeper ... STARTED
+mongo:~/zookeeper/zookeeper-3.4.6/bin # sh zkServer.sh start zoo3.cfg
+JMX enabled by default
+Using config: /root/zookeeper/zookeeper-3.4.6/bin/../conf/zoo3.cfg
+Starting zookeeper ... STARTED
+</code></pre><p>查看状态<br>-<br>    mongo:~/zookeeper/zookeeper-3.4.6/bin # sh zkServer.sh status zoo3.cfg<br>    JMX enabled by default<br>    Using config: /root/zookeeper/zookeeper-3.4.6/bin/../conf/zoo3.cfg<br>    Mode: leader<br>    mongo:~/zookeeper/zookeeper-3.4.6/bin # sh zkServer.sh status zoo2.cfg<br>    JMX enabled by default<br>    Using config: /root/zookeeper/zookeeper-3.4.6/bin/../conf/zoo2.cfg<br>    Mode: follower<br>    mongo:~/zookeeper/zookeeper-3.4.6/bin # sh zkServer.sh status zoo1.cfg<br>    JMX enabled by default<br>    Using config: /root/zookeeper/zookeeper-3.4.6/bin/../conf/zoo1.cfg<br>    Mode: follower</p>
+<p>可以看到，选举zoo3为leader，zoo1和zoo2为follower。</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/06/06/suse11安装mysql/" itemprop="url">
+                  未命名
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-06-06T20:57:27+08:00" content="2016-06-06">
+              2016-06-06
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/06/06/suse11安装mysql/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/06/06/suse11安装mysql/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="Suse11安装Mysql"><a href="#Suse11安装Mysql" class="headerlink" title="Suse11安装Mysql"></a>Suse11安装Mysql</h2><h3 id="安装过程"><a href="#安装过程" class="headerlink" title="安装过程"></a>安装过程</h3><ol>
+<li>下载。我下的版本是5.1.73</li>
+<li>解压。</li>
+<li><p>安装server。</p>
+<pre><code>&apos;&apos;&apos;
+mongo:~/mysqldb # rpm -ivh MySQL-server-community-5.1.73-1.sles11.x86_64.rpm 
+Preparing...                ########################################### [100%]
+   1:MySQL-server-community ########################################### [100%]
+insserv: Service network is missed in the runlevels 4 to use service mysql
+mysql                     0:off  1:off  2:on   3:on   4:on   5:on   6:off
+
+PLEASE REMEMBER TO SET A PASSWORD FOR THE MySQL root USER !
+To do so, start the server, then issue the following commands:
+
+/usr/bin/mysqladmin -u root password &apos;new-password&apos;
+/usr/bin/mysqladmin -u root -h mongo password &apos;new-password&apos;
+
+Alternatively you can run:
+/usr/bin/mysql_secure_installation
+
+which will also give you the option of removing the test
+databases and anonymous user created by default.  This is
+strongly recommended for production servers.
+
+See the manual for more instructions.
+
+Please report any problems with the /usr/bin/mysqlbug script!
+
+Starting MySQL.                                                       done
+Giving mysqld 2 seconds to start
+&apos;&apos;&apos;
+</code></pre></li>
+<li><p>查看mysql服务已启用。</p>
+<pre><code>mongo:~/mysqldb # netstat -nat
+Active Internet connections (servers and established)
+Proto Recv-Q Send-Q Local Address           Foreign Address         State      
+tcp        0      0 0.0.0.0:27017           0.0.0.0:*               LISTEN      
+tcp        0      0 0.0.0.0:5801            0.0.0.0:*               LISTEN      
+tcp        0      0 0.0.0.0:3306            0.0.0.0:*               LISTEN      
+</code></pre><p>3306端口已经监听</p>
+</li>
+<li><p>安装客户端</p>
+<pre><code>mongo:~/mysqldb # rpm -ivh  MySQL-client-community-5.1.73-1.sles11.x86_64.rpm 
+Preparing...                ########################################### [100%]
+   1:MySQL-client-community ########################################### [100%]
+</code></pre></li>
+<li><p>登陆<br>登录MySQL的命令是mysql， mysql 的使用语法如下：<br>mysql [-u username] [-h host] [-p[password]] [dbname]<br>MySQL默认用户是root，由于 初始没有密码，第一次进时只需键入mysql即可。</p>
+<pre><code>mongo:~/mysqldb # mysql
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 9
+Server version: 5.1.73-community MySQL Community Server (GPL)
+
+Copyright (c) 2000, 2013, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type &apos;help;&apos; or &apos;\h&apos; for help. Type &apos;\c&apos; to clear the current input statement.
+
+mysql&gt; 
+</code></pre></li>
+<li><p>修改密码<br>因为开始时root没有密码，所以-p旧密码一项就可以省略了。</p>
+<pre><code>mongo:/etc/rc.d # /usr/bin/mysqladmin -u root password 123456
+mongo:/etc/rc.d # mysql
+ERROR 1045 (28000): Access denied for user &apos;root&apos;@&apos;localhost&apos; (using password: NO)
+mongo:/etc/rc.d # mysql -u root -p
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 12
+Server version: 5.1.73-community MySQL Community Server (GPL)
+
+Copyright (c) 2000, 2013, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type &apos;help;&apos; or &apos;\h&apos; for help. Type &apos;\c&apos; to clear the current input statement.
+
+mysql&gt; 
+</code></pre></li>
+</ol>
+<h3 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h3><p>MySQL安装完成后不象SQL Server默认安装在一个目录，它的数据库文件、配置文件和命令文件分别在不同的目录。<br>　　下面就介绍一下这几个目录。<br>　　1. 数据库目录<br>　　/var/lib/mysql/<br>　　2. 配置文件<br>　　/usr/share/mysql（mysql.server命令及配置文件）<br>　　3. 相关命令<br>　　/usr/bin(mysqladmin mysqldump等命令)<br>　　4. 启动脚本<br>　　/etc/rc.d/rcX.d/（启动脚本文件mysql的目录）  </p>
+<h3 id="启动与停止"><a href="#启动与停止" class="headerlink" title="启动与停止"></a>启动与停止</h3><ol>
+<li><p>启动<br>MySQL安装完成后启动文件mysql在/etc/init.d目录下，在需要启动时运行下面命令即可。  </p>
+<pre><code>mongo:/etc/init.d # ./mysql start  
+Starting MySQL 
+</code></pre></li>
+<li><p>停止</p>
+<pre><code>mongo:/etc/init.d # /usr/bin/mysqladmin -u root -p shutdown
+Enter password: 
+mongo:/etc/init.d # netstat -nat
+</code></pre><p> 查看端口3306的状态已经变成FIN_WAIT2</p>
+</li>
+<li><p>自动启动  </p>
+<ol>
+<li><p>察看mysql是否在自动启动列表中  </p>
+<pre><code>mongo:/etc/init.d # /sbin/chkconfig -list | grep mysql
+mysql                     0:off  1:off  2:on   3:on   4:on   5:on   6:off 
+</code></pre></li>
+</ol>
+</li>
+</ol>
+<p>　　 2. 把MySQL添加到你系统的启动服务组里面去</p>
+<pre><code>mongo:/etc/init.d # /sbin/chkconfig -add mysql
+insserv: Service network is missed in the runlevels 4 to use service mysql
+mysql                     0:off  1:off  2:on   3:on   4:on   5:on   6:off
+</code></pre><p>　　 3. 把MySQL从启动服务组里面删除。</p>
+<pre><code>mongo:/etc/init.d # /sbin/chkconfig -del mysql
+mysql                     0:off  1:off  2:off  3:off  4:off  5:off  6:off
+</code></pre><h3 id="更改MySQL目录"><a href="#更改MySQL目录" class="headerlink" title="更改MySQL目录"></a>更改MySQL目录</h3><p>　　MySQL默认的数据文件存储目录为/var/lib/mysql。假如要把目录移到/data下需要进行下面几步：  </p>
+<ol>
+<li>建立data目录<br>　      cd /<br>　　    mkdir data  </li>
+<li>把MySQL服务进程停掉：<br>　　mysqladmin -u root -p shutdown  </li>
+<li>把/var/lib/mysql整个目录移到/data<br>　　mv /var/lib/mysql　/home/data/<br>　　这样就把MySQL的数据文件移动到了/home/data/mysql下<br>记得赋予权限呀否则启动不了的：<br>我这里就直接赋予权限：chmod 777 mysql -R   </li>
+<li>找到my.cnf配置文件<br>　　如果/etc/目录下没有my.cnf配置文件，请到/usr/share/mysql/下找到*.cnf文件，拷贝其中一个到/etc/并改名为my.cnf)中。命令如下：<br>　　 [root@test1 mysql]# cp /usr/share/mysql/my-medium.cnf　/etc/my.cnf</li>
+<li>编辑MySQL的配置文件/etc/my.cnf<br>　　为保证MySQL能够正常工作，需要指明mysql.sock文件的产生位置。 修改socket=/var/lib/mysql/mysql.sock一行中等号右边的值为：/data/mysql/mysql.sock 。<br>操作如下：<br>　　 vi　 my.cnf　　　 (用vi工具编辑my.cnf文件，找到下列数据修改之)<br>　　 # The MySQL server<br>　　　 [mysqld]<br>　　　 port　　　= 3306<br>　　　#socket　 = /var/lib/mysql/mysql.sock（原内容，为了更稳妥用“#”注释此行）<br>　　　 socket　 = /data/mysql/mysql.sock　　　（加上此行）<br>default_character_set=utf8（加上默认字符集设置，防止乱码）<br>[client]<br>default_character_set=utf8（加上默认字符集设置，防止乱码）  </li>
+<li>修改SUSE下MySQL启动脚本/etc/init.d/mysql<br>　　最后，需要修改MySQL启动脚本/etc/nit.d/mysql，把其中datadir=/var/lib/mysql一行中，等号右边的路径改成你现在的实际存放路径：/data/mysql。<br>　　[root@test1 etc]# vi　/etc/init.d/mysql<br>　　#datadir=/var/lib/mysql　　　　（注释此行）<br>　　datadir=/data/mysql　　 （加上此行）<br>注意：有一个默认的datadir=  的设定，在那个地方设定没用  </li>
+<li>重新启动MySQL服务<br>　　/etc/init.d/mysql　start<br>　　或用reboot命令重启Linux<br>　　如果工作正常移动就成功了，否则对照前面的7步再检查一下。  </li>
+</ol>
+<h3 id="常用操作"><a href="#常用操作" class="headerlink" title="常用操作"></a>常用操作</h3><ol>
+<li><p>显示库  </p>
+<pre><code>mysql&gt; show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| test               |
++--------------------+
+3 rows in set (0.00 sec)  
+</code></pre><p>mysql库非常重要，它里面有MySQL的系统信息，我们改密码和新增用户，实际上就是用这个库中的相关表进行操作。</p>
+</li>
+<li><p>显示表</p>
+<pre><code>mysql&gt; use mysql;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql&gt; show tables;
++---------------------------+
+| Tables_in_mysql           |
++---------------------------+
+| columns_priv              |
+| db                        |
+| event                     |
+| func                      |
+| general_log               |
+| help_category             |
+| help_keyword              |
+| help_relation             |
+| help_topic                |
+| host                      |
+| ndb_binlog_index          |
+| plugin                    |
+| proc                      |
+| procs_priv                |
+| servers                   |
+| slow_log                  |
+| tables_priv               |
+| time_zone                 |
+| time_zone_leap_second     |
+| time_zone_name            |
+| time_zone_transition      |
+| time_zone_transition_type |
+| user                      |
++---------------------------+
+23 rows in set (0.00 sec)
+</code></pre></li>
+<li><p>显示表结构<br>describe + 表名<br>mysql&gt; describe user;</p>
+</li>
+<li>其他基本操作略</li>
+<li><p>增加mysql用户<br>格式：grant 哪些操作（select,insert,update,delete） on 数据库.<em> to 用户名@登录主机 identified by “密码”<br>例1. 增加一个用户user_1密码为123，让他可以在任何主机上登录，并对所有数据库有查询、插入、修改、删除的权限。首先用以root用户连入MySQL，然后键入以下命令：<br>　　mysql&gt; grant select,insert,update,delete on </em>.* to me@”%” identified by “123”;<br>此处要注意一个问题，因为mysql匿名用户的存在。  </p>
+<pre><code>mysql&gt; select User,Host  from mysql.user;
++-----------+-----------+
+| User      | Host      |
++-----------+-----------+
+| me        | %         |
+| yunsheng1 | %         |
+| root      | 127.0.0.1 |
+|           | localhost |
+| root      | localhost |
+| yunsheng2 | localhost |
+|           | mongo     |
+| root      | mongo     |
++-----------+-----------+
+8 rows in set (0.00 sec)
+</code></pre><p>此时，用me用户在本机登录会失败，在其他机器可以成功，这是因为在本机登陆是去匹配me@localhost，此时会先匹配上’’@localhost这个匿名账户，所以失败。<br>所以，先删除这些匿名用户。delete from mysql.user where user = ‘’;<br>尝试一下，还不行的话，重启一下mysql。<br>网上看到一段话：</p>
+<blockquote>
+<p>mysql参考手册。发现其中增加用户部分有这么一段话：<br>其中两个账户有相同的用户名monty和密码some_pass。两个账户均为超级用户账户，具有完全的权限可以做任何事情。一个账户 (‘monty’@’localhost’)只用于从本机连接时。另一个账户(‘monty’@’%’)可用于从其它主机连接。请注意monty的两个账户必须能从任何主机以monty连接。没有localhost账户，当monty从本机连接时，mysql_install_db创建的localhost的匿名用户账户将占先。结果是，monty将被视为匿名用户。原因是匿名用户账户的Host列值比’monty’@’%’账户更具体，这样在user表排序顺序中排在前面。</p>
+</blockquote>
+</li>
+</ol>
+<p>例1增加的用户是十分危险的，如果知道了user_1的密码，那么他就可以在网上的任何一台电脑上登录你的MySQL数据库并对你的数据为所欲为了，解决办法见例2。<br>例2. 增加一个用户user_2密码为123,让此用户只可以在localhost上登录，并可以对数据库aaa进行查询、插入、修改、删除的 操作（localhost指本地主机，即MySQL数据库所在的那台主机），这样用户即使用知道user_2的密码，他也无法从网上直接访问数据库，只能 通过MYSQL主机来操作aaa库。<br>　　mysql&gt;grant select,insert,update,delete on aaa.* to user_2@localhost identified by “123”;<br>　　用新增的用户如果登录不了MySQL，在登录时用如下命令：<br>　　mysql -u user_1 -p　-h 192.168.111.118　（-h后跟的是要登录主机的ip地址）</p>
+<p>权限有： </p>
+<pre><code>Alter 　　　　　　修改表和索引 
+　　Create 　　　　 创建数据库和表 
+　　Delete 　　　　 删除表中已有的记录 
+　　Drop 　　 抛弃（删除）数据库和表 
+　　INDEX 　　　　 创建或抛弃索引 
+　　Insert 　　　　 向表中插入新行 
+　　REFERENCE 　　未用 
+　　Select　　　　 检索表中的记录 
+　　Update 　　　　 修改现存表记录 
+　　FILE 　　　　　　读或写服务器上的文件 
+　　PROCESS 　　 查看服务器中执行的线程信息或杀死线程 
+　　RELOAD 　　　　重载授权表或清空日志、主机缓存或表缓存。 
+　　SHUTDOWN　　 关闭服务器 
+　　ALL 　　　　　　所有；ALL PRIVILEGES同义词 
+　　USAGE 　　　　特殊的“无权限”权限
+</code></pre>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/06/06/sysstat工具使用说明/" itemprop="url">
+                  未命名
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-06-06T20:57:27+08:00" content="2016-06-06">
+              2016-06-06
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/06/06/sysstat工具使用说明/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/06/06/sysstat工具使用说明/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="sysstat工具使用"><a href="#sysstat工具使用" class="headerlink" title="sysstat工具使用"></a>sysstat工具使用</h2><p>统计系统的各种资源占用</p>
+<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/06/06/README/" itemprop="url">
+                  未命名
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-06-06T20:57:27+08:00" content="2016-06-06">
+              2016-06-06
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/06/06/README/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/06/06/README/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="DayDayUp"><a href="#DayDayUp" class="headerlink" title="DayDayUp"></a>DayDayUp</h1><p>云胜的学习笔记</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/06/06/vim_tutor/" itemprop="url">
+                  未命名
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-06-06T20:57:27+08:00" content="2016-06-06">
+              2016-06-06
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/06/06/vim_tutor/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/06/06/vim_tutor/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="vim-使用"><a href="#vim-使用" class="headerlink" title="vim 使用"></a>vim 使用</h2><ul>
+<li>vim 文件名  ： 打开或新建一个文件，默认进入命令模式</li>
+</ul>
+<h3 id="在命令模式下"><a href="#在命令模式下" class="headerlink" title="在命令模式下"></a>在命令模式下</h3><ul>
+<li>a/i     ：进入insert模式。准确来讲有细微区别，a是append，是在当前光标后插入。i会在当前光标处插入。</li>
+<li>x    : 删除当前字符</li>
+<li>dw   : 删除当前单词，准确来说是会删除从当前到下一个单词的开始，也就是说会把单词后面的空格也干掉。</li>
+<li>de : 这个是删除到本单词结束。</li>
+<li>d$ : 删除从光标处到本行结束。</li>
+</ul>
+<blockquote>
+<p>d 称为操作符operator,w/e/$ 称为motion意图。组合起来达到不同的操作效果。</p>
+</blockquote>
+<ul>
+<li>w : 可以跳到下一个单词的开始</li>
+<li>e : 可以跳到单词的结束，如果光标已经在本单词的结束，那就跳到下一个单词的结束。</li>
+<li>$ : 可以调到本行的结束</li>
+<li>0 : 可以跳到本行的开始<blockquote>
+<p>可以在这些motion前面加上次数，跳到第几个单词。如2w：跳到本行第二个单词的开始</p>
+</blockquote>
+</li>
+</ul>
+<blockquote>
+<p>也可以在operatoer的后面加上次数。如d2w，删除后面的2个单词。</p>
+<p>所以说vim的关键在于熟练，在于融会贯通。</p>
+</blockquote>
+<ul>
+<li>dd ： 删除本行</li>
+<li>2dd ： 删除2行</li>
+<li>u   : undo</li>
+<li>U（大写）   : undo 整行</li>
+<li>ctrl+r   ： undo the undo</li>
+<li>p : 粘贴。vim会将之前删除的内容放在自己的寄存器中，现在可以粘贴了。</li>
+<li>r : replace,在想要修改的字符上，先按r，然后替换正确的字符，r + x</li>
+<li>ce: 删除至单词结束，同时进入insert模式。有点像de/dw + i，但是de/dw删除后还是在命令模式。<blockquote>
+<p>c是change，和d一样是operator，用法也和d一样，如ce改变至单词结束，c$:改变至行结束。</p>
+</blockquote>
+</li>
+</ul>
+<h4 id="位置操作"><a href="#位置操作" class="headerlink" title="位置操作"></a>位置操作</h4><pre><code>ctrl + g ：显示当前行号
+G ： 跳到文件结束
+gg ： 跳到文件开始
+行号 然后 + G ： 跳到指定行。
+</code></pre><h4 id="搜索"><a href="#搜索" class="headerlink" title="搜索"></a>搜索</h4><ul>
+<li>/ 然后加要搜索的内容。从头开始搜索。</li>
+<li>？ 从尾开始搜索。</li>
+<li>n 下一个</li>
+<li>N 相反方向的下一个</li>
+<li>ctrl + o : 回到上一次光标在的位置</li>
+<li><p>ctrl + i ： 和ctrl+o相反</p>
+<blockquote>
+<p>ctrl + o和i不要一直用太多次，会乱。</p>
+</blockquote>
+</li>
+<li><p>用%查看[ { (另一半的匹配</p>
+</li>
+</ul>
+<h4 id="替换命令"><a href="#替换命令" class="headerlink" title="替换命令"></a>替换命令</h4><ul>
+<li>:s/要替换的/用什么替换 ： 替换本行的第一个。</li>
+<li>:s/要替换的/用什么替换/g : 替换全行。</li>
+<li>:行号,行号s/要替换的/用什么替换/g ： 替换这些行之间的全部。</li>
+<li>:%s/要替换的/用什么替换/g ： 替换文件全部。</li>
+<li>:%s/要替换的/用什么替换/gc ： 替换文件全部的时候加上确认。</li>
+</ul>
+<h4 id="外部命令"><a href="#外部命令" class="headerlink" title="外部命令"></a>外部命令</h4><ul>
+<li>:! + 要执行的命令。  执行外部命令。</li>
+<li>:w + 可加文件名。   写到这个文件里。</li>
+</ul>
+<h4 id="视图模式下"><a href="#视图模式下" class="headerlink" title="视图模式下"></a>视图模式下</h4><ul>
+<li><p>v 开启试图选择模式，可以选中多行内容，然后：加w 文件名，可以将选中的部分内容写到文件中。</p>
+<blockquote>
+<p> v开启视图模式后，选中的内容。可以加operator，如d，进行删除。等等。</p>
+</blockquote>
+</li>
+<li><p>:r  读入。可在后面加文件名，将文件中的内容读入。也可以加类似!ls的外部命令，将命令的结果写入。</p>
+</li>
+<li>o（小写）：在光标的下一行，开启一行，进入insert模式</li>
+<li>O（大写）：在光标的上一行，开启一行，进入insert模式</li>
+<li>R（大写）：进入replace模式，方便的更新。</li>
+<li>y ：复制。是一个operator，所以可以yw。</li>
+<li><p>复制粘贴就是v进入视图，选中，y复制，退出视图，p</p>
+</li>
+<li><p>:set +操作,可对搜索做高级设置。</p>
+<blockquote>
+<p>操作有：<br>set nu! :  显示行号<br>ic：或ignorecase,忽略大小写<br><br>is:或incsearch，立即显示部分匹配上的<br><br>hls：或hlsearch，高亮显示所有匹配的。<br><br>要取消设置，：set +no某个操作<br>如果只是想使用一次忽略大小写查询可以用/xxxxx\c  </p>
+</blockquote>
+</li>
+</ul>
+<h4 id="帮助系统"><a href="#帮助系统" class="headerlink" title="帮助系统"></a>帮助系统</h4><ul>
+<li>：help 或者f1键，会打开一个帮助的窗口，按两下ctrl+w可以在帮助窗口和原窗口之间切换。</li>
+<li>：help 可以加参数</li>
+</ul>
+<h4 id="自定义vim高级特性"><a href="#自定义vim高级特性" class="headerlink" title="自定义vim高级特性"></a>自定义vim高级特性</h4><ul>
+<li>:e ~/.vimrc</li>
+<li>:r $VIMRUNTIME/vimrc_example.vim  这是一个自带的示例，可在这个基础上改。</li>
+<li>:w  </li>
+</ul>
+<h4 id="自动补全"><a href="#自动补全" class="headerlink" title="自动补全"></a>自动补全</h4><ul>
+<li>ctrl + D（大写）可以显示所有匹配的命令</li>
+<li>tab键自动补全</li>
 </ul>
 
           
@@ -367,8 +1796,8 @@
             
               
                 
-                <a class="post-title-link" href="/2016/06/04/期待的生活/" itemprop="url">
-                  期待的生活
+                <a class="post-title-link" href="/2016/06/06/windows定位cpu占用过高/" itemprop="url">
+                  未命名
                 </a>
               
             
@@ -381,38 +1810,19 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-06-04T11:31:13+08:00" content="2016-06-04">
-              2016-06-04
+            <time itemprop="dateCreated" datetime="2016-06-06T20:57:27+08:00" content="2016-06-06">
+              2016-06-06
             </time>
           </span>
 
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/生活/" itemprop="url" rel="index">
-                    <span itemprop="name">生活</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
           
 
           
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/06/04/期待的生活/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/06/04/期待的生活/" itemprop="commentsCount"></span>
+                <a href="/2016/06/06/windows定位cpu占用过高/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/06/06/windows定位cpu占用过高/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -437,8 +1847,18 @@
       
         
           
-            <p>期待自己能成为一名自由职业的软件工程师。<br>回到乡里，回到长大的地方，自己建一座小楼。<br>可以更多地时间陪孩子，陪爱人，陪父母。可以经常的和聊得来的朋友小聚。可以有说走就走的旅行，而不是连说走就走的下班都很难得。</p>
-<p>四年来一直从事java服务器端开发，这是目前的主业，但是这不是通向自由职业的道路。<br>接下来的计划是下班后开发自己的应用。<br>1， 一个待办事项的手机应用。先做安卓版，这个有点基础，难度不大，主要是时间。目前项目太紧了，两个月的时间吧，到8.14日第一版上线。<br>2，目前没找到顺手的画流程图的应用。计划自己做一个，mac版。</p>
+            <h2 id="windows定位java程序cpu占用过高"><a href="#windows定位java程序cpu占用过高" class="headerlink" title="windows定位java程序cpu占用过高"></a>windows定位java程序cpu占用过高</h2><ol>
+<li><p>任务管理器中找到cpu占用过高的程序A</p>
+</li>
+<li><p>运用微软的Process Explorer查看占用cpu高的进程的具体信息。<br>在A上右键properties，得到程序的进程ID，打开Threads标签，看到线程占用cpu的情况。</p>
+</li>
+<li><p>用jdk的jstack工具打印threaddump信息。<br>cmd下执行，jstack.exe -l A的进程ID &gt; 目标文件XX.txt</p>
+</li>
+<li><p>到XX.txt根据线程ID搜索具体的代码行。<br>注意，在Threads标签中看到的tid要转换成16进制的在txt中搜</p>
+</li>
+<li><p>最后反编译class文件，看提示的代码是否有问题。</p>
+</li>
+</ol>
 
           
         
@@ -470,6 +1890,10 @@
   </section>
 
   
+  <nav class="pagination">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+  </nav>
+
 
 
           </div>
@@ -508,7 +1932,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">2</span>
+              <span class="site-state-item-count">29</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -525,7 +1949,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-count">1</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

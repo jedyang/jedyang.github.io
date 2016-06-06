@@ -1,0 +1,841 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="Suse11安装Mysql安装过程
+下载。我下的版本是5.1.73
+解压。
+安装server。
+&amp;apos;&amp;apos;&amp;apos;
+mongo:~/mysqldb # rpm -ivh MySQL-server-community-5.1.73-1.sles11.x86_64.rpm 
+Preparing...                ###########################">
+<meta property="og:type" content="article">
+<meta property="og:title" content="yunsheng's blog">
+<meta property="og:url" content="http://yoursite.com/2016/06/06/suse11安装mysql/index.html">
+<meta property="og:site_name" content="yunsheng's blog">
+<meta property="og:description" content="Suse11安装Mysql安装过程
+下载。我下的版本是5.1.73
+解压。
+安装server。
+&amp;apos;&amp;apos;&amp;apos;
+mongo:~/mysqldb # rpm -ivh MySQL-server-community-5.1.73-1.sles11.x86_64.rpm 
+Preparing...                ###########################">
+<meta property="og:updated_time" content="2016-06-06T12:57:27.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="yunsheng's blog">
+<meta name="twitter:description" content="Suse11安装Mysql安装过程
+下载。我下的版本是5.1.73
+解压。
+安装server。
+&amp;apos;&amp;apos;&amp;apos;
+mongo:~/mysqldb # rpm -ivh MySQL-server-community-5.1.73-1.sles11.x86_64.rpm 
+Preparing...                ###########################">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title>  | yunsheng's blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?05a33c79ef299df2c5289fb197aecddf";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">yunsheng's blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-06-06T20:57:27+08:00" content="2016-06-06">
+              2016-06-06
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/06/06/suse11安装mysql/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/06/06/suse11安装mysql/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="Suse11安装Mysql"><a href="#Suse11安装Mysql" class="headerlink" title="Suse11安装Mysql"></a>Suse11安装Mysql</h2><h3 id="安装过程"><a href="#安装过程" class="headerlink" title="安装过程"></a>安装过程</h3><ol>
+<li>下载。我下的版本是5.1.73</li>
+<li>解压。</li>
+<li><p>安装server。</p>
+<pre><code>&apos;&apos;&apos;
+mongo:~/mysqldb # rpm -ivh MySQL-server-community-5.1.73-1.sles11.x86_64.rpm 
+Preparing...                ########################################### [100%]
+   1:MySQL-server-community ########################################### [100%]
+insserv: Service network is missed in the runlevels 4 to use service mysql
+mysql                     0:off  1:off  2:on   3:on   4:on   5:on   6:off
+
+PLEASE REMEMBER TO SET A PASSWORD FOR THE MySQL root USER !
+To do so, start the server, then issue the following commands:
+
+/usr/bin/mysqladmin -u root password &apos;new-password&apos;
+/usr/bin/mysqladmin -u root -h mongo password &apos;new-password&apos;
+
+Alternatively you can run:
+/usr/bin/mysql_secure_installation
+
+which will also give you the option of removing the test
+databases and anonymous user created by default.  This is
+strongly recommended for production servers.
+
+See the manual for more instructions.
+
+Please report any problems with the /usr/bin/mysqlbug script!
+
+Starting MySQL.                                                       done
+Giving mysqld 2 seconds to start
+&apos;&apos;&apos;
+</code></pre></li>
+<li><p>查看mysql服务已启用。</p>
+<pre><code>mongo:~/mysqldb # netstat -nat
+Active Internet connections (servers and established)
+Proto Recv-Q Send-Q Local Address           Foreign Address         State      
+tcp        0      0 0.0.0.0:27017           0.0.0.0:*               LISTEN      
+tcp        0      0 0.0.0.0:5801            0.0.0.0:*               LISTEN      
+tcp        0      0 0.0.0.0:3306            0.0.0.0:*               LISTEN      
+</code></pre><p>3306端口已经监听</p>
+</li>
+<li><p>安装客户端</p>
+<pre><code>mongo:~/mysqldb # rpm -ivh  MySQL-client-community-5.1.73-1.sles11.x86_64.rpm 
+Preparing...                ########################################### [100%]
+   1:MySQL-client-community ########################################### [100%]
+</code></pre></li>
+<li><p>登陆<br>登录MySQL的命令是mysql， mysql 的使用语法如下：<br>mysql [-u username] [-h host] [-p[password]] [dbname]<br>MySQL默认用户是root，由于 初始没有密码，第一次进时只需键入mysql即可。</p>
+<pre><code>mongo:~/mysqldb # mysql
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 9
+Server version: 5.1.73-community MySQL Community Server (GPL)
+
+Copyright (c) 2000, 2013, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type &apos;help;&apos; or &apos;\h&apos; for help. Type &apos;\c&apos; to clear the current input statement.
+
+mysql&gt; 
+</code></pre></li>
+<li><p>修改密码<br>因为开始时root没有密码，所以-p旧密码一项就可以省略了。</p>
+<pre><code>mongo:/etc/rc.d # /usr/bin/mysqladmin -u root password 123456
+mongo:/etc/rc.d # mysql
+ERROR 1045 (28000): Access denied for user &apos;root&apos;@&apos;localhost&apos; (using password: NO)
+mongo:/etc/rc.d # mysql -u root -p
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 12
+Server version: 5.1.73-community MySQL Community Server (GPL)
+
+Copyright (c) 2000, 2013, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type &apos;help;&apos; or &apos;\h&apos; for help. Type &apos;\c&apos; to clear the current input statement.
+
+mysql&gt; 
+</code></pre></li>
+</ol>
+<h3 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h3><p>MySQL安装完成后不象SQL Server默认安装在一个目录，它的数据库文件、配置文件和命令文件分别在不同的目录。<br>　　下面就介绍一下这几个目录。<br>　　1. 数据库目录<br>　　/var/lib/mysql/<br>　　2. 配置文件<br>　　/usr/share/mysql（mysql.server命令及配置文件）<br>　　3. 相关命令<br>　　/usr/bin(mysqladmin mysqldump等命令)<br>　　4. 启动脚本<br>　　/etc/rc.d/rcX.d/（启动脚本文件mysql的目录）  </p>
+<h3 id="启动与停止"><a href="#启动与停止" class="headerlink" title="启动与停止"></a>启动与停止</h3><ol>
+<li><p>启动<br>MySQL安装完成后启动文件mysql在/etc/init.d目录下，在需要启动时运行下面命令即可。  </p>
+<pre><code>mongo:/etc/init.d # ./mysql start  
+Starting MySQL 
+</code></pre></li>
+<li><p>停止</p>
+<pre><code>mongo:/etc/init.d # /usr/bin/mysqladmin -u root -p shutdown
+Enter password: 
+mongo:/etc/init.d # netstat -nat
+</code></pre><p> 查看端口3306的状态已经变成FIN_WAIT2</p>
+</li>
+<li><p>自动启动  </p>
+<ol>
+<li><p>察看mysql是否在自动启动列表中  </p>
+<pre><code>mongo:/etc/init.d # /sbin/chkconfig -list | grep mysql
+mysql                     0:off  1:off  2:on   3:on   4:on   5:on   6:off 
+</code></pre></li>
+</ol>
+</li>
+</ol>
+<p>　　 2. 把MySQL添加到你系统的启动服务组里面去</p>
+<pre><code>mongo:/etc/init.d # /sbin/chkconfig -add mysql
+insserv: Service network is missed in the runlevels 4 to use service mysql
+mysql                     0:off  1:off  2:on   3:on   4:on   5:on   6:off
+</code></pre><p>　　 3. 把MySQL从启动服务组里面删除。</p>
+<pre><code>mongo:/etc/init.d # /sbin/chkconfig -del mysql
+mysql                     0:off  1:off  2:off  3:off  4:off  5:off  6:off
+</code></pre><h3 id="更改MySQL目录"><a href="#更改MySQL目录" class="headerlink" title="更改MySQL目录"></a>更改MySQL目录</h3><p>　　MySQL默认的数据文件存储目录为/var/lib/mysql。假如要把目录移到/data下需要进行下面几步：  </p>
+<ol>
+<li>建立data目录<br>　      cd /<br>　　    mkdir data  </li>
+<li>把MySQL服务进程停掉：<br>　　mysqladmin -u root -p shutdown  </li>
+<li>把/var/lib/mysql整个目录移到/data<br>　　mv /var/lib/mysql　/home/data/<br>　　这样就把MySQL的数据文件移动到了/home/data/mysql下<br>记得赋予权限呀否则启动不了的：<br>我这里就直接赋予权限：chmod 777 mysql -R   </li>
+<li>找到my.cnf配置文件<br>　　如果/etc/目录下没有my.cnf配置文件，请到/usr/share/mysql/下找到*.cnf文件，拷贝其中一个到/etc/并改名为my.cnf)中。命令如下：<br>　　 [root@test1 mysql]# cp /usr/share/mysql/my-medium.cnf　/etc/my.cnf</li>
+<li>编辑MySQL的配置文件/etc/my.cnf<br>　　为保证MySQL能够正常工作，需要指明mysql.sock文件的产生位置。 修改socket=/var/lib/mysql/mysql.sock一行中等号右边的值为：/data/mysql/mysql.sock 。<br>操作如下：<br>　　 vi　 my.cnf　　　 (用vi工具编辑my.cnf文件，找到下列数据修改之)<br>　　 # The MySQL server<br>　　　 [mysqld]<br>　　　 port　　　= 3306<br>　　　#socket　 = /var/lib/mysql/mysql.sock（原内容，为了更稳妥用“#”注释此行）<br>　　　 socket　 = /data/mysql/mysql.sock　　　（加上此行）<br>default_character_set=utf8（加上默认字符集设置，防止乱码）<br>[client]<br>default_character_set=utf8（加上默认字符集设置，防止乱码）  </li>
+<li>修改SUSE下MySQL启动脚本/etc/init.d/mysql<br>　　最后，需要修改MySQL启动脚本/etc/nit.d/mysql，把其中datadir=/var/lib/mysql一行中，等号右边的路径改成你现在的实际存放路径：/data/mysql。<br>　　[root@test1 etc]# vi　/etc/init.d/mysql<br>　　#datadir=/var/lib/mysql　　　　（注释此行）<br>　　datadir=/data/mysql　　 （加上此行）<br>注意：有一个默认的datadir=  的设定，在那个地方设定没用  </li>
+<li>重新启动MySQL服务<br>　　/etc/init.d/mysql　start<br>　　或用reboot命令重启Linux<br>　　如果工作正常移动就成功了，否则对照前面的7步再检查一下。  </li>
+</ol>
+<h3 id="常用操作"><a href="#常用操作" class="headerlink" title="常用操作"></a>常用操作</h3><ol>
+<li><p>显示库  </p>
+<pre><code>mysql&gt; show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| test               |
++--------------------+
+3 rows in set (0.00 sec)  
+</code></pre><p>mysql库非常重要，它里面有MySQL的系统信息，我们改密码和新增用户，实际上就是用这个库中的相关表进行操作。</p>
+</li>
+<li><p>显示表</p>
+<pre><code>mysql&gt; use mysql;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql&gt; show tables;
++---------------------------+
+| Tables_in_mysql           |
++---------------------------+
+| columns_priv              |
+| db                        |
+| event                     |
+| func                      |
+| general_log               |
+| help_category             |
+| help_keyword              |
+| help_relation             |
+| help_topic                |
+| host                      |
+| ndb_binlog_index          |
+| plugin                    |
+| proc                      |
+| procs_priv                |
+| servers                   |
+| slow_log                  |
+| tables_priv               |
+| time_zone                 |
+| time_zone_leap_second     |
+| time_zone_name            |
+| time_zone_transition      |
+| time_zone_transition_type |
+| user                      |
++---------------------------+
+23 rows in set (0.00 sec)
+</code></pre></li>
+<li><p>显示表结构<br>describe + 表名<br>mysql&gt; describe user;</p>
+</li>
+<li>其他基本操作略</li>
+<li><p>增加mysql用户<br>格式：grant 哪些操作（select,insert,update,delete） on 数据库.<em> to 用户名@登录主机 identified by “密码”<br>例1. 增加一个用户user_1密码为123，让他可以在任何主机上登录，并对所有数据库有查询、插入、修改、删除的权限。首先用以root用户连入MySQL，然后键入以下命令：<br>　　mysql&gt; grant select,insert,update,delete on </em>.* to me@”%” identified by “123”;<br>此处要注意一个问题，因为mysql匿名用户的存在。  </p>
+<pre><code>mysql&gt; select User,Host  from mysql.user;
++-----------+-----------+
+| User      | Host      |
++-----------+-----------+
+| me        | %         |
+| yunsheng1 | %         |
+| root      | 127.0.0.1 |
+|           | localhost |
+| root      | localhost |
+| yunsheng2 | localhost |
+|           | mongo     |
+| root      | mongo     |
++-----------+-----------+
+8 rows in set (0.00 sec)
+</code></pre><p>此时，用me用户在本机登录会失败，在其他机器可以成功，这是因为在本机登陆是去匹配me@localhost，此时会先匹配上’’@localhost这个匿名账户，所以失败。<br>所以，先删除这些匿名用户。delete from mysql.user where user = ‘’;<br>尝试一下，还不行的话，重启一下mysql。<br>网上看到一段话：</p>
+<blockquote>
+<p>mysql参考手册。发现其中增加用户部分有这么一段话：<br>其中两个账户有相同的用户名monty和密码some_pass。两个账户均为超级用户账户，具有完全的权限可以做任何事情。一个账户 (‘monty’@’localhost’)只用于从本机连接时。另一个账户(‘monty’@’%’)可用于从其它主机连接。请注意monty的两个账户必须能从任何主机以monty连接。没有localhost账户，当monty从本机连接时，mysql_install_db创建的localhost的匿名用户账户将占先。结果是，monty将被视为匿名用户。原因是匿名用户账户的Host列值比’monty’@’%’账户更具体，这样在user表排序顺序中排在前面。</p>
+</blockquote>
+</li>
+</ol>
+<p>例1增加的用户是十分危险的，如果知道了user_1的密码，那么他就可以在网上的任何一台电脑上登录你的MySQL数据库并对你的数据为所欲为了，解决办法见例2。<br>例2. 增加一个用户user_2密码为123,让此用户只可以在localhost上登录，并可以对数据库aaa进行查询、插入、修改、删除的 操作（localhost指本地主机，即MySQL数据库所在的那台主机），这样用户即使用知道user_2的密码，他也无法从网上直接访问数据库，只能 通过MYSQL主机来操作aaa库。<br>　　mysql&gt;grant select,insert,update,delete on aaa.* to user_2@localhost identified by “123”;<br>　　用新增的用户如果登录不了MySQL，在登录时用如下命令：<br>　　mysql -u user_1 -p　-h 192.168.111.118　（-h后跟的是要登录主机的ip地址）</p>
+<p>权限有： </p>
+<pre><code>Alter 　　　　　　修改表和索引 
+　　Create 　　　　 创建数据库和表 
+　　Delete 　　　　 删除表中已有的记录 
+　　Drop 　　 抛弃（删除）数据库和表 
+　　INDEX 　　　　 创建或抛弃索引 
+　　Insert 　　　　 向表中插入新行 
+　　REFERENCE 　　未用 
+　　Select　　　　 检索表中的记录 
+　　Update 　　　　 修改现存表记录 
+　　FILE 　　　　　　读或写服务器上的文件 
+　　PROCESS 　　 查看服务器中执行的线程信息或杀死线程 
+　　RELOAD 　　　　重载授权表或清空日志、主机缓存或表缓存。 
+　　SHUTDOWN　　 关闭服务器 
+　　ALL 　　　　　　所有；ALL PRIVILEGES同义词 
+　　USAGE 　　　　特殊的“无权限”权限
+</code></pre>
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/06/06/sysstat工具使用说明/" rel="next" title="">
+                <i class="fa fa-chevron-left"></i> 
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/06/06/ZooKeeper学习/" rel="prev" title="">
+                 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/06/06/suse11安装mysql/"
+           data-title="" data-url="http://yoursite.com/2016/06/06/suse11安装mysql/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/me.jpg"
+               alt="yunsheng" />
+          <p class="site-author-name" itemprop="name">yunsheng</p>
+          <p class="site-description motion-element" itemprop="description">云胜的笔记</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">29</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Suse11安装Mysql"><span class="nav-number">1.</span> <span class="nav-text">Suse11安装Mysql</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装过程"><span class="nav-number">1.1.</span> <span class="nav-text">安装过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#目录"><span class="nav-number">1.2.</span> <span class="nav-text">目录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#启动与停止"><span class="nav-number">1.3.</span> <span class="nav-text">启动与停止</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#更改MySQL目录"><span class="nav-number">1.4.</span> <span class="nav-text">更改MySQL目录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#常用操作"><span class="nav-number">1.5.</span> <span class="nav-text">常用操作</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">yunsheng</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"yunsheng-notes"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+  
+
+
+
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>

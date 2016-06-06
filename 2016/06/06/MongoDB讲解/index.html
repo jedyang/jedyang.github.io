@@ -1,0 +1,1194 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="MongoDB
+MongoDb放弃关系模型的主要原因就是为了获得更方便的扩展性。MongoDb在设计之初就考虑到了扩展的问题。它所采用的面向文档的数据模型使其可以自动在多台服务器之间分割数据。还可以平衡集群的数据和负载，自动重排文档。需要更大的容量时，只需要在集群中添加新机器，剩下的事交给数据库来处理。
+
+有的和没的功能 有的：
+
+索引
+存储javascript，不必再使用存储过程了。
+聚合，支持">
+<meta property="og:type" content="article">
+<meta property="og:title" content="yunsheng's blog">
+<meta property="og:url" content="http://yoursite.com/2016/06/06/MongoDB讲解/index.html">
+<meta property="og:site_name" content="yunsheng's blog">
+<meta property="og:description" content="MongoDB
+MongoDb放弃关系模型的主要原因就是为了获得更方便的扩展性。MongoDb在设计之初就考虑到了扩展的问题。它所采用的面向文档的数据模型使其可以自动在多台服务器之间分割数据。还可以平衡集群的数据和负载，自动重排文档。需要更大的容量时，只需要在集群中添加新机器，剩下的事交给数据库来处理。
+
+有的和没的功能 有的：
+
+索引
+存储javascript，不必再使用存储过程了。
+聚合，支持">
+<meta property="og:image" content="https://docs.mongodb.org/manual/_images/map-reduce.png">
+<meta property="og:updated_time" content="2016-06-06T12:57:26.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="yunsheng's blog">
+<meta name="twitter:description" content="MongoDB
+MongoDb放弃关系模型的主要原因就是为了获得更方便的扩展性。MongoDb在设计之初就考虑到了扩展的问题。它所采用的面向文档的数据模型使其可以自动在多台服务器之间分割数据。还可以平衡集群的数据和负载，自动重排文档。需要更大的容量时，只需要在集群中添加新机器，剩下的事交给数据库来处理。
+
+有的和没的功能 有的：
+
+索引
+存储javascript，不必再使用存储过程了。
+聚合，支持">
+<meta name="twitter:image" content="https://docs.mongodb.org/manual/_images/map-reduce.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title>  | yunsheng's blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?05a33c79ef299df2c5289fb197aecddf";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">yunsheng's blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-06-06T20:57:26+08:00" content="2016-06-06">
+              2016-06-06
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/06/06/MongoDB讲解/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/06/06/MongoDB讲解/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="MongoDB"><a href="#MongoDB" class="headerlink" title="MongoDB"></a>MongoDB</h2><ol>
+<li><p>MongoDb放弃关系模型的主要原因就是为了获得更方便的扩展性。MongoDb在设计之初就考虑到了扩展的问题。它所采用的面向文档的数据模型使其可以自动在多台服务器之间分割数据。还可以平衡集群的数据和负载，自动重排文档。需要更大的容量时，只需要在集群中添加新机器，剩下的事交给数据库来处理。</p>
+</li>
+<li><p>有的和没的功能<br> 有的：</p>
+<ul>
+<li>索引</li>
+<li>存储javascript，不必再使用存储过程了。</li>
+<li>聚合，支持MapReduce和其他聚合工具。</li>
+<li>固定集合，集合的大小是有上限的。</li>
+<li><p>文件存储  </p>
+<p>没的：没有了关系型数据库的join和多行事务，主要是为了扩展性做的舍弃。</p>
+</li>
+</ul>
+</li>
+<li><p>为了性能，mongodb使用MongoDB传输协议所谓与服务器交互的主要方式，这比HTTP/REST协议开销更少。</p>
+</li>
+<li><p>MongoDb的管理理念是让服务器自管理。如果主服务器挂了，自动切换到备份服务器上，并将备份服务器提升为活跃服务器。分布式环境下，集群只要知道增加了新的节点，会自动集成和配置新节点。</p>
+</li>
+</ol>
+<h3 id="文档"><a href="#文档" class="headerlink" title="文档"></a>文档</h3><ol>
+<li>文档中不能有重复的键。</li>
+<li>文档中的键值对是有序的。内容一样，但顺序不一样的文档是完全不同的。</li>
+<li>键是区分大小写的。</li>
+<li>键不能含有\0，这个字符用来表示键的结尾。</li>
+<li>.和$有特殊意义</li>
+<li>_开头的键是保留的，不严格要求。</li>
+</ol>
+<h3 id="集合"><a href="#集合" class="headerlink" title="集合"></a>集合</h3><p>集合是文档的集合。类似于关系数据库无模式的表。<br>索引是按照集合来定义的。把同种类型的文档放入同一个集合可以使索引更加有效。</p>
+<ul>
+<li>集合名不能是空字符串””，不能含有\0，不能以system.开头，用户创建的集合不要含有$</li>
+<li>子集合，如aa.bb,aa.cc，更合理的组织数据</li>
+</ul>
+<h3 id="数据库"><a href="#数据库" class="headerlink" title="数据库"></a>数据库</h3><p>多个集合组成数据库。一个MongoDb实例可以承载多个数据库，他们之间可视为完全独立的。每个数据库都有独立的权限控制。</p>
+<ul>
+<li>数据库名应全部小写，最多64字节。不能是空，不能含有.$/\和\0</li>
+<li>数据库最终会变成文件系统里的文件</li>
+<li>保留的数据库名：<ul>
+<li>admin  从权限角度看，这是root数据库，要是将一个用户添加到这个数据库，那么这个用户将自动继承所有数据库的权限，一些特定的服务器端命令如列出所有数据库或者关闭服务器等，也只能从这个数据库运行。</li>
+<li>local  这个数据库永远不会被复制，这个数据库可用于存储只与本地单台服务器相关的集合。</li>
+<li>config 当Mongo用于分片设置时，config数据库在内部使用，用于保存分片的相关信息</li>
+</ul>
+</li>
+</ul>
+<p>数据库名+集合名就是完整的集合限定名，称为命名空间。</p>
+<h3 id="安装MongoDB"><a href="#安装MongoDB" class="headerlink" title="安装MongoDB"></a>安装MongoDB</h3><ol>
+<li>服务器suse11</li>
+<li>下载mongodb downloads.mongodb.org/linux/mongodb-linux-x86_64-2.6.4.tgz （3.*版本需要GLIBCXX_3.4.14）</li>
+<li>将mongodb-linux-x86_64-2.6.4.tgz下载到mongodb文件夹</li>
+<li>解压：tar -zxvf mongodb-linux-x86_64-2.6.4.tgz</li>
+<li>重命名：mv mongodb-linux-x86_64-2.6.4 mongodb</li>
+<li>设置环境变量：export PATH=<mongodb-install-directory>/bin:$PATH<br> 例如：export “PATH=$PATH:/home/nim/mongodb/bin/“  &gt;&gt;/etc/profile</mongodb-install-directory></li>
+<li><p>启动，Mongodb数据库需要指定存储数据的文件夹，默认存储目录为：/data/db。<br>创建目录/data/db:mkdir -p /data/db<br>进入mongodb/bin 运行<code>mongod</code>即可启动mongodb。<br>可加参数：<br>-port portNo 指定端口，默认27017<br>–dbpath dataPath 指定存放数据的目录<br>–logpath logPath  指定日志目录<br>–fork  后台运行，–fork必须和–logpath一起</p>
+<pre><code>mongo:~/mongodb/mongo/bin # ./mongod --fork --logpath /root/mongodb/logs
+about to fork child process, waiting until server is ready for connections.
+forked process: 19820
+child process started successfully, parent exiting
+</code></pre></li>
+<li><p>登陆<br>执行mongo<br>另外mongo还会启动一个基本的http服务，端口是比主端口高1000（即默认是28017）<br>这样可以在浏览器登陆mongo了，前提是配置文件里面加入httpinterface=true,然后再创建个用户就可以了</p>
+</li>
+</ol>
+<h3 id="mongo-shell"><a href="#mongo-shell" class="headerlink" title="mongo shell"></a>mongo shell</h3><p>运行mongo是启动shell，这是一个完备的Javascript解释器。<br>开启的时候，shell会自动连接到MongoDB服务器的test数据库，并将这个数据库连接赋值给全局变量db，这个变量是通过shell访问数据库的主要入口点。  </p>
+<ul>
+<li><p>CRUD基本操作</p>
+<pre><code>&gt; people = {&quot;name&quot;:&quot;yunsheng&quot;,&quot;age&quot;:26}
+{ &quot;name&quot; : &quot;yunsheng&quot;, &quot;age&quot; : 26 }
+&gt; db.peoples.insert(people)
+WriteResult({ &quot;nInserted&quot; : 1 })
+&gt; db.peoples.find()
+{ &quot;_id&quot; : ObjectId(&quot;55fc3d627754b90acf65b39f&quot;), &quot;name&quot; : &quot;yunsheng&quot;, &quot;age&quot; : 26 }
+&gt;  
+</code></pre><p>可以看出，peoples集合在insert的时候并不存在，但是会自动创建出来。对插入的文档，mongo会自动加入一个_id字段。</p>
+<pre><code>&gt; people.sex = &quot;male&quot;
+male
+&gt; db.peoples.update({&quot;name&quot;:&quot;yunsheng&quot;},people)
+WriteResult({ &quot;nMatched&quot; : 1, &quot;nUpserted&quot; : 0, &quot;nModified&quot; : 1 })
+&gt; db.peoples.find()
+{ &quot;_id&quot; : ObjectId(&quot;55fc3d627754b90acf65b39f&quot;), &quot;name&quot; : &quot;yunsheng&quot;, &quot;age&quot; : 26, &quot;sex&quot; : &quot;male&quot; }
+&gt;   
+</code></pre><p>可以看到，mongo可以动态的给文档增加一个属性，然后根据参数更新</p>
+<pre><code>&gt; db.peoples.remove({&quot;name&quot;:&quot;ss&quot;})
+WriteResult({ &quot;nRemoved&quot; : 0 })
+&gt; db.peoples.remove({&quot;name&quot;:&quot;yunsheng&quot;})
+WriteResult({ &quot;nRemoved&quot; : 1 })
+</code></pre></li>
+</ul>
+<p>删除</p>
+<h3 id="help"><a href="#help" class="headerlink" title="help"></a>help</h3><p>通过help查看api帮助<br>里面还有再下一层的db.help()查看db级别的api，db.foo.help()查看集合的api等等帮助方法。  </p>
+<p>另外，因为这个js的shell，所以可以通过调用方法是不加括号，来查看方法的源码，这样可以看到更具体的用法。如</p>
+<pre><code>&gt; db.peoples.update
+function ( query , obj , upsert , multi ){
+    assert( query , &quot;need a query&quot; );
+    assert( obj , &quot;need an object&quot; );
+    。。。
+</code></pre><h3 id="关于集合名"><a href="#关于集合名" class="headerlink" title="关于集合名"></a>关于集合名</h3><ul>
+<li><p>如果使用了数据库自有的属性作为集合名，在使用时，mongo是先去找属性，找不到才会作为集合返回。<br>可以使用db.getCollection（）方法强制返回集合。</p>
+</li>
+<li><p>因为在js中，x.y和x[‘y’]等价，所以我们可以使用变量来访问子集合了。如遍历子集合。</p>
+</li>
+</ul>
+<h3 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h3><ul>
+<li>JSON的6中类型：null,布尔，数字，字符串，数组，对象。</li>
+<li>mongo的改进：<br>对象id{“x”:ObjectId()},<br>日期 从标准纪元开始的毫秒数{“x”:new Date()}<br>正则表达式：文档中可以包含正则表达式<br>代码：文档中可以包含js代码<br>undefined：可以使用<br>内嵌文档：可以文档包含文档<br>数字：mongo有三种数字类型（32位整数，64位整数，64位浮点数），但js只有一种数字类型。所以存在一个数据转换的问题。shell中的数字被mongoDB默认是双精度的浮点数。所以在shell下你获得一个文档里面有32位整数，然后更新了文档中的某个字段（没有更新整数），这个整数也会被保存为浮点数。所以明智的做法是不要在shell中更新整个文档。（注意这里谈的是shell下）<br>还有一个问题是64位整数不一定能用64位浮点数准确表示。   对不能准确表示的情况，shell会添加两个键，bottom和top分别表示低32位和高32位。<br>注意，因为精度问题，绝对不要在数据库中以浮点数存储金额。<br>数组。<br>日期：使用js中的new Date()生成一个日期类型。注意不要用Date()，这只是返回date的字符串表示，会造成混乱。</li>
+</ul>
+<h3 id="id"><a href="#id" class="headerlink" title="_id"></a>_id</h3><p>每个文档都会有一个_id值，来唯一标记一个文档。这个_id可以是任意类型的，默认是ObjectId类型。ObjectId使用12字节的存储空间，每个字节两位16进制数。这样就是24位的字符串。<br>ObjectId的生成是前四个字节时间戳，然后三个字节机器码，然后两个字节PID，然后三个字节计数器。因为时间戳在前，所以大致上文档会按照时间排序。<br>文档中没有_id时，mongodb会自动生成。</p>
+<h2 id="文档操作"><a href="#文档操作" class="headerlink" title="文档操作"></a>文档操作</h2><h3 id="批量插入"><a href="#批量插入" class="headerlink" title="批量插入"></a>批量插入</h3><p>批量插入可以明显提高速度，因为一次批量插入是一次tcp请求。可以避免多次请求的开销。<br>只能向一个集合批量插入。一次mongo消息的限制是16M，所以批量插入也是有限制的。<br>批量插入的原理：驱动程序将数据转换成BSON格式，数据库解析BSON，校验是否含有_id和大小是否大于16M。除此之外不做其他校验，然后数据直接作为文本入库。这样可以避免注入攻击。（在shell中使用Object.bsonsize(doc)可以计算doc文档转成bson格式后的大小）  </p>
+<h3 id="删除文档"><a href="#删除文档" class="headerlink" title="删除文档"></a>删除文档</h3><p>db.users.remove(),删除所有文档，但是不会删除集合，也不会删除索引。可加参数。  </p>
+<p>db.drop_collec</p>
+<h3 id="更新文档"><a href="#更新文档" class="headerlink" title="更新文档"></a>更新文档</h3><p>更新是原子操作  </p>
+<p>修改器的使用  </p>
+<ol>
+<li><p>使用增加值修改器”$inc”:{“age”:2}<br>用来增加已有键的值，键不存在时，创建。只能用于数字值。</p>
+<pre><code>&gt; db.peoples.find()
+{ &quot;_id&quot; : ObjectId(&quot;560a0981d6aff3c237ce22ed&quot;), &quot;name&quot; : &quot;yunsheng&quot;, &quot;age&quot; : 26 }
+&gt; db.peoples.update({&quot;name&quot;:&quot;yunsheng&quot;},
+... {&quot;$inc&quot;:{&quot;age&quot;:2}})
+WriteResult({ &quot;nMatched&quot; : 1, &quot;nUpserted&quot; : 0, &quot;nModified&quot; : 1 })
+&gt; db.peoples.find()
+{ &quot;_id&quot; : ObjectId(&quot;560a0981d6aff3c237ce22ed&quot;), &quot;name&quot; : &quot;yunsheng&quot;, &quot;age&quot; : 28 }
+</code></pre><p>使用修改器时，是不可以修改_id的值的</p>
+</li>
+<li><p>“$set”修改器。<br>“$set”修改器用来指定一个键，如果键不存在，创建。</p>
+<pre><code>&gt; db.peoples.find()
+{ &quot;_id&quot; : ObjectId(&quot;560a0981d6aff3c237ce22ed&quot;), &quot;name&quot; : &quot;yunsheng&quot;, &quot;age&quot; : 28 }
+&gt; db.peoples.update({&quot;_id&quot; : ObjectId(&quot;560a0981d6aff3c237ce22ed&quot;)},{&quot;$set&quot; : {&quot;sex&quot;:&quot;male&quot;}})
+WriteResult({ &quot;nMatched&quot; : 1, &quot;nUpserted&quot; : 0, &quot;nModified&quot; : 1 })
+&gt; db.peoples.find()
+{ &quot;_id&quot; : ObjectId(&quot;560a0981d6aff3c237ce22ed&quot;), &quot;name&quot; : &quot;yunsheng&quot;, &quot;age&quot; : 28, &quot;sex&quot; : &quot;male&quot; }
+&gt;
+</code></pre><p>记住修改单个键值对，一定要用”$set”修改器，如果忘加了后果如下</p>
+<pre><code>&gt; db.peoples.update({&quot;_id&quot; : ObjectId(&quot;560a0981d6aff3c237ce22ed&quot;)},{&quot;sex&quot;:&quot;female&quot;})
+WriteResult({ &quot;nMatched&quot; : 1, &quot;nUpserted&quot; : 0, &quot;nModified&quot; : 1 })
+&gt; db.peoples.find()
+{ &quot;_id&quot; : ObjectId(&quot;560a0981d6aff3c237ce22ed&quot;), &quot;sex&quot; : &quot;female&quot; }
+</code></pre><p>整个文档被修改了  </p>
+</li>
+<li><p>使用”$unset”可将键删除</p>
+</li>
+<li><p>数组修改器”$push”，”$pop”,”$pull”<br>如果键已经存在，”$push”会向已有的数组末尾添加一个元素。如果数组不存在会创建一个数组。</p>
+</li>
+<li><p>当前，update操作默认只更新匹配到的第一个文档，如果希望更新所有，要给update方法的第四个参数传true。<br>function ( query , obj , upsert , multi )</p>
+</li>
+</ol>
+<h3 id="数据库连接"><a href="#数据库连接" class="headerlink" title="数据库连接"></a>数据库连接</h3><p>数据库会为每一个MongoDb数据库连接创建一个队列，存放这个连接的请求。注意每个连接都有独立的队列，开两个shell就有两个数据库连接，在一个shell里插入，在另一个shell里面并不一定能立即查到。</p>
+<h2 id="查询"><a href="#查询" class="headerlink" title="查询"></a>查询</h2><h3 id="find"><a href="#find" class="headerlink" title="find"></a>find</h3><ol>
+<li>find({…})可加查询参数,key:value形式，多个条件以,间隔，被解释成and关系。</li>
+<li><p>find({},{…})用第二个参数可指定返回的列</p>
+<pre><code>&gt; db.peoples.find({},{&quot;_id&quot;:0})
+{ &quot;sex&quot; : &quot;female&quot; }
+
+&gt; db.peoples.find({},{&quot;_id&quot;:1})
+{ &quot;_id&quot; : ObjectId(&quot;560a0981d6aff3c237ce22ed&quot;) }
+&gt; 
+</code></pre><p>0：不显示，1：显示。_id列不明确指定不返回，总是被返回。</p>
+</li>
+<li><p>查询条件<br>“$lt”,”$lte”,”$gt”,”$gte”  分别是&lt;,&lt;=,&gt;,&gt;=  </p>
+<pre><code>&gt; db.peoples.find({&quot;age&quot;:{&quot;$lt&quot;:20,&quot;$gt&quot;:10}})
+{ &quot;_id&quot; : ObjectId(&quot;560a0981d6aff3c237ce22ed&quot;), &quot;sex&quot; : &quot;female&quot;, &quot;age&quot; : 12 }
+</code></pre></li>
+</ol>
+<p>“$ne”是不等于</p>
+<p>“$in”用来加一个条件数组，条件可以使不同类型的。</p>
+<pre><code>&gt; db.peoples.find({&quot;age&quot;:{&quot;$in&quot;:[12,66]}})
+{ &quot;_id&quot; : ObjectId(&quot;560a0981d6aff3c237ce22ed&quot;), &quot;sex&quot; : &quot;female&quot;, &quot;age&quot; : 12, &quot;name&quot; : &quot;aa&quot; }
+{ &quot;_id&quot; : ObjectId(&quot;560b9125f566345c78fed34b&quot;), &quot;name&quot; : &quot;bb&quot;, &quot;age&quot; : 66 }
+</code></pre><p>“$nin”不在</p>
+<p>“$or”或条件。用法举例：”$or”:[条件数组]</p>
+<pre><code>&gt; db.peoples.find()
+{ &quot;_id&quot; : ObjectId(&quot;560a0981d6aff3c237ce22ed&quot;), &quot;sex&quot; : &quot;female&quot;, &quot;age&quot; : 12, &quot;name&quot; : &quot;aa&quot; }
+{ &quot;_id&quot; : ObjectId(&quot;560b9125f566345c78fed34b&quot;), &quot;name&quot; : &quot;bb&quot;, &quot;age&quot; : 66 }
+&gt; db.peoples.find({&quot;$or&quot;:[{&quot;name&quot;:&quot;aa&quot;},{&quot;age&quot;:66}]})
+{ &quot;_id&quot; : ObjectId(&quot;560a0981d6aff3c237ce22ed&quot;), &quot;sex&quot; : &quot;female&quot;, &quot;age&quot; : 12, &quot;name&quot; : &quot;aa&quot; }
+{ &quot;_id&quot; : ObjectId(&quot;560b9125f566345c78fed34b&quot;), &quot;name&quot; : &quot;bb&quot;, &quot;age&quot; : 66 }
+&gt; db.peoples.find({&quot;$or&quot;:[{&quot;name&quot;:&quot;aa&quot;},{&quot;age&quot;:{&quot;$gt&quot;:60}}]})
+{ &quot;_id&quot; : ObjectId(&quot;560a0981d6aff3c237ce22ed&quot;), &quot;sex&quot; : &quot;female&quot;, &quot;age&quot; : 12, &quot;name&quot; : &quot;aa&quot; }
+{ &quot;_id&quot; : ObjectId(&quot;560b9125f566345c78fed34b&quot;), &quot;name&quot; : &quot;bb&quot;, &quot;age&quot; : 66 }
+&gt; 
+</code></pre><p>“$mod”模运算。下例是用参数模10，余6的记录</p>
+<pre><code>&gt; db.peoples.find({&quot;age&quot;:{&quot;$mod&quot;:[10,6]}})
+{ &quot;_id&quot; : ObjectId(&quot;560b9125f566345c78fed34b&quot;), &quot;name&quot; : &quot;bb&quot;, &quot;age&quot; : 66 }
+&gt; 
+</code></pre><p>“$not”非运算。放到前面</p>
+<pre><code>&gt; 
+&gt; db.peoples.find({&quot;age&quot;:{&quot;$not&quot;:{&quot;$mod&quot;:[10,6]}}})
+{ &quot;_id&quot; : ObjectId(&quot;560a0981d6aff3c237ce22ed&quot;), &quot;sex&quot; : &quot;female&quot;, &quot;age&quot; : 12, &quot;name&quot; : &quot;aa&quot; }
+&gt; 
+</code></pre><h3 id="查询的条件句是内层文档的键，而修改器则是外层文档的键。一个文档的键可以有多个查询条件，但是不能同时使用多个修改器。"><a href="#查询的条件句是内层文档的键，而修改器则是外层文档的键。一个文档的键可以有多个查询条件，但是不能同时使用多个修改器。" class="headerlink" title="查询的条件句是内层文档的键，而修改器则是外层文档的键。一个文档的键可以有多个查询条件，但是不能同时使用多个修改器。"></a>查询的条件句是内层文档的键，而修改器则是外层文档的键。一个文档的键可以有多个查询条件，但是不能同时使用多个修改器。</h3><h3 id="null"><a href="#null" class="headerlink" title="null"></a>null</h3><ul>
+<li><p>null 可以匹配值为null的文档，也会匹配出没有这个键的文档</p>
+<pre><code>&gt; db.peoples.find({&quot;hobby&quot;:null})
+{ &quot;_id&quot; : ObjectId(&quot;560a0981d6aff3c237ce22ed&quot;), &quot;sex&quot; : &quot;female&quot;, &quot;age&quot; : 12, &quot;name&quot; : &quot;aa&quot; }
+{ &quot;_id&quot; : ObjectId(&quot;560b9125f566345c78fed34b&quot;), &quot;name&quot; : &quot;bb&quot;, &quot;age&quot; : 66 }
+&gt; 
+</code></pre><p>如果只想匹配存在这个键，只是值为null的文档（”$exists”）：</p>
+<pre><code>&gt; db.peoples.find({&quot;hobby&quot;:{&quot;$in&quot;:[null], &quot;$exists&quot;:true }})
+&gt; 
+</code></pre><p>注意，没有”$eq”操作符</p>
+</li>
+</ul>
+<h3 id="正则表达式"><a href="#正则表达式" class="headerlink" title="正则表达式"></a>正则表达式</h3><p>mongo的查询支持正则表达式。  </p>
+<pre><code>&gt; db.peoples.find({&quot;name&quot;:/BB/i})
+{ &quot;_id&quot; : ObjectId(&quot;560b9125f566345c78fed34b&quot;), &quot;name&quot; : &quot;bb&quot;, &quot;age&quot; : 66 }
+&gt; 
+</code></pre><h3 id="查询数组"><a href="#查询数组" class="headerlink" title="查询数组"></a>查询数组</h3><p>查询数组时，只使用数组中的一个元素匹配，可以查出整条文档。</p>
+<pre><code>&gt; db.peoples.find()
+{ &quot;_id&quot; : ObjectId(&quot;560a0981d6aff3c237ce22ed&quot;), &quot;sex&quot; : &quot;female&quot;, &quot;age&quot; : 12, &quot;name&quot; : &quot;aa&quot; }
+{ &quot;_id&quot; : ObjectId(&quot;560b9125f566345c78fed34b&quot;), &quot;name&quot; : &quot;bb&quot;, &quot;age&quot; : 66 }
+{ &quot;_id&quot; : ObjectId(&quot;56132236702bab83edb12602&quot;), &quot;hobby&quot; : [ &quot;running&quot;, &quot;swimming&quot; ] }
+&gt; db.peoples.find({&quot;hobby&quot; : &quot;running&quot;})
+{ &quot;_id&quot; : ObjectId(&quot;56132236702bab83edb12602&quot;), &quot;hobby&quot; : [ &quot;running&quot;, &quot;swimming&quot; ] }
+&gt; 
+</code></pre><ol>
+<li><p>使用”$all”操作符，查询包含多个值的数组的文档。元素顺序无关。</p>
+<pre><code>{ &quot;_id&quot; : ObjectId(&quot;56132236702bab83edb12602&quot;), &quot;hobby&quot; : [ &quot;running&quot;, &quot;swimming&quot; ] }
+&gt; db.peoples.find({&quot;hobby&quot; :{&quot;$all&quot; : [&quot;running&quot;,&quot;swimming&quot;]}})
+{ &quot;_id&quot; : ObjectId(&quot;56132236702bab83edb12602&quot;), &quot;hobby&quot; : [ &quot;running&quot;, &quot;swimming&quot; ] }
+&gt; db.peoples.find({&quot;hobby&quot; :{&quot;$all&quot; : [&quot;swimming&quot;,&quot;running&quot;]}})
+{ &quot;_id&quot; : ObjectId(&quot;56132236702bab83edb12602&quot;), &quot;hobby&quot; : [ &quot;running&quot;, &quot;swimming&quot; ] }
+&gt; 
+</code></pre></li>
+</ol>
+<p>但是不使用”$all”操作符，直接使用数组精确匹配，就必须元素内容和顺序都一样，即数组一样才匹配。</p>
+<pre><code>&gt; db.peoples.find({&quot;hobby&quot; :[&quot;swimming&quot;,&quot;running&quot;]})
+&gt; db.peoples.find({&quot;hobby&quot; :[&quot;running&quot; , &quot;swimming&quot;]})
+{ &quot;_id&quot; : ObjectId(&quot;56132236702bab83edb12602&quot;), &quot;hobby&quot; : [ &quot;running&quot;, &quot;swimming&quot; ] }
+&gt; db.peoples.find({&quot;hobby&quot; :[&quot;running&quot;]})
+&gt; 
+</code></pre><ol>
+<li><p>“$size”操作符<br>通过数组长度匹配。</p>
+<pre><code>&gt; db.peoples.find({&quot;hobby&quot; :{&quot;$size&quot; : 3}})
+&gt; db.peoples.find({&quot;hobby&quot; :{&quot;$size&quot; : 2}})
+{ &quot;_id&quot; : ObjectId(&quot;56132236702bab83edb12602&quot;), &quot;hobby&quot; : [ &quot;running&quot;, &quot;swimming&quot; ] }
+&gt; 
+</code></pre><p>但是”$size”不能与”$gt”等连用，即只能匹配精确长度的数组。<br>一个替代方法是，为文档加一个自增的size属性，如：</p>
+<pre><code>&gt; db.peoples.find()
+{ &quot;_id&quot; : ObjectId(&quot;560a0981d6aff3c237ce22ed&quot;), &quot;sex&quot; : &quot;female&quot;, &quot;age&quot; : 12, &quot;name&quot; : &quot;aa&quot; }
+{ &quot;_id&quot; : ObjectId(&quot;560b9125f566345c78fed34b&quot;), &quot;name&quot; : &quot;bb&quot;, &quot;age&quot; : 66 }
+{ &quot;_id&quot; : ObjectId(&quot;56132236702bab83edb12602&quot;), &quot;hobby&quot; : [ &quot;running&quot;, &quot;swimming&quot; ] }
+&gt; db.peoples.update({ &quot;_id&quot; : ObjectId(&quot;56132236702bab83edb12602&quot;)},
+... {&quot;$push&quot; : {&quot;hobby&quot;: &quot;pingpang&quot;}})
+WriteResult({ &quot;nMatched&quot; : 1, &quot;nUpserted&quot; : 0, &quot;nModified&quot; : 1 })
+&gt; db.peoples.find()
+{ &quot;_id&quot; : ObjectId(&quot;560a0981d6aff3c237ce22ed&quot;), &quot;sex&quot; : &quot;female&quot;, &quot;age&quot; : 12, &quot;name&quot; : &quot;aa&quot; }
+{ &quot;_id&quot; : ObjectId(&quot;560b9125f566345c78fed34b&quot;), &quot;name&quot; : &quot;bb&quot;, &quot;age&quot; : 66 }
+{ &quot;_id&quot; : ObjectId(&quot;56132236702bab83edb12602&quot;), &quot;hobby&quot; : [ &quot;running&quot;, &quot;swimming&quot;, &quot;pingpang&quot; ] }
+&gt; 
+</code></pre><p>这个更新并没有增加一个自增键。</p>
+<pre><code>&gt; db.peoples.update({ &quot;_id&quot; : ObjectId(&quot;56132236702bab83edb12602&quot;)}, {&quot;$inc&quot; : {&quot;size&quot; : 4}})
+WriteResult({ &quot;nMatched&quot; : 1, &quot;nUpserted&quot; : 0, &quot;nModified&quot; : 1 })
+&gt; db.peoples.find()
+{ &quot;_id&quot; : ObjectId(&quot;560a0981d6aff3c237ce22ed&quot;), &quot;sex&quot; : &quot;female&quot;, &quot;age&quot; : 12, &quot;name&quot; : &quot;aa&quot; }
+{ &quot;_id&quot; : ObjectId(&quot;560b9125f566345c78fed34b&quot;), &quot;name&quot; : &quot;bb&quot;, &quot;age&quot; : 66 }
+{ &quot;_id&quot; : ObjectId(&quot;56132236702bab83edb12602&quot;), &quot;hobby&quot; : [ &quot;running&quot;, &quot;swimming&quot;, &quot;pingpang&quot;, &quot;basketball&quot; ], &quot;size&quot; : 4 }
+</code></pre><p>下载有了这个”size”键,就可以和”$gt”等连用了。</p>
+<pre><code>&gt; db.peoples.find({&quot;size&quot;:{&quot;$gt&quot;:4}})
+{ &quot;_id&quot; : ObjectId(&quot;56132236702bab83edb12602&quot;), &quot;hobby&quot; : [ &quot;running&quot;, &quot;swimming&quot;, &quot;pingpang&quot;, &quot;basketball&quot;, &quot;football&quot; ], &quot;size&quot; : 5 }
+&gt; 
+</code></pre></li>
+<li><p>“$slice”指定返回条数<br>用$slice指定返回的数组的条数。</p>
+<pre><code>&gt; db.peoples.find({ &quot;_id&quot; : ObjectId(&quot;56132236702bab83edb12602&quot;)},{&quot;hobby&quot; : {&quot;$slice&quot;:3 }})
+{ &quot;_id&quot; : ObjectId(&quot;56132236702bab83edb12602&quot;), &quot;hobby&quot; : [ &quot;running&quot;, &quot;swimming&quot;, &quot;pingpang&quot; ], &quot;size&quot; : 5 }
+&gt; 
+</code></pre><p>“$slice”:3 可以返回前三个，-3可以返回后三个</p>
+<pre><code>&gt; db.peoples.find({ &quot;_id&quot; : ObjectId(&quot;56132236702bab83edb12602&quot;)},{&quot;hobby&quot; : {&quot;$slice&quot;:[2,2] }})
+{ &quot;_id&quot; : ObjectId(&quot;56132236702bab83edb12602&quot;), &quot;hobby&quot; : [ &quot;pingpang&quot;, &quot;basketball&quot; ], &quot;size&quot; : 5 }
+&gt;
+</code></pre><p>调过前两个，返回之后的2个。</p>
+<pre><code>&gt; db.peoples.find({ &quot;_id&quot; : ObjectId(&quot;56132236702bab83edb12602&quot;)},{&quot;hobby&quot; : {&quot;$slice&quot;:-3 }, &quot;_id&quot; : 0})
+{ &quot;hobby&quot; : [ &quot;pingpang&quot;, &quot;basketball&quot;, &quot;football&quot; ], &quot;size&quot; : 5 }
+&gt; 
+</code></pre><p>可以看到，其他键是默认返回的，不想返回加过滤。</p>
+</li>
+</ol>
+<h3 id="查询内嵌文档"><a href="#查询内嵌文档" class="headerlink" title="查询内嵌文档"></a>查询内嵌文档</h3><p>使用点号查询。深入一级。</p>
+<pre><code>&gt; db.peoples.find({&quot;name.first&quot; : &quot;yang&quot;})
+{ &quot;_id&quot; : ObjectId(&quot;560b9125f566345c78fed34b&quot;), &quot;name&quot; : { &quot;first&quot; : &quot;yang&quot;, &quot;last&quot; : &quot;yunsheng&quot; }, &quot;age&quot; : 66 }
+&gt; 
+</code></pre><p>再比如有属下数据：</p>
+<pre><code>&gt; db.peoples.find()
+{ &quot;_id&quot; : ObjectId(&quot;560a0981d6aff3c237ce22ed&quot;), &quot;sex&quot; : &quot;female&quot;, &quot;age&quot; : 12, &quot;name&quot; : &quot;aa&quot; }
+{ &quot;_id&quot; : ObjectId(&quot;56132236702bab83edb12602&quot;), &quot;hobby&quot; : [ &quot;running&quot;, &quot;swimming&quot;, &quot;pingpang&quot;, &quot;basketball&quot;, &quot;football&quot; ], &quot;size&quot; : 5 }
+{ &quot;_id&quot; : ObjectId(&quot;560b9125f566345c78fed34b&quot;), &quot;score&quot; : { &quot;yuwen&quot; : 99, &quot;shuxue&quot; : 88, &quot;yingyu&quot; : 77 }, &quot;name&quot; : &quot;yunsheng&quot;, &quot;age&quot; : 26 }
+</code></pre><p>现在想要查询，数学分数大于90的记录，如果用：</p>
+<pre><code>&gt; db.peoples.find({&quot;score.name&quot; : &quot;shuxue&quot;, &quot;score.result&quot;:{&quot;$gt&quot;:90} })
+{ &quot;_id&quot; : ObjectId(&quot;560b9125f566345c78fed34b&quot;), &quot;score&quot; : [ { &quot;name&quot; : &quot;yuwen&quot;, &quot;result&quot; : 99 }, { &quot;name&quot; : &quot;shuxue&quot;, &quot;result&quot; : 88 } ], &quot;name&quot; : &quot;yunsheng&quot;, &quot;age&quot; : 26 }
+</code></pre><p>这是不对的，因为这是对整个文档去匹配。score.name和score.result都可以匹配到，但不是我们想要的在同一个内嵌文档中。<br>正确写法是这样的：</p>
+<pre><code>&gt; db.peoples.find({&quot;score&quot;: {&quot;$elemMatch&quot;: {&quot;name&quot;:&quot;shuxue&quot;,&quot;result&quot;:{&quot;$gt&quot;:90 } }}})
+&gt; 
+</code></pre><h3 id="where查询"><a href="#where查询" class="headerlink" title="where查询"></a>where查询</h3><p> 使用where查询，可以使用js函数进行过滤，当执行函数的结果为true时，该文档会放到结果集中。</p>
+<pre><code> &gt; db.peoples.find({&quot;$where&quot; : &quot;this.name == &apos;aa&apos;&quot;})
+{ &quot;_id&quot; : ObjectId(&quot;560a0981d6aff3c237ce22ed&quot;), &quot;sex&quot; : &quot;female&quot;, &quot;age&quot; : 12, &quot;name&quot; : &quot;aa&quot; }
+
+&gt; db.peoples.find({&quot;$where&quot; : &quot;function() {return this.name == &apos;aa&apos;}&quot;})
+{ &quot;_id&quot; : ObjectId(&quot;560a0981d6aff3c237ce22ed&quot;), &quot;sex&quot; : &quot;female&quot;, &quot;age&quot; : 12, &quot;name&quot; : &quot;aa&quot; }
+&gt; 
+</code></pre><p>注意的是，where查询的效率很低，比常规查询慢很多。因为要将BSON转换成js对象，还不能用索引。所以where是在走投无路下用的。</p>
+<h3 id="游标"><a href="#游标" class="headerlink" title="游标"></a>游标</h3><p>查询的结果可以放到游标中，暂时保存。  </p>
+<pre><code>&gt; for(i = 1; i&lt;= 100; i++){ db.myCol.insert({x : i}); }
+WriteResult({ &quot;nInserted&quot; : 1 })
+</code></pre><p>先建一个文档。<br>然后用游标保存结果。</p>
+<pre><code>&gt; var cursor = db.myCol.find();
+&gt; while(cursor.hasNext()){
+... obj = cursor.next();
+... print(obj.x);
+... }
+1
+2
+3
+4
+5
+。。。。
+</code></pre><p>还可以用foreach方法</p>
+<pre><code>&gt; var cursor = db.myCol.find();
+&gt; cursor.forEach(function(obj){ print(obj.x); }  );
+1
+2
+3。。。
+</code></pre><p>使用游标时，find()不会立即执行，而是当真正获取结果时，才发送查询请求。  </p>
+<h3 id="limit，skip，sort"><a href="#limit，skip，sort" class="headerlink" title="limit，skip，sort"></a>limit，skip，sort</h3><p>limit用来限制返回结果的数量。 &gt; db.myCol.find().limit(5)<br>skip用来跳过指定条数。&gt; db.myCol.find().skip(5);<br>sort用来指定排序，1是升序，-1是降序。可以指定多个排序的键。 &gt; db.myCol.find().sort({“x” : -1})  </p>
+<p>这三个要灵活的组合连用。实现分页等。<br>一个键可以有多种类型的值，对不同类型的排序是预定义好的：  </p>
+<pre><code>When comparing values of different BSON types, MongoDB uses the following comparison order, from lowest to highest:
+MinKey (internal type)
+Null
+Numbers (ints, longs, doubles)
+Symbol, String
+Object
+Array
+BinData
+ObjectId
+Boolean
+Date
+Timestamp
+Regular Expression
+MaxKey (internal type)
+</code></pre><h3 id="分页"><a href="#分页" class="headerlink" title="分页"></a>分页</h3><p>要避免对过多数据的skip，会变得很慢。<br>所以分页的时候，可以用一些办法代替skip。例如一般分页都会根据某个字段排序，我们可以利用这个，每次保存下最后一个文档，在下一次查询时，加一个查询条件，查大于这个值的。</p>
+<pre><code>&gt; var last = null;
+&gt; var page1 = db.myCol.find().sort({&quot;x&quot; : 1}).limit(5);
+&gt; while(page1.hasNext()){
+... last = page1.next();
+... }
+{ &quot;_id&quot; : ObjectId(&quot;5615dd40ea202bacf71960df&quot;), &quot;x&quot; : 5 }
+
+&gt; var page2 = db.myCol.find({&quot;x&quot;:{&quot;$gt&quot;: last.x}}).sort({&quot;x&quot; : 1}).limit(5);
+&gt; while(page2.hasNext()){ print(page2.next().x); }
+6
+7
+8
+9
+10
+</code></pre><p>游标的释放是很快的，page1和page2在完成遍历时已经释放掉了。</p>
+<h2 id="索引"><a href="#索引" class="headerlink" title="索引"></a>索引</h2><p>mongo的索引和关系型数据库的几乎一模一样，所以其技巧同样适用于mongo。<br><a href="www.ituring.com.cn/article/986#">索引：www.ituring.com.cn/article/986#</a></p>
+<h3 id="创建索引"><a href="#创建索引" class="headerlink" title="创建索引"></a>创建索引</h3><pre><code>&gt; db.myCol.ensureIndex({&quot;x&quot; : 1})
+{
+    &quot;createdCollectionAutomatically&quot; : false,
+    &quot;numIndexesBefore&quot; : 1,
+    &quot;numIndexesAfter&quot; : 2,
+    &quot;ok&quot; : 1
+}
+&gt; 
+</code></pre><p>后面的值表示方向，1是升序，-1是降序。<br>联合多个属性建立索引时，元素相同，方向不同的索引是不同的。<br>也就是说可以建立多个元素一样，但是方向不一样的索引，已加速不同的查询。</p>
+<p>mongo会对索引的顺序进行重排序，以便利用更多的索引。</p>
+<p>索引{“a”:1,”b”:1,”c”:1}相当于也有了索引{“a”:1},{“a”:1,”b”:1},但是需要使用这些索引{“b”:1}，{“c”:1},{“a”:1,”c”:1}的并不能获得加速。就是说多索引，相当于同时有了前面的索引。  </p>
+<h3 id="为内嵌文档创建索引"><a href="#为内嵌文档创建索引" class="headerlink" title="为内嵌文档创建索引"></a>为内嵌文档创建索引</h3><p>一样</p>
+<h3 id="为排序创建索引"><a href="#为排序创建索引" class="headerlink" title="为排序创建索引"></a>为排序创建索引</h3><p>如果对没有索引的键进行排序，mongo需要将所有文档提取到内存中，一旦集合达到不能在内存中进行排序，mongo就会报错。所以按照顺序来索引，以便mongo按照顺序提取数据，可以进行大数据的排序了。</p>
+<h3 id="唯一索引"><a href="#唯一索引" class="headerlink" title="唯一索引"></a>唯一索引</h3><p>就是不能插入重复的，最熟悉的就是”_id”</p>
+<pre><code>&gt; db.myCol.ensureIndex({&quot;x&quot;:1}, {&quot;unique&quot; : true});
+</code></pre><ul>
+<li><p>消除重复。因为唯一索引，建索引的时候可能会因为重复而失败。<br>一种措施是只保留第一个，而将接下来重复的文档删除。  </p>
+<pre><code>db.myCol.ensureIndex({&quot;x&quot;:1}, {&quot;unique&quot; : true, &quot;dropDups&quot; : true});
+</code></pre><p>简单粗暴</p>
+</li>
+</ul>
+<h3 id="复合唯一索引"><a href="#复合唯一索引" class="headerlink" title="复合唯一索引"></a>复合唯一索引</h3><h3 id="explain"><a href="#explain" class="headerlink" title="explain"></a>explain</h3><p>查看该查询的细节。</p>
+<pre><code>&gt; db.myCol.find().explain()
+{
+    &quot;cursor&quot; : &quot;BasicCursor&quot;,---说明未使用索引
+    &quot;isMultiKey&quot; : false,
+    &quot;n&quot; : 100,
+    &quot;nscannedObjects&quot; : 100,
+    &quot;nscanned&quot; : 100,
+    &quot;nscannedObjectsAllPlans&quot; : 100,
+    &quot;nscannedAllPlans&quot; : 100,
+    &quot;scanAndOrder&quot; : false,
+    &quot;indexOnly&quot; : false,
+    &quot;nYields&quot; : 0,
+    &quot;nChunkSkips&quot; : 0,
+    &quot;millis&quot; : 0,
+    &quot;server&quot; : &quot;mongo:27017&quot;,
+    &quot;filterSet&quot; : false
+}
+&gt; db.myCol.find({&quot;x&quot; : {&quot;$gt&quot; : 50}}).explain()
+{
+    &quot;cursor&quot; : &quot;BtreeCursor x_1&quot;,------使用索引x_1
+    &quot;isMultiKey&quot; : false,
+    &quot;n&quot; : 50,--------------------------返回50个
+    &quot;nscannedObjects&quot; : 50,
+    &quot;nscanned&quot; : 50,-------------------查了50个
+    &quot;nscannedObjectsAllPlans&quot; : 100,
+    &quot;nscannedAllPlans&quot; : 100,
+    &quot;scanAndOrder&quot; : false,
+    &quot;indexOnly&quot; : false,
+    &quot;nYields&quot; : 0,
+    &quot;nChunkSkips&quot; : 0,
+    &quot;millis&quot; : 0,---------------------时间
+    &quot;indexBounds&quot; : {
+        &quot;x&quot; : [
+            [
+                50,
+                Infinity
+            ]
+        ]
+    },
+    &quot;server&quot; : &quot;mongo:27017&quot;,
+    &quot;filterSet&quot; : false
+}
+</code></pre><h3 id="删除索引"><a href="#删除索引" class="headerlink" title="删除索引"></a>删除索引</h3><p>db.myCol.dropIndex(“x_1”)<br>db.myCol.dropIndexes()</p>
+<h3 id="管理索引system-indexes"><a href="#管理索引system-indexes" class="headerlink" title="管理索引system.indexes"></a>管理索引system.indexes</h3><p>可以在system.indexes继续查询该索引的详细信息：</p>
+<pre><code>&gt; db.system.indexes.find({&quot;ns&quot; : &quot;test.myCol&quot;, &quot;name&quot;:&quot;x_1&quot;});
+{ &quot;v&quot; : 1, &quot;key&quot; : { &quot;x&quot; : 1 }, &quot;name&quot; : &quot;x_1&quot;, &quot;ns&quot; : &quot;test.myCol&quot; }
+&gt; 
+</code></pre><p>system.indexes是mongo的一个保留集合，不能直接对其插入或者删除文档</p>
+<h3 id="修改索引"><a href="#修改索引" class="headerlink" title="修改索引"></a>修改索引</h3><blockquote>
+<p>db.myCol.ensureIndex({“x” : 1},{“background” : true});<br>这个{“background” : true}参数为true，可以使索引的建立在后台进行，不阻塞业务。</p>
+</blockquote>
+<h3 id="地理空间索引"><a href="#地理空间索引" class="headerlink" title="地理空间索引"></a>地理空间索引</h3><p>建立一个二维索引：</p>
+<pre><code>&gt; db.map.ensureIndex({&quot;gps&quot; : &quot;2d&quot;})
+{
+    &quot;createdCollectionAutomatically&quot; : true,
+    &quot;numIndexesBefore&quot; : 1,
+    &quot;numIndexesAfter&quot; : 2,
+    &quot;ok&quot; : 1
+}
+</code></pre><p>值不是1或者-1了，而是”2d”。  </p>
+<p>键”gps”的值必须是某种形式的一对数值，如两个值的数组，两个值的内嵌文档。<br>默认的值是-180~180。<br>也可以在创建索引的时候指定最大值最小值：  </p>
+<pre><code>&gt; db.map.ensureIndex({&quot;gps&quot; : &quot;2d&quot;},{&quot;min&quot; : -100,&quot;max&quot; : 100});
+{
+    &quot;createdCollectionAutomatically&quot; : false,
+    &quot;numIndexesBefore&quot; : 1,
+    &quot;numIndexesAfter&quot; : 2,
+    &quot;ok&quot; : 1
+}
+</code></pre><p>位置的查询可以用<code>$near</code>,查询距离目标最近的文档。默认返回100个。  </p>
+<pre><code>&gt; db.map.find({&quot;gps&quot; : {&quot;$near&quot; : [-10,10]}}).limit(10)
+{ &quot;_id&quot; : ObjectId(&quot;56165e84fee867b264ec175f&quot;), &quot;gps&quot; : [ 10, 10 ] }
+&gt; 
+</code></pre><p>还有另一种方法<code>runCommand</code>，</p>
+<pre><code>&gt; db.runCommand({geoNear : &quot;map&quot;, near : [-10,10], limit:10})
+{
+    &quot;results&quot; : [
+        {
+            &quot;dis&quot; : 20,
+            &quot;obj&quot; : {
+                &quot;_id&quot; : ObjectId(&quot;56165e84fee867b264ec175f&quot;),
+                &quot;gps&quot; : [
+                    10,
+                    10
+                ]
+            }
+        }
+    ],
+    &quot;stats&quot; : {
+        &quot;nscanned&quot; : NumberLong(1),
+        &quot;objectsLoaded&quot; : NumberLong(1),
+        &quot;avgDistance&quot; : 20,
+        &quot;maxDistance&quot; : 20,
+        &quot;time&quot; : 0
+    },
+    &quot;ok&quot; : 1
+}
+</code></pre><p>好处是可以得到两点间的距离。但是若结果大于4M，只能用find+near</p>
+<p>mongo还能够找到指定形状内的点。将<code>$near</code>换成<code>$within</code>。当前应该是支持矩形，圆形，多边形，球形。<br>矩形的<code>$box</code>:左下角坐标，右上角坐标：</p>
+<pre><code>&gt; db.map.find({&quot;gps&quot; : {&quot;$within&quot; : {&quot;$box&quot; : [[5,5],[20,20]]}}}).limit(10)
+{ &quot;_id&quot; : ObjectId(&quot;56165e84fee867b264ec175f&quot;), &quot;gps&quot; : [ 10, 10 ] }
+&gt; 
+</code></pre><p>圆形<code>$center</code>:圆心，半径:</p>
+<pre><code>&gt; db.map.find({&quot;gps&quot; : {&quot;$within&quot; : {&quot;$center&quot; : [[5,5],20]}}}).limit(10)
+{ &quot;_id&quot; : ObjectId(&quot;56165e84fee867b264ec175f&quot;), &quot;gps&quot; : [ 10, 10 ] }
+&gt; 
+</code></pre><h2 id="聚合操作"><a href="#聚合操作" class="headerlink" title="聚合操作"></a>聚合操作</h2><h3 id="count"><a href="#count" class="headerlink" title="count"></a>count</h3><p>统计总数</p>
+<pre><code>&gt; db.myCol.count()
+100
+&gt; db.myCol.count({&quot;x&quot; : {&quot;$gt&quot; : 70}})
+30
+&gt; 
+</code></pre><h3 id="distinct"><a href="#distinct" class="headerlink" title="distinct"></a>distinct</h3><p>用于查询出在该集合中，某个键的所有不同的值。runCommand。要指定集合和key</p>
+<pre><code>&gt; db.runCommand({&quot;distinct&quot;:&quot;myCol&quot; , &quot;key&quot; : &quot;y&quot;})
+{
+    &quot;values&quot; : [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+    ],
+    &quot;stats&quot; : {
+        &quot;n&quot; : 100,
+        &quot;nscanned&quot; : 100,
+        &quot;nscannedObjects&quot; : 100,
+        &quot;timems&quot; : 0,
+        &quot;cursor&quot; : &quot;BasicCursor&quot;
+    },
+    &quot;ok&quot; : 1
+}
+</code></pre><p>直接用distinct方法，</p>
+<pre><code>&gt; db.myCol.distinct(&quot;y&quot;)
+[ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ]
+</code></pre><h3 id="group"><a href="#group" class="headerlink" title="group"></a>group</h3><p>根据键的值分组，很像关系型数据库的group by。<br>先构造一个数据，y的值变为x模10的值。</p>
+<pre><code>&gt; for(i=1; i&lt;=100; i++){ db.myCol.update({&quot;x&quot;:i},{&quot;$set&quot; : {&quot;y&quot; : NumberInt(i/10)}}); }
+WriteResult({ &quot;nMatched&quot; : 1, &quot;nUpserted&quot; : 0, &quot;nModified&quot; : 0 })
+&gt; db.myCol.find()
+{ &quot;_id&quot; : ObjectId(&quot;5615dd40ea202bacf71960db&quot;), &quot;x&quot; : 1, &quot;y&quot; : 0 }
+{ &quot;_id&quot; : ObjectId(&quot;5615dd40ea202bacf71960dc&quot;), &quot;x&quot; : 2, &quot;y&quot; : 0 }
+{ &quot;_id&quot; : ObjectId(&quot;5615dd40ea202bacf71960dd&quot;), &quot;x&quot; : 3, &quot;y&quot; : 0 }
+{ &quot;_id&quot; : ObjectId(&quot;5615dd40ea202bacf71960de&quot;), &quot;x&quot; : 4, &quot;y&quot; : 0 }
+{ &quot;_id&quot; : ObjectId(&quot;5615dd40ea202bacf71960df&quot;), &quot;x&quot; : 5, &quot;y&quot; : 0 }
+{ &quot;_id&quot; : ObjectId(&quot;5615dd40ea202bacf71960e0&quot;), &quot;x&quot; : 6, &quot;y&quot; : 0 }
+{ &quot;_id&quot; : ObjectId(&quot;5615dd40ea202bacf71960e1&quot;), &quot;x&quot; : 7, &quot;y&quot; : 0 }
+{ &quot;_id&quot; : ObjectId(&quot;5615dd40ea202bacf71960e2&quot;), &quot;x&quot; : 8, &quot;y&quot; : 0 }
+{ &quot;_id&quot; : ObjectId(&quot;5615dd40ea202bacf71960e3&quot;), &quot;x&quot; : 9, &quot;y&quot; : 0 }
+{ &quot;_id&quot; : ObjectId(&quot;5615dd40ea202bacf71960e4&quot;), &quot;x&quot; : 10, &quot;y&quot; : 1 }
+。。。
+</code></pre><p>根据y进行分组，cond可以加个条件也可不加，reduce进行处理，initial设定一个初始值。</p>
+<pre><code>&gt; db.myCol.group({ 
+    key: {y:1}, 
+    cond : {y : {&quot;$lt&quot; : 6}}, 
+    reduce : function(cur, result){result.x += cur.x}, 
+    initial:{x : 0} 
+    })
+[
+    {
+        &quot;y&quot; : 0,
+        &quot;x&quot; : 45
+    },
+    {
+        &quot;y&quot; : 1,
+        &quot;x&quot; : 145
+    },
+    {
+        &quot;y&quot; : 2,
+        &quot;x&quot; : 245
+    },
+    {
+        &quot;y&quot; : 3,
+        &quot;x&quot; : 345
+    },
+    {
+        &quot;y&quot; : 4,
+        &quot;x&quot; : 445
+    },
+    {
+        &quot;y&quot; : 5,
+        &quot;x&quot; : 545
+    }
+]
+</code></pre><h3 id="MapReduce"><a href="#MapReduce" class="headerlink" title="MapReduce"></a>MapReduce</h3><p>可以执行非常强大的聚合功能。厉害的地方在于它是一个可以轻松并行化到多个服务器的聚合方法。它会拆分问题，再将各个部分发送到不同的机器上，让每台机器都完成一部分，最后再把结果汇集起来。<br>MapReduce的功能强大，但是牺牲了速度，决不能用在实时环境中。正确的用法是所谓后台任务运行MapReduce,MapReduce会创建一个保存结果的集合，可以对这个集合进行实时查询。<br>借用一下mongo官网的图 <img src="https://docs.mongodb.org/manual/_images/map-reduce.png" alt=""><br>map函数使用emit返回要处理的值。  </p>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/06/06/MongoDB进阶/" rel="next" title="">
+                <i class="fa fa-chevron-left"></i> 
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/06/06/linux_cmd/" rel="prev" title="">
+                 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/06/06/MongoDB讲解/"
+           data-title="" data-url="http://yoursite.com/2016/06/06/MongoDB讲解/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/me.jpg"
+               alt="yunsheng" />
+          <p class="site-author-name" itemprop="name">yunsheng</p>
+          <p class="site-description motion-element" itemprop="description">云胜的笔记</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">29</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#MongoDB"><span class="nav-number">1.</span> <span class="nav-text">MongoDB</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#文档"><span class="nav-number">1.1.</span> <span class="nav-text">文档</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#集合"><span class="nav-number">1.2.</span> <span class="nav-text">集合</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据库"><span class="nav-number">1.3.</span> <span class="nav-text">数据库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装MongoDB"><span class="nav-number">1.4.</span> <span class="nav-text">安装MongoDB</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mongo-shell"><span class="nav-number">1.5.</span> <span class="nav-text">mongo shell</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#help"><span class="nav-number">1.6.</span> <span class="nav-text">help</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关于集合名"><span class="nav-number">1.7.</span> <span class="nav-text">关于集合名</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据类型"><span class="nav-number">1.8.</span> <span class="nav-text">数据类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#id"><span class="nav-number">1.9.</span> <span class="nav-text">_id</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文档操作"><span class="nav-number">2.</span> <span class="nav-text">文档操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#批量插入"><span class="nav-number">2.1.</span> <span class="nav-text">批量插入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除文档"><span class="nav-number">2.2.</span> <span class="nav-text">删除文档</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#更新文档"><span class="nav-number">2.3.</span> <span class="nav-text">更新文档</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据库连接"><span class="nav-number">2.4.</span> <span class="nav-text">数据库连接</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查询"><span class="nav-number">3.</span> <span class="nav-text">查询</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#find"><span class="nav-number">3.1.</span> <span class="nav-text">find</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查询的条件句是内层文档的键，而修改器则是外层文档的键。一个文档的键可以有多个查询条件，但是不能同时使用多个修改器。"><span class="nav-number">3.2.</span> <span class="nav-text">查询的条件句是内层文档的键，而修改器则是外层文档的键。一个文档的键可以有多个查询条件，但是不能同时使用多个修改器。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#null"><span class="nav-number">3.3.</span> <span class="nav-text">null</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#正则表达式"><span class="nav-number">3.4.</span> <span class="nav-text">正则表达式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查询数组"><span class="nav-number">3.5.</span> <span class="nav-text">查询数组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查询内嵌文档"><span class="nav-number">3.6.</span> <span class="nav-text">查询内嵌文档</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#where查询"><span class="nav-number">3.7.</span> <span class="nav-text">where查询</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#游标"><span class="nav-number">3.8.</span> <span class="nav-text">游标</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#limit，skip，sort"><span class="nav-number">3.9.</span> <span class="nav-text">limit，skip，sort</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分页"><span class="nav-number">3.10.</span> <span class="nav-text">分页</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#索引"><span class="nav-number">4.</span> <span class="nav-text">索引</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#创建索引"><span class="nav-number">4.1.</span> <span class="nav-text">创建索引</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#为内嵌文档创建索引"><span class="nav-number">4.2.</span> <span class="nav-text">为内嵌文档创建索引</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#为排序创建索引"><span class="nav-number">4.3.</span> <span class="nav-text">为排序创建索引</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#唯一索引"><span class="nav-number">4.4.</span> <span class="nav-text">唯一索引</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#复合唯一索引"><span class="nav-number">4.5.</span> <span class="nav-text">复合唯一索引</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#explain"><span class="nav-number">4.6.</span> <span class="nav-text">explain</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除索引"><span class="nav-number">4.7.</span> <span class="nav-text">删除索引</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#管理索引system-indexes"><span class="nav-number">4.8.</span> <span class="nav-text">管理索引system.indexes</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#修改索引"><span class="nav-number">4.9.</span> <span class="nav-text">修改索引</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#地理空间索引"><span class="nav-number">4.10.</span> <span class="nav-text">地理空间索引</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#聚合操作"><span class="nav-number">5.</span> <span class="nav-text">聚合操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#count"><span class="nav-number">5.1.</span> <span class="nav-text">count</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#distinct"><span class="nav-number">5.2.</span> <span class="nav-text">distinct</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#group"><span class="nav-number">5.3.</span> <span class="nav-text">group</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MapReduce"><span class="nav-number">5.4.</span> <span class="nav-text">MapReduce</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">yunsheng</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"yunsheng-notes"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+  
+
+
+
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>

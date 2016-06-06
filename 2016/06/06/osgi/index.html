@@ -84,15 +84,39 @@
 
 
 
-<meta name="description" content="云胜的笔记">
-<meta property="og:type" content="website">
+<meta name="description" content="osgi学习笔记
+bundle依赖解析规则：当多个bundle的导出包满足该bundle的import-package依赖时，优先级如下：
+
+已解析的（resolved）bundle优先级高，未解析的（installed）bundle优先级低。
+bundle状态一样，版本高者优先，版本也相同，择选最先安装的bundle。
+
+
+一般bundle都会是resolved状态，这样如果bundleA导入了">
+<meta property="og:type" content="article">
 <meta property="og:title" content="yunsheng's blog">
-<meta property="og:url" content="http://yoursite.com/categories/生活/index.html">
+<meta property="og:url" content="http://yoursite.com/2016/06/06/osgi/index.html">
 <meta property="og:site_name" content="yunsheng's blog">
-<meta property="og:description" content="云胜的笔记">
+<meta property="og:description" content="osgi学习笔记
+bundle依赖解析规则：当多个bundle的导出包满足该bundle的import-package依赖时，优先级如下：
+
+已解析的（resolved）bundle优先级高，未解析的（installed）bundle优先级低。
+bundle状态一样，版本高者优先，版本也相同，择选最先安装的bundle。
+
+
+一般bundle都会是resolved状态，这样如果bundleA导入了">
+<meta property="og:image" content="http://tmy-course.oss-cn-beijing.aliyuncs.com/osgi-toturial%2F03%2F00005.jpg">
+<meta property="og:updated_time" content="2016-06-06T12:57:27.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="yunsheng's blog">
-<meta name="twitter:description" content="云胜的笔记">
+<meta name="twitter:description" content="osgi学习笔记
+bundle依赖解析规则：当多个bundle的导出包满足该bundle的import-package依赖时，优先级如下：
+
+已解析的（resolved）bundle优先级高，未解析的（installed）bundle优先级低。
+bundle状态一样，版本高者优先，版本也相同，择选最先安装的bundle。
+
+
+一般bundle都会是resolved状态，这样如果bundleA导入了">
+<meta name="twitter:image" content="http://tmy-course.oss-cn-beijing.aliyuncs.com/osgi-toturial%2F03%2F00005.jpg">
 
 
 
@@ -110,7 +134,7 @@
   };
 </script>
 
-  <title> 分类: 生活 | yunsheng's blog </title>
+  <title>  | yunsheng's blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -141,7 +165,7 @@
     
   
 
-  <div class="container one-collumn sidebar-position-left  ">
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -239,47 +263,139 @@
           <div id="content" class="content">
             
 
-  <section id="posts" class="posts-collapse">
-    <div class="collection-title">
-      <h2 >
-        生活
-        <small>分类</small>
-      </h2>
-    </div>
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
 
     
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-06-06T20:57:27+08:00" content="2016-06-06">
+              2016-06-06
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/06/06/osgi/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/06/06/osgi/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
       
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+      
+        <h2 id="osgi学习笔记"><a href="#osgi学习笔记" class="headerlink" title="osgi学习笔记"></a>osgi学习笔记</h2><ol>
+<li><p>bundle依赖解析规则：<br>当多个bundle的导出包满足该bundle的import-package依赖时，优先级如下：</p>
+<ol>
+<li>已解析的（resolved）bundle优先级高，未解析的（installed）bundle优先级低。</li>
+<li>bundle状态一样，版本高者优先，版本也相同，择选最先安装的bundle。</li>
+</ol>
+</li>
+<li><p>一般bundle都会是resolved状态，这样如果bundleA导入了bundleB导出的版本为1的包，然后bundleC又导出了同名的版本为2的包，<br>这样如果BundleA的代码中有显式import或者继承bundleB的代码，需要用uses限制export-package<br><a href="http://course.tianmaying.com/osgi-toturial/lesson/osgi-module-layer#22" target="_blank" rel="external">uses具体链接</a></p>
+</li>
+<li><p>bundle的生命周期<br><img src="http://tmy-course.oss-cn-beijing.aliyuncs.com/osgi-toturial%2F03%2F00005.jpg" alt="bundle状态"><br>生命周期层的基础实施：</p>
+<pre><code>public interface BundleActivator {
+  public void start(BundleContext context) throws Exception;
+  public void stop(BundleContext context) throws Exception;
+}
+</code></pre><p>当bundle的状态属于active时，BundleContext才有意义。<br>为了bundle的安全和资源分配，不能随意传到bundlecontext。<br>Bundle定义了一系列api，用于管理bundle的生命周期。  </p>
+</li>
+</ol>
+<p>4.bundleId越大，bundle的启动顺序越靠后。只有系统bundle（system bundle）的bundleId可以为0。</p>
 
-      <h1 class="post-title">
+      
+    </div>
+
+    <div>
+      
         
-            <a class="post-title-link" href="/2016/06/04/期待的生活/" itemprop="url">
-              
-                <span itemprop="name">期待的生活</span>
-              
-            </a>
+      
+    </div>
+
+    <div>
+      
         
-      </h1>
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2016-06-04T11:31:13+08:00"
-              content="2016-06-04" >
-          06-04
-        </time>
-      </div>
+      
+    </div>
 
-    </header>
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/06/06/使用jersy提供rest服务1/" rel="next" title="">
+                <i class="fa fa-chevron-left"></i> 
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </article>
 
 
-    
-  </section>
 
-  
-
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -287,6 +403,14 @@
 
 
           
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/06/06/osgi/"
+           data-title="" data-url="http://yoursite.com/2016/06/06/osgi/">
+      </div>
+    
+  </div>
+
 
         </div>
         
@@ -306,8 +430,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel  sidebar-panel-active ">
+      <section class="site-overview sidebar-panel ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/me.jpg"
@@ -357,6 +490,17 @@
 
       </section>
 
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#osgi学习笔记"><span class="nav-number">1.</span> <span class="nav-text">osgi学习笔记</span></a></li></ol></div>
+            
+          </div>
+        </section>
       
 
     </div>
@@ -453,6 +597,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
 
   
 

@@ -1,0 +1,747 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="固定集合mongo支持创建大小固定的集合，当向已满的集合中插入文档时，最早的文档会被删除。默认情况下，固定集合是没有索引的，即使_id也没有。文档存储的顺序就是插入的顺序。这样固定集合的插入和按照插入顺序的查询速度都很快。很适合存储日志的场景。  
+&amp;gt; db.createCollection(&amp;quot;fixedCollection&amp;quot;, {capped : true, size">
+<meta property="og:type" content="article">
+<meta property="og:title" content="yunsheng's blog">
+<meta property="og:url" content="http://yoursite.com/2016/06/06/MongoDB进阶/index.html">
+<meta property="og:site_name" content="yunsheng's blog">
+<meta property="og:description" content="固定集合mongo支持创建大小固定的集合，当向已满的集合中插入文档时，最早的文档会被删除。默认情况下，固定集合是没有索引的，即使_id也没有。文档存储的顺序就是插入的顺序。这样固定集合的插入和按照插入顺序的查询速度都很快。很适合存储日志的场景。  
+&amp;gt; db.createCollection(&amp;quot;fixedCollection&amp;quot;, {capped : true, size">
+<meta property="og:updated_time" content="2016-06-06T12:57:26.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="yunsheng's blog">
+<meta name="twitter:description" content="固定集合mongo支持创建大小固定的集合，当向已满的集合中插入文档时，最早的文档会被删除。默认情况下，固定集合是没有索引的，即使_id也没有。文档存储的顺序就是插入的顺序。这样固定集合的插入和按照插入顺序的查询速度都很快。很适合存储日志的场景。  
+&amp;gt; db.createCollection(&amp;quot;fixedCollection&amp;quot;, {capped : true, size">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title>  | yunsheng's blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?05a33c79ef299df2c5289fb197aecddf";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">yunsheng's blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-06-06T20:57:26+08:00" content="2016-06-06">
+              2016-06-06
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/06/06/MongoDB进阶/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/06/06/MongoDB进阶/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="固定集合"><a href="#固定集合" class="headerlink" title="固定集合"></a>固定集合</h3><p>mongo支持创建大小固定的集合，当向已满的集合中插入文档时，最早的文档会被删除。默认情况下，固定集合是没有索引的，即使_id也没有。<br>文档存储的顺序就是插入的顺序。这样固定集合的插入和按照插入顺序的查询速度都很快。<br>很适合存储日志的场景。  </p>
+<pre><code>&gt; db.createCollection(&quot;fixedCollection&quot;, {capped : true, size : 10000, max : 10})
+{ &quot;ok&quot; : 1 }
+</code></pre><p>size是集合大小，字节单位。 max是最大文档数，可以不指定。         </p>
+<h3 id="GridFS"><a href="#GridFS" class="headerlink" title="GridFS"></a>GridFS</h3><p>GridFS是mongo中存储大的二进制文件的机制。<br>使用，mongofiles  </p>
+<pre><code>mongo:~/mongodb/mongo/bin # echo &quot;hello yunsheng&quot; &gt; test.txt
+mongo:~/mongodb/mongo/bin # l
+total 282976
+drwxr-xr-x 2 root root     4096 Oct 15 10:40 ./
+drwxr-xr-x 3 root root     4096 Sep 29 11:36 ../
+-rwxr-xr-x 1 1046 1046 23520056 Aug  9  2014 bsondump*
+-rwxr-xr-x 1 1046 1046 11896064 Aug  9  2014 mongo*
+-rwxr-xr-x 1 1046 1046 23662856 Aug  9  2014 mongod*
+-rwxr-xr-x 1 1046 1046 23589784 Aug  9  2014 mongodump*
+-rwxr-xr-x 1 1046 1046 23536408 Aug  9  2014 mongoexport*
+-rwxr-xr-x 1 1046 1046 23582272 Aug  9  2014 mongofiles*
+-rwxr-xr-x 1 1046 1046 23561016 Aug  9  2014 mongoimport*
+-rwxr-xr-x 1 1046 1046 23528248 Aug  9  2014 mongooplog*
+-rwxr-xr-x 1 1046 1046 23339944 Aug  9  2014 mongoperf*
+-rwxr-xr-x 1 1046 1046 23626872 Aug  9  2014 mongorestore*
+-rwxr-xr-x 1 1046 1046 18412576 Aug  9  2014 mongos*
+-rwxr-xr-x 1 1046 1046 23578744 Aug  9  2014 mongostat*
+-rwxr-xr-x 1 1046 1046 23524120 Aug  9  2014 mongotop*
+-rw-r--r-- 1 root root       15 Oct 15 10:40 test.txt
+
+mongo:~/mongodb/mongo/bin # ./mongofiles put test.txt 
+connected to: 127.0.0.1
+added file: { _id: ObjectId(&apos;561f127fcf61ae7dcc32f7b4&apos;), filename: &quot;test.txt&quot;, chunkSize: 261120, uploadDate: new Date(1444876927045), md5: &quot;ac7afa3f84478f5a583ba61c7ac986c4&quot;, length: 15 }
+done!
+mongo:~/mongodb/mongo/bin # ./mongofiles list
+connected to: 127.0.0.1
+test.txt    15
+mongo:~/mongodb/mongo/bin # rm test.txt 
+mongo:~/mongodb/mongo/bin # l
+total 282972
+drwxr-xr-x 2 root root     4096 Oct 15 10:42 ./
+drwxr-xr-x 3 root root     4096 Sep 29 11:36 ../
+-rwxr-xr-x 1 1046 1046 23520056 Aug  9  2014 bsondump*
+-rwxr-xr-x 1 1046 1046 11896064 Aug  9  2014 mongo*
+-rwxr-xr-x 1 1046 1046 23662856 Aug  9  2014 mongod*
+-rwxr-xr-x 1 1046 1046 23589784 Aug  9  2014 mongodump*
+-rwxr-xr-x 1 1046 1046 23536408 Aug  9  2014 mongoexport*
+-rwxr-xr-x 1 1046 1046 23582272 Aug  9  2014 mongofiles*
+-rwxr-xr-x 1 1046 1046 23561016 Aug  9  2014 mongoimport*
+-rwxr-xr-x 1 1046 1046 23528248 Aug  9  2014 mongooplog*
+-rwxr-xr-x 1 1046 1046 23339944 Aug  9  2014 mongoperf*
+-rwxr-xr-x 1 1046 1046 23626872 Aug  9  2014 mongorestore*
+-rwxr-xr-x 1 1046 1046 18412576 Aug  9  2014 mongos*
+-rwxr-xr-x 1 1046 1046 23578744 Aug  9  2014 mongostat*
+-rwxr-xr-x 1 1046 1046 23524120 Aug  9  2014 mongotop*
+mongo:~/mongodb/mongo/bin # ./mongofiles get test.txt
+connected to: 127.0.0.1
+done write to: test.txt
+mongo:~/mongodb/mongo/bin # l
+total 282976
+drwxr-xr-x 2 root root     4096 Oct 15 10:43 ./
+drwxr-xr-x 3 root root     4096 Sep 29 11:36 ../
+-rwxr-xr-x 1 1046 1046 23520056 Aug  9  2014 bsondump*
+-rwxr-xr-x 1 1046 1046 11896064 Aug  9  2014 mongo*
+-rwxr-xr-x 1 1046 1046 23662856 Aug  9  2014 mongod*
+-rwxr-xr-x 1 1046 1046 23589784 Aug  9  2014 mongodump*
+-rwxr-xr-x 1 1046 1046 23536408 Aug  9  2014 mongoexport*
+-rwxr-xr-x 1 1046 1046 23582272 Aug  9  2014 mongofiles*
+-rwxr-xr-x 1 1046 1046 23561016 Aug  9  2014 mongoimport*
+-rwxr-xr-x 1 1046 1046 23528248 Aug  9  2014 mongooplog*
+-rwxr-xr-x 1 1046 1046 23339944 Aug  9  2014 mongoperf*
+-rwxr-xr-x 1 1046 1046 23626872 Aug  9  2014 mongorestore*
+-rwxr-xr-x 1 1046 1046 18412576 Aug  9  2014 mongos*
+-rwxr-xr-x 1 1046 1046 23578744 Aug  9  2014 mongostat*
+-rwxr-xr-x 1 1046 1046 23524120 Aug  9  2014 mongotop*
+-rw-r--r-- 1 root root       15 Oct 15 10:43 test.txt
+mongo:~/mongodb/mongo/bin # cat test.txt 
+hello yunsheng
+</code></pre><p>上面使用了mongofiles的put，list，get方法，很容易使用。  </p>
+<p>还有search和delete</p>
+<pre><code>mongo:~/mongodb/mongo/bin # ./mongofiles search test
+connected to: 127.0.0.1
+test.txt    15
+mongo:~/mongodb/mongo/bin # ./mongofiles delete test
+connected to: 127.0.0.1
+done!
+mongo:~/mongodb/mongo/bin # ./mongofiles list
+connected to: 127.0.0.1
+test.txt    15
+mongo:~/mongodb/mongo/bin # ./mongofiles delete test.txt
+connected to: 127.0.0.1
+done!
+mongo:~/mongodb/mongo/bin # ./mongofiles list
+connected to: 127.0.0.1
+</code></pre><p>可以通过mongo各个版本的驱动来使用gridfs</p>
+<h3 id="服务器端脚本"><a href="#服务器端脚本" class="headerlink" title="服务器端脚本"></a>服务器端脚本</h3><p>db.eval来执行javascript脚本。  </p>
+<pre><code>&gt; db.eval(&quot;return 1&quot;)
+1
+&gt; db.eval(&quot;function(){return 1}&quot;)
+1
+&gt; 
+</code></pre><p>可以封装成函数，也可以不封装。等价的。但是如果需要传递参数，那就只能用函数形式了。参数所谓eval的第二个参数，写成数组的形式。 </p>
+<p>在mongo数据库中有一个特殊的集合system.js用来存储全局js变量或者脚本。用insert加入。</p>
+<h2 id="mongo的管理"><a href="#mongo的管理" class="headerlink" title="mongo的管理"></a>mongo的管理</h2><p>mongod<br>mongod –help查看所有参数，其中<br><code>--dbpath arg                directory for datafiles - defaults to /data/db</code><br>默认是/data/db，但是每个mongod进程都要求有各种独立的不同的存放数据目录，每个mongod启动时，会在自己的数据目录下创建一个mongod.lock文件，不让其他的mongod使用。比如启动了一个使用默认目录的mongod，再起一个会报<code>exception in initAndListen: 10310 Unable to lock file: /data/db/mongod.lock. Is a mongod instance already running?, terminating</code>。  </p>
+<p><code>--port arg                  specify port number - 27017 by default</code><br>和数据目录一样，每个mongod进程的端口不能一样。一样会报错。</p>
+<p><code>--fork                      fork server process</code><br>以守护进程的方式运行mongo  </p>
+<p><code>--logpath arg               log file to send write to instead of stdout - has to be a file, not directory</code><br>指定日志输出。arg需要是一个文件。如果对文件所在的文件夹有写权限的时候，文件不存在会自动创建。会对以前的日志覆盖掉。如果不想覆盖掉，还要指定<code>--logappend                 append to logpath instead of over-writing</code>选项。</p>
+<p><code>-f [ --config ] arg         configuration file specifying additional options</code><br>可以指定配置文件<br>如：</p>
+<pre><code># 以#注释行，键值对形式，区分大小写的。
+port = 1111
+# fork这种要指定true
+fork = true
+</code></pre><h3 id="停止mongo"><a href="#停止mongo" class="headerlink" title="停止mongo"></a>停止mongo</h3><ol>
+<li><p>可以终止mongod进程。  </p>
+<pre><code>mongo:~/mongodb # ps -ef | grep mongod
+root      6521     1  0 Oct05 ?        00:55:26 ./mongod --fork --logpath /root/mongodb/logs
+root     32054 31414  0 14:42 pts/0    00:00:00 grep mongod
+</code></pre></li>
+</ol>
+<p>然后kill 6521 或者kill -2 6521。<br>注意不要用kill -9 6521这种暴力形式，这回这就终止mongod。不会等到正在执行的操作结束，造成数据损毁。  </p>
+<ol>
+<li><p>用mongo提供的shutdown命令<br>必须切换到admin数据库  </p>
+<pre><code>&gt; use admin
+switched to db admin
+&gt; db.shutdownServer()
+</code></pre></li>
+</ol>
+<h2 id="分片"><a href="#分片" class="headerlink" title="分片"></a>分片</h2><p>将数据的存储分散到多台机器上。mongo支持自动分片，可以摆脱手动分片的管理困扰。<br>mongo将数据切成很多小块，这些块分布到不同的片里，应用程序不需要知道哪个片存了哪些数据，它只要连接上mongos。</p>
+<h3 id="mongos"><a href="#mongos" class="headerlink" title="mongos"></a>mongos</h3><p>mongos进程知道各个片的分布位置，通过它可以正确发送请求。<br>在不使用分片时，应用连接的是mongod。<br>使用分片了，应用连接的就是mongos。mongos再去连接各个mongod。    </p>
+<h3 id="合适分片"><a href="#合适分片" class="headerlink" title="合适分片"></a>合适分片</h3><ul>
+<li>机器的磁盘不够用了</li>
+<li>单个mongod不能满足写数据的性能要求了</li>
+<li>想将大量数据放到内存中提高性能</li>
+</ul>
+<h3 id="片键"><a href="#片键" class="headerlink" title="片键"></a>片键</h3><p>在设置分片时，需要从集合中选取一个键作为分片的依据，这个键就是片键（shard key）<br>如一个人员的集合，选择name作为片键，第一个片可能存A-P的人员，第二个存Q-Z的，在增加或者减少片时，mongoDb会重新平衡数据。  </p>
+<p>片键的选择很重要，直接决定了分片存储的数据。如果选了一个不断递增的键做片键，如时间戳，那么可能最后一个片会不断增加，而其他片可能固定不动了。这对查询比较快，但是大数据量时会有问题。选择分布均匀的片键可以是各片的数据比较均衡。<br>如果一个键最多只有三种值，那么以它为片键最多也就分三块了，限制了分片的数量，这时可以再加一个键做复合片键。  </p>
+<h3 id="建立分片"><a href="#建立分片" class="headerlink" title="建立分片"></a>建立分片</h3><p>片： 片可以是单个mongod（开发测试用环境），也可以是一个副本集（生产环境）。即使一个片内有多台服务器，也只能有一台主，其他作为存储相同数据的备份。<br>mongos ：路由所有请求，聚合结果。本身不会存储数据和配置信息。只会存储下配置服务器的信息。<br>配置服务器：存储集群的配置信息：数据和分片的对应关系。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/06/06/ibatis/" rel="next" title="">
+                <i class="fa fa-chevron-left"></i> 
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/06/06/MongoDB讲解/" rel="prev" title="">
+                 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/06/06/MongoDB进阶/"
+           data-title="" data-url="http://yoursite.com/2016/06/06/MongoDB进阶/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/me.jpg"
+               alt="yunsheng" />
+          <p class="site-author-name" itemprop="name">yunsheng</p>
+          <p class="site-description motion-element" itemprop="description">云胜的笔记</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">29</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#固定集合"><span class="nav-number">1.</span> <span class="nav-text">固定集合</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GridFS"><span class="nav-number">2.</span> <span class="nav-text">GridFS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#服务器端脚本"><span class="nav-number">3.</span> <span class="nav-text">服务器端脚本</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mongo的管理"><span class="nav-number"></span> <span class="nav-text">mongo的管理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#停止mongo"><span class="nav-number">1.</span> <span class="nav-text">停止mongo</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分片"><span class="nav-number"></span> <span class="nav-text">分片</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#mongos"><span class="nav-number">1.</span> <span class="nav-text">mongos</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#合适分片"><span class="nav-number">2.</span> <span class="nav-text">合适分片</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#片键"><span class="nav-number">3.</span> <span class="nav-text">片键</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#建立分片"><span class="nav-number">4.</span> <span class="nav-text">建立分片</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">yunsheng</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"yunsheng-notes"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+  
+
+
+
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>

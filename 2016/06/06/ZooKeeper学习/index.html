@@ -1,0 +1,767 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="#Zookeeper
+###什么是zookeeper？一句话描述：zookeeper是一个开源的高可靠的分布式系统协调器。主要提供：配置管理，命名，分布式锁，组服务。这些服务如果在自己的分布式应用中实现和维护起来会有很大工作量。有了zookeeper，我们可以直接拿来用它的一致性，组管理，leader选举等功能，也可以在此基础上构建自己的应用。  
+基础知识
+zookeeper提供的是分布式应用所">
+<meta property="og:type" content="article">
+<meta property="og:title" content="yunsheng's blog">
+<meta property="og:url" content="http://yoursite.com/2016/06/06/ZooKeeper学习/index.html">
+<meta property="og:site_name" content="yunsheng's blog">
+<meta property="og:description" content="#Zookeeper
+###什么是zookeeper？一句话描述：zookeeper是一个开源的高可靠的分布式系统协调器。主要提供：配置管理，命名，分布式锁，组服务。这些服务如果在自己的分布式应用中实现和维护起来会有很大工作量。有了zookeeper，我们可以直接拿来用它的一致性，组管理，leader选举等功能，也可以在此基础上构建自己的应用。  
+基础知识
+zookeeper提供的是分布式应用所">
+<meta property="og:image" content="https://zookeeper.apache.org/doc/r3.4.6/images/zkservice.jpg">
+<meta property="og:image" content="https://zookeeper.apache.org/doc/r3.4.6/images/zknamespace.jpg">
+<meta property="og:image" content="https://zookeeper.apache.org/doc/r3.4.6/images/zkcomponents.jpg">
+<meta property="og:updated_time" content="2016-06-06T12:57:27.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="yunsheng's blog">
+<meta name="twitter:description" content="#Zookeeper
+###什么是zookeeper？一句话描述：zookeeper是一个开源的高可靠的分布式系统协调器。主要提供：配置管理，命名，分布式锁，组服务。这些服务如果在自己的分布式应用中实现和维护起来会有很大工作量。有了zookeeper，我们可以直接拿来用它的一致性，组管理，leader选举等功能，也可以在此基础上构建自己的应用。  
+基础知识
+zookeeper提供的是分布式应用所">
+<meta name="twitter:image" content="https://zookeeper.apache.org/doc/r3.4.6/images/zkservice.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title>  | yunsheng's blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?05a33c79ef299df2c5289fb197aecddf";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">yunsheng's blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-06-06T20:57:27+08:00" content="2016-06-06">
+              2016-06-06
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/06/06/ZooKeeper学习/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/06/06/ZooKeeper学习/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>#Zookeeper</p>
+<p>###什么是zookeeper？<br>一句话描述：zookeeper是一个开源的高可靠的分布式系统<strong>协调器</strong>。<br>主要提供：配置管理，命名，分布式锁，组服务。这些服务如果在自己的分布式应用中实现和维护起来会有很大工作量。有了zookeeper，我们可以直接拿来用它的一致性，组管理，leader选举等功能，也可以在此基础上构建自己的应用。  </p>
+<h2 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h2><ul>
+<li>zookeeper提供的是分布式应用所需的分布式协同服务。它提供了一系列基本要件供分布式应用去构建自己的高级分布式服务。zookeeper被设计的容易对其进行编程，使用的是类似于目录树的一种数据模型。<br>众所周知，构建正确的分布式协同服务很难，很容易产生竞态条件和死锁，zookeeper的目标就是将我们从构建自己的分布式应用的协同器中解放出来。  </li>
+</ul>
+<h3 id="设计目标"><a href="#设计目标" class="headerlink" title="设计目标"></a>设计目标</h3><ol>
+<li>简单。 zookeeper允许各分布式进程间通过共享一个类似于文件目录树结构的有层级的命名空间来实现彼此间的协同，该命名空间是有一系列注册数据点组成，称为znode。和文件系统很像，所不同的是，znodes是保存在内存中，使zookeeper可以保持高性能低延迟。<br>zookeeper实现高性能，高可用性，严格的顺序访问，使它可以应用于大型分布式系统。</li>
+<li>备份。zookeeper服务本身也是由多台server组成的整体。各台server互相知道彼此，他们在自己的内存中放了各server的状态，只要server集群中一半以上的服务可用，整个zookeeper服务就是可用的。<br><img src="https://zookeeper.apache.org/doc/r3.4.6/images/zkservice.jpg" alt=""><br>client只会连到一台server，client和server间保持tcp连接，以发送请求，获取响应，发送心跳，得到watch事件，一旦tcp连接断掉，client会同另一台server建立tcp连接。</li>
+<li>有序。ZooKeeper会在每一个更新上打上数字标记，以表示这个ZooKeeper事务的顺序。这样以后的操作可以根据这个标记实现更高级的抽象，如同步原语。</li>
+<li>快速。尤其是在读操作占大多数的场景下。ZooKeeper的读写速度相差大约10:1。</li>
+</ol>
+<p>###数据模型<br>前面讲了，非常像文件模型。每一个node都以路径来唯一标识。<br><img src="https://zookeeper.apache.org/doc/r3.4.6/images/zknamespace.jpg" alt=""><br>ZooKeeper的Node可以有子Node，也可以存储数据，存储的数据用来处理协同，主要有状态信息，配置，位置信息等，通常很小。一般将node称为znode。<br>znode存储的数据中有个版本号，一旦数据有更新，这个版本号会自增。client在此获取数据时，会得到新的版本号。<br>znode中数据的读写都是原子的。每个node都有访问控制列表acl来严格控制谁可以做什么。<br>还有一种临时node（ephemeral nodes),这个临时node的生存周期是创建它的session的生存周期，一旦这个session断掉，这个临时node就会被删除，这是很有用的一个特性，可以用来实现分布式锁。  </p>
+<h3 id="状态更新和监视"><a href="#状态更新和监视" class="headerlink" title="状态更新和监视"></a>状态更新和监视</h3><p>client可以在znode上设置watch，当znode的状态变化时将触发watch。当client和server的连接断掉，client会收到本地提醒。  </p>
+<h3 id="保证"><a href="#保证" class="headerlink" title="保证"></a>保证</h3><ul>
+<li>一致性。按照client发送请求的顺序执行。</li>
+<li>原子性。</li>
+<li>单系统视图。不管client连到哪台server，它看到的服务视图都是一致的。</li>
+<li>可靠性。</li>
+<li>实时性。</li>
+</ul>
+<h3 id="api"><a href="#api" class="headerlink" title="api"></a>api</h3><p>ZooKeeper的设计目标有一个是简单性，所以它提供的api也设计的很简单。</p>
+<ul>
+<li>create。创建一个node  </li>
+<li>delete。</li>
+<li>exists。判断在这个location是否存在node</li>
+<li>get data。从node获取数据。</li>
+<li>set data。向node写数据。</li>
+<li>get children。获取该node的子列表。</li>
+<li>sync。等待数据传播完成。</li>
+</ul>
+<h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><p><img src="https://zookeeper.apache.org/doc/r3.4.6/images/zkcomponents.jpg" alt=""><br>上图为ZooKeeper服务的抽象组件。每个server都会有一份自己的组件。<br>replicated database是内存数据库，存放着整个service数据。也就是说每个server都有全部的信息。更新操作会记日志到硬盘中已备恢复。写操作是先序列化到硬盘中，再应用到内存数据库。<br>从上图可以看出，读操作是直接从该client连的server 执行。<br>写操作要通过一致性协议来执行。<br>所有的写操作都会被转发到leader，由leader进行转发。所以ZooKeeper的读能力比写强大很多。<br>信息转发这层称为messaging层，负责维持leader和同步follower与leader的信息。messaging层使用原子性的信息协议，messaging层是原子性的，所以他可以保证每一个本地的信息复制都是可靠地。当leader收到一个写请求，计算写请求提交时的系统状态，然后将其转为一个投票事务，再计算新的状态（后面详细讲解）。<br>原子化广播（atomic broadcast）保证了每一个进程按照相同的顺序投递同一个消息。  </p>
+<h2 id="安装小试"><a href="#安装小试" class="headerlink" title="安装小试"></a>安装小试</h2><ol>
+<li><a href="https://zookeeper.apache.org/" target="_blank" rel="external">下载一个稳定版</a>,我下面的操作以3.4.6为例</li>
+<li>解压，找到conf/zoo_simple.cfg,一般将其改个名字，如zoo.cfg。<br><a href="http://www.cnblogs.com/sunddenly/articles/4071730.html" target="_blank" rel="external">参数解释(转帖-感谢)</a>  </li>
+<li><p>启动ZooKeeper的Server：bin/zkServer.sh start；<br>关闭ZooKeeper的Server：bin/zkServer.sh stop</p>
+</li>
+<li><p>连接。sh zkCli.sh -server 127.0.0.1:2181<br>连接成功，会看到如</p>
+<blockquote>
+<p>[zk: 127.0.0.1:2181(CONNECTED) 0] </p>
+</blockquote>
+</li>
+</ol>
+<p>在这个视图下，可以输入zookeeper的命令了。<br>help：显示所有命令。<br>如：</p>
+<pre><code>[zk: 127.0.0.1:2181(CONNECTED) 2] ls /  
+[zookeeper]
+</code></pre><p>然后创建一个自己的znode，</p>
+<pre><code>[zk: 127.0.0.1:2181(CONNECTED) 3] create /my_node my_data
+Created /my_node
+[zk: 127.0.0.1:2181(CONNECTED) 4] ls /
+[zookeeper, my_node]
+</code></pre><p>获取一下my_node的信息，</p>
+<pre><code>[zk: 127.0.0.1:2181(CONNECTED) 5] get /my_node
+my_data
+cZxid = 0x6
+ctime = Thu Jan 21 15:53:08 CST 2016
+mZxid = 0x6
+mtime = Thu Jan 21 15:53:08 CST 2016
+pZxid = 0x6
+cversion = 0
+dataVersion = 0
+aclVersion = 0
+ephemeralOwner = 0x0
+dataLength = 7
+numChildren = 0
+</code></pre><p>我们也可以用set修改关联的data，</p>
+<pre><code>[zk: 127.0.0.1:2181(CONNECTED) 6] set /my_node yunsheng
+cZxid = 0x6
+ctime = Thu Jan 21 15:53:08 CST 2016
+mZxid = 0x7
+mtime = Thu Jan 21 15:56:32 CST 2016
+pZxid = 0x6
+cversion = 0
+dataVersion = 1
+aclVersion = 0
+ephemeralOwner = 0x0
+dataLength = 8
+numChildren = 0
+[zk: 127.0.0.1:2181(CONNECTED) 7] get /my_node
+yunsheng
+cZxid = 0x6
+ctime = Thu Jan 21 15:53:08 CST 2016
+mZxid = 0x7
+mtime = Thu Jan 21 15:56:32 CST 2016
+pZxid = 0x6
+cversion = 0
+dataVersion = 1
+aclVersion = 0
+ephemeralOwner = 0x0
+dataLength = 8
+numChildren = 0
+</code></pre><p>最后，删除，</p>
+<pre><code>[zk: 127.0.0.1:2181(CONNECTED) 8] delete /my_node
+[zk: 127.0.0.1:2181(CONNECTED) 9] ls /
+[zookeeper]
+</code></pre><p>5.集群  </p>
+<pre><code>tickTime=2000
+dataDir=/var/lib/zookeeper
+clientPort=2181
+initLimit=5//5个tickTime内，允许其他server连接并初始化数据，如果zooKeeper管理的数据较大，则应相应增大这个值。
+syncLimit=2//2个tickTime内，允许follower同步，如果follower落后太多，则会被丢弃。
+server.1=zoo1:2888:3888
+server.2=zoo2:2888:3888
+server.3=zoo3:2888:3888
+// server.x的x要写在myid文件中，决定当前机器的id
+// 第一个port用于连接leader
+// 第二个用于leader选举。
+// hostname也可以填ip
+</code></pre><p>比如配一个三台的集群，可以搞在一台机器上起三个zkServer做假集群，也可以找三台机器，起三个zkServer。我手头没有那么多机器，以假集群演示，其实真集群配起来更简单。<br>例子：<br>配置conf</p>
+<ul>
+<li><p>  mongo:~/zookeeper/zookeeper-3.4.6/conf # ll<br>  total 20<br>  -rw-rw-r– 1 test yunsheng  535 Feb 20  2014 configuration.xsl<br>  -rw-rw-r– 1 test yunsheng 2161 Feb 20  2014 log4j.properties<br>  -rw-rw-r– 1 test yunsheng 1073 Jan 21 17:21 zoo1.cfg<br>  -rw-r–r– 1 root root     1073 Jan 21 17:21 zoo2.cfg<br>  -rw-r–r– 1 root root     1073 Jan 21 17:22 zoo3.cfg<br>  mongo:~/zookeeper/zookeeper-3.4.6/conf # cat zoo1.cfg </p>
+<h1 id="The-number-of-milliseconds-of-each-tick"><a href="#The-number-of-milliseconds-of-each-tick" class="headerlink" title="The number of milliseconds of each tick"></a>The number of milliseconds of each tick</h1><p>  tickTime=2000</p>
+<h1 id="The-number-of-ticks-that-the-initial"><a href="#The-number-of-ticks-that-the-initial" class="headerlink" title="The number of ticks that the initial"></a>The number of ticks that the initial</h1><h1 id="synchronization-phase-can-take"><a href="#synchronization-phase-can-take" class="headerlink" title="synchronization phase can take"></a>synchronization phase can take</h1><p>  initLimit=10</p>
+<h1 id="The-number-of-ticks-that-can-pass-between"><a href="#The-number-of-ticks-that-can-pass-between" class="headerlink" title="The number of ticks that can pass between"></a>The number of ticks that can pass between</h1><h1 id="sending-a-request-and-getting-an-acknowledgement"><a href="#sending-a-request-and-getting-an-acknowledgement" class="headerlink" title="sending a request and getting an acknowledgement"></a>sending a request and getting an acknowledgement</h1><p>  syncLimit=5</p>
+<h1 id="the-directory-where-the-snapshot-is-stored"><a href="#the-directory-where-the-snapshot-is-stored" class="headerlink" title="the directory where the snapshot is stored."></a>the directory where the snapshot is stored.</h1><h1 id="do-not-use-tmp-for-storage-tmp-here-is-just"><a href="#do-not-use-tmp-for-storage-tmp-here-is-just" class="headerlink" title="do not use /tmp for storage, /tmp here is just"></a>do not use /tmp for storage, /tmp here is just</h1><h1 id="example-sakes"><a href="#example-sakes" class="headerlink" title="example sakes."></a>example sakes.</h1><p>  dataDir=/root/zookeeper/dataDir1</p>
+<p>  dataLogDir=/root/zookeeper/logs1</p>
+<h1 id="the-port-at-which-the-clients-will-connect"><a href="#the-port-at-which-the-clients-will-connect" class="headerlink" title="the port at which the clients will connect"></a>the port at which the clients will connect</h1><p>  clientPort=2181</p>
+<h1 id="the-maximum-number-of-client-connections"><a href="#the-maximum-number-of-client-connections" class="headerlink" title="the maximum number of client connections."></a>the maximum number of client connections.</h1><h1 id="increase-this-if-you-need-to-handle-more-clients"><a href="#increase-this-if-you-need-to-handle-more-clients" class="headerlink" title="increase this if you need to handle more clients"></a>increase this if you need to handle more clients</h1><p>  #maxClientCnxns=60<br>  #</p>
+<h1 id="Be-sure-to-read-the-maintenance-section-of-the"><a href="#Be-sure-to-read-the-maintenance-section-of-the" class="headerlink" title="Be sure to read the maintenance section of the"></a>Be sure to read the maintenance section of the</h1><h1 id="administrator-guide-before-turning-on-autopurge"><a href="#administrator-guide-before-turning-on-autopurge" class="headerlink" title="administrator guide before turning on autopurge."></a>administrator guide before turning on autopurge.</h1><p>  #</p>
+<h1 id="http-zookeeper-apache-org-doc-current-zookeeperAdmin-html-sc-maintenance"><a href="#http-zookeeper-apache-org-doc-current-zookeeperAdmin-html-sc-maintenance" class="headerlink" title="http://zookeeper.apache.org/doc/current/zookeeperAdmin.html#sc_maintenance"></a><a href="http://zookeeper.apache.org/doc/current/zookeeperAdmin.html#sc_maintenance" target="_blank" rel="external">http://zookeeper.apache.org/doc/current/zookeeperAdmin.html#sc_maintenance</a></h1><p>  #</p>
+<h1 id="The-number-of-snapshots-to-retain-in-dataDir"><a href="#The-number-of-snapshots-to-retain-in-dataDir" class="headerlink" title="The number of snapshots to retain in dataDir"></a>The number of snapshots to retain in dataDir</h1><p>  #autopurge.snapRetainCount=3</p>
+<h1 id="Purge-task-interval-in-hours"><a href="#Purge-task-interval-in-hours" class="headerlink" title="Purge task interval in hours"></a>Purge task interval in hours</h1><h1 id="Set-to-“0”-to-disable-auto-purge-feature"><a href="#Set-to-“0”-to-disable-auto-purge-feature" class="headerlink" title="Set to “0” to disable auto purge feature"></a>Set to “0” to disable auto purge feature</h1><p>  #autopurge.purgeInterval=1<br>  server.1=192.168.111.118:2881:3881<br>  server.2=192.168.111.118:2882:3882<br>  server.3=192.168.111.118:2883:3883</p>
+</li>
+</ul>
+<p>zoo2和zoo3的配置大同小异，注意分开各自的dataDir和dataLogDir<br>配myid<br>-<br>然后去各自的dataDir下创建myid，如：</p>
+<pre><code>mongo:~/zookeeper/dataDir1 # cat myid 
+1    
+</code></pre><p>创建一个名叫myid的文件，里面的内容就是server.x的x  </p>
+<p>启动server<br>-<br>分别启动三个</p>
+<pre><code>mongo:~/zookeeper/zookeeper-3.4.6/bin # sh zkServer.sh start zoo1.cfg
+JMX enabled by default
+Using config: /root/zookeeper/zookeeper-3.4.6/bin/../conf/zoo1.cfg
+Starting zookeeper ... STARTED
+mongo:~/zookeeper/zookeeper-3.4.6/bin # sh zkServer.sh start zoo2.cfg
+JMX enabled by default
+Using config: /root/zookeeper/zookeeper-3.4.6/bin/../conf/zoo2.cfg
+Starting zookeeper ... STARTED
+mongo:~/zookeeper/zookeeper-3.4.6/bin # sh zkServer.sh start zoo3.cfg
+JMX enabled by default
+Using config: /root/zookeeper/zookeeper-3.4.6/bin/../conf/zoo3.cfg
+Starting zookeeper ... STARTED
+</code></pre><p>查看状态<br>-<br>    mongo:~/zookeeper/zookeeper-3.4.6/bin # sh zkServer.sh status zoo3.cfg<br>    JMX enabled by default<br>    Using config: /root/zookeeper/zookeeper-3.4.6/bin/../conf/zoo3.cfg<br>    Mode: leader<br>    mongo:~/zookeeper/zookeeper-3.4.6/bin # sh zkServer.sh status zoo2.cfg<br>    JMX enabled by default<br>    Using config: /root/zookeeper/zookeeper-3.4.6/bin/../conf/zoo2.cfg<br>    Mode: follower<br>    mongo:~/zookeeper/zookeeper-3.4.6/bin # sh zkServer.sh status zoo1.cfg<br>    JMX enabled by default<br>    Using config: /root/zookeeper/zookeeper-3.4.6/bin/../conf/zoo1.cfg<br>    Mode: follower</p>
+<p>可以看到，选举zoo3为leader，zoo1和zoo2为follower。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/06/06/suse11安装mysql/" rel="next" title="">
+                <i class="fa fa-chevron-left"></i> 
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/06/06/ZooKeeper开发/" rel="prev" title="">
+                 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/06/06/ZooKeeper学习/"
+           data-title="" data-url="http://yoursite.com/2016/06/06/ZooKeeper学习/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/me.jpg"
+               alt="yunsheng" />
+          <p class="site-author-name" itemprop="name">yunsheng</p>
+          <p class="site-description motion-element" itemprop="description">云胜的笔记</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">29</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#基础知识"><span class="nav-number">1.</span> <span class="nav-text">基础知识</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#设计目标"><span class="nav-number">1.1.</span> <span class="nav-text">设计目标</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#状态更新和监视"><span class="nav-number">1.2.</span> <span class="nav-text">状态更新和监视</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#保证"><span class="nav-number">1.3.</span> <span class="nav-text">保证</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#api"><span class="nav-number">1.4.</span> <span class="nav-text">api</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实现"><span class="nav-number">1.5.</span> <span class="nav-text">实现</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装小试"><span class="nav-number">2.</span> <span class="nav-text">安装小试</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#The-number-of-milliseconds-of-each-tick"><span class="nav-number"></span> <span class="nav-text">The number of milliseconds of each tick</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#The-number-of-ticks-that-the-initial"><span class="nav-number"></span> <span class="nav-text">The number of ticks that the initial</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#synchronization-phase-can-take"><span class="nav-number"></span> <span class="nav-text">synchronization phase can take</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#The-number-of-ticks-that-can-pass-between"><span class="nav-number"></span> <span class="nav-text">The number of ticks that can pass between</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#sending-a-request-and-getting-an-acknowledgement"><span class="nav-number"></span> <span class="nav-text">sending a request and getting an acknowledgement</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#the-directory-where-the-snapshot-is-stored"><span class="nav-number"></span> <span class="nav-text">the directory where the snapshot is stored.</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#do-not-use-tmp-for-storage-tmp-here-is-just"><span class="nav-number"></span> <span class="nav-text">do not use /tmp for storage, /tmp here is just</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#example-sakes"><span class="nav-number"></span> <span class="nav-text">example sakes.</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#the-port-at-which-the-clients-will-connect"><span class="nav-number"></span> <span class="nav-text">the port at which the clients will connect</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#the-maximum-number-of-client-connections"><span class="nav-number"></span> <span class="nav-text">the maximum number of client connections.</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#increase-this-if-you-need-to-handle-more-clients"><span class="nav-number"></span> <span class="nav-text">increase this if you need to handle more clients</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Be-sure-to-read-the-maintenance-section-of-the"><span class="nav-number"></span> <span class="nav-text">Be sure to read the maintenance section of the</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#administrator-guide-before-turning-on-autopurge"><span class="nav-number"></span> <span class="nav-text">administrator guide before turning on autopurge.</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#http-zookeeper-apache-org-doc-current-zookeeperAdmin-html-sc-maintenance"><span class="nav-number"></span> <span class="nav-text">http://zookeeper.apache.org/doc/current/zookeeperAdmin.html#sc_maintenance</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#The-number-of-snapshots-to-retain-in-dataDir"><span class="nav-number"></span> <span class="nav-text">The number of snapshots to retain in dataDir</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Purge-task-interval-in-hours"><span class="nav-number"></span> <span class="nav-text">Purge task interval in hours</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Set-to-“0”-to-disable-auto-purge-feature"><span class="nav-number"></span> <span class="nav-text">Set to “0” to disable auto purge feature</span></a></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">yunsheng</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"yunsheng-notes"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+  
+
+
+
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>

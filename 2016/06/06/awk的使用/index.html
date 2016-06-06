@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="todo," />
+  <meta name="keywords" content="Hexo, NexT" />
 
 
 
@@ -84,22 +84,124 @@
 
 
 
-<meta name="description" content="博客迁移
-日常提醒app
-看下netty">
+<meta name="description" content="awk的使用参考
+内置变量
+
+
+变量名
+说明
+
+
+
+
+$0
+当前记录（这个变量中存放着整个行的内容）
+
+
+
+$1~$n
+当前记录的第n个字段，字段间由FS分隔
+
+
+
+FS
+输入字段分隔符 默认是空格或Tab
+
+
+
+NF
+当前记录中的字段个数，就是有多少列
+
+
+
+NR
+已经读出的记录数，就是行号，从1开始，如果有多个文件话，这个值也是不断累加中。
+
+
+
+FNR
+当前记录数，与NR不同的是，这个值会是">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Todo List">
-<meta property="og:url" content="http://yoursite.com/2016/06/06/Todo-List/index.html">
+<meta property="og:title" content="yunsheng's blog">
+<meta property="og:url" content="http://yoursite.com/2016/06/06/awk的使用/index.html">
 <meta property="og:site_name" content="yunsheng's blog">
-<meta property="og:description" content="博客迁移
-日常提醒app
-看下netty">
-<meta property="og:updated_time" content="2016-06-06T09:43:51.000Z">
+<meta property="og:description" content="awk的使用参考
+内置变量
+
+
+变量名
+说明
+
+
+
+
+$0
+当前记录（这个变量中存放着整个行的内容）
+
+
+
+$1~$n
+当前记录的第n个字段，字段间由FS分隔
+
+
+
+FS
+输入字段分隔符 默认是空格或Tab
+
+
+
+NF
+当前记录中的字段个数，就是有多少列
+
+
+
+NR
+已经读出的记录数，就是行号，从1开始，如果有多个文件话，这个值也是不断累加中。
+
+
+
+FNR
+当前记录数，与NR不同的是，这个值会是">
+<meta property="og:updated_time" content="2016-06-06T12:57:26.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Todo List">
-<meta name="twitter:description" content="博客迁移
-日常提醒app
-看下netty">
+<meta name="twitter:title" content="yunsheng's blog">
+<meta name="twitter:description" content="awk的使用参考
+内置变量
+
+
+变量名
+说明
+
+
+
+
+$0
+当前记录（这个变量中存放着整个行的内容）
+
+
+
+$1~$n
+当前记录的第n个字段，字段间由FS分隔
+
+
+
+FS
+输入字段分隔符 默认是空格或Tab
+
+
+
+NF
+当前记录中的字段个数，就是有多少列
+
+
+
+NR
+已经读出的记录数，就是行号，从1开始，如果有多个文件话，这个值也是不断累加中。
+
+
+
+FNR
+当前记录数，与NR不同的是，这个值会是">
 
 
 
@@ -117,7 +219,7 @@
   };
 </script>
 
-  <title> Todo List | yunsheng's blog </title>
+  <title>  | yunsheng's blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -267,7 +369,7 @@
             
             
               
-                Todo List
+                
               
             
           </h1>
@@ -279,7 +381,7 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-06-06T16:44:34+08:00" content="2016-06-06">
+            <time itemprop="dateCreated" datetime="2016-06-06T20:57:26+08:00" content="2016-06-06">
               2016-06-06
             </time>
           </span>
@@ -290,8 +392,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/06/06/Todo-List/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/06/06/Todo-List/" itemprop="commentsCount"></span>
+                <a href="/2016/06/06/awk的使用/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/06/06/awk的使用/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -314,11 +416,139 @@
       
 
       
-        <ul>
-<li>博客迁移</li>
-<li>日常提醒app</li>
-<li>看下netty</li>
-</ul>
+        <h2 id="awk的使用"><a href="#awk的使用" class="headerlink" title="awk的使用"></a>awk的使用</h2><p><a href="http://coolshell.cn/articles/9070.html" target="_blank" rel="external">参考</a></p>
+<h3 id="内置变量"><a href="#内置变量" class="headerlink" title="内置变量"></a>内置变量</h3><table>
+<thead>
+<tr>
+<th>变量名</th>
+<th style="text-align:center">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$0</td>
+<td style="text-align:center">当前记录（这个变量中存放着整个行的内容）</td>
+<td></td>
+</tr>
+<tr>
+<td>$1~$n</td>
+<td style="text-align:center">当前记录的第n个字段，字段间由FS分隔</td>
+<td></td>
+</tr>
+<tr>
+<td>FS</td>
+<td style="text-align:center">输入字段分隔符 默认是空格或Tab</td>
+<td></td>
+</tr>
+<tr>
+<td>NF</td>
+<td style="text-align:center">当前记录中的字段个数，就是有多少列</td>
+<td></td>
+</tr>
+<tr>
+<td>NR</td>
+<td style="text-align:center">已经读出的记录数，就是行号，从1开始，如果有多个文件话，这个值也是不断累加中。</td>
+<td></td>
+</tr>
+<tr>
+<td>FNR</td>
+<td style="text-align:center">当前记录数，与NR不同的是，这个值会是各个文件自己的行号</td>
+<td></td>
+</tr>
+<tr>
+<td>RS</td>
+<td style="text-align:center">输入的记录分隔符， 默认为换行符</td>
+<td></td>
+</tr>
+<tr>
+<td>OFS</td>
+<td style="text-align:center">输出字段分隔符， 默认也是空格</td>
+<td></td>
+</tr>
+<tr>
+<td>ORS</td>
+<td style="text-align:center">输出的记录分隔符，默认为换行符</td>
+<td></td>
+</tr>
+<tr>
+<td>FILENAME</td>
+<td style="text-align:center">当前输入文件的名字</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="常见用法"><a href="#常见用法" class="headerlink" title="常见用法"></a>常见用法</h3><p>以处理netstat的输出为例。  </p>
+<pre><code>mongo:~ # netstat
+Active Internet connections (w/o servers)
+Proto Recv-Q Send-Q Local Address           Foreign Address         State      
+tcp        0    216 mongo:ssh               192.168.0.245:48976     ESTABLISHED 
+Active UNIX domain sockets (w/o servers)
+Proto RefCnt Flags       Type       State         I-Node Path
+unix  2      [ ]         DGRAM                    3734   @/org/kernel/udev/udevd
+unix  13     [ ]         DGRAM                    8313   /dev/log
+unix  2      [ ]         DGRAM                    10714  @/org/freedesktop/hal/udev_event
+unix  2      [ ]         DGRAM                    7442   /var/run/hook-localserver
+unix  3      [ ]         STREAM     CONNECTED     2366786 @/tmp/gdm-session-jHfDvuam
+unix  3      [ ]         STREAM     CONNECTED     2366212 
+unix  3      [ ]         STREAM     CONNECTED     2364170 /var/run/dbus/system_bus_socket
+unix  3      [ ]         STREAM     CONNECTED     2367959 
+unix  2      [ ]         DGRAM                    2355474 
+</code></pre><p>在内置变量中$1-$n指的是第几列。那么可以这么指定输出的列。</p>
+<pre><code>mongo:~ # netstat | awk &apos;{print $1}&apos;
+Active
+Proto
+tcp
+Active
+Proto
+unix
+unix
+unix
+unix
+</code></pre><p>默认的FS分割符是空格或tab，所以前面几行的描述信息也输出了，所以我们可以用NR行来过滤</p>
+<pre><code>mongo:~ # netstat | awk &apos;NR &gt; 5 {print $1}&apos;
+Proto
+unix
+unix
+unix
+unix
+unix
+unix
+</code></pre><p>就是说awk的作用是可以指定条件，指定输出。<br>比较运算符：!=, &gt;, &lt;, &gt;=, &lt;=,==<br>逻辑运算符：!,&amp;&amp;,||<br>可以指定输出格式：如{printf “%-20s %-20s %s\n”,$4,$5,$6}<br>这和C基本是一样的。  </p>
+<h3 id="指定内置变量"><a href="#指定内置变量" class="headerlink" title="指定内置变量"></a>指定内置变量</h3><p>指定分隔符（/etc/passwd 是以：为分隔符的）：<br>        <figure class="highlight plain"><figcaption><span>awk  'BEGIN&#123;FS=":"&#125; &#123;print $1,$3,$6&#125;'</span><a href="/etc/passwd```">link</a></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">等价于  ```$ awk  -F: &apos;&#123;print $1,$3,$6&#125;&apos; /etc/passwd```   </span><br><span class="line">如果你要指定多个分隔符，```awk -F &apos;[;:]&apos;```   </span><br><span class="line">指定输出分隔符：```$ awk  -F: &apos;&#123;print $1,$3,$6&#125;&apos; OFS=&quot;\t&quot; /etc/passwd</span><br></pre></td></tr></table></figure></p>
+<h3 id="正则匹配"><a href="#正则匹配" class="headerlink" title="正则匹配"></a>正则匹配</h3><pre><code>mongo:~ # netstat | awk &apos;$2 ~ /2|13/&apos;
+unix  2      [ ]         DGRAM                    3734   @/org/kernel/udev/udevd
+unix  13     [ ]         DGRAM                    8313   /dev/log
+unix  2      [ ]         DGRAM                    10714  @/org/freedesktop/hal/udev_event
+unix  2      [ ]         DGRAM                    7442   /var/run/hook-localserver
+unix  2      [ ]         DGRAM                    2355474 
+unix  2      [ ]         DGRAM                    15758  
+unix  2      [ ]         DGRAM                    14435  
+unix  2      [ ]         DGRAM                    13361  
+</code></pre><p>在列后面加~，紧接着开始的//里面开始正则匹配。|表示或者</p>
+<pre><code>mongo:~ # netstat | awk &apos;$2 !~ /2|13/&apos;
+Active Internet connections (w/o servers)
+Proto Recv-Q Send-Q Local Address           Foreign Address         State      
+tcp        0     52 mongo:ssh               192.168.0.245:48976     ESTABLISHED 
+Active UNIX domain sockets (w/o servers)
+Proto RefCnt Flags       Type       State         I-Node Path
+unix  3      [ ]         STREAM     CONNECTED     2383540 @/tmp/gdm-session-bbErrtFs
+unix  3      [ ]         STREAM     CONNECTED     2384090 
+unix  3      [ ]         STREAM     CONNECTED     2384088 /var/run/dbus/system_bus_socket
+unix  3      [ ]         STREAM     CONNECTED     2383539 
+unix  3      [ ]         STREAM     CONNECTED     15217  /var/run/dbus/system_bus_socket
+unix  3      [ ]         STREAM     CONNECTED     15216  
+unix  3      [ ]         STREAM     CONNECTED     13725  @/tmp/dbus-PKZYiwWjts
+</code></pre><p>!~取反</p>
+<p>awk 也可以向grep一样去匹配，不指定列，全行匹配。（也可加单引号）</p>
+<pre><code>mongo:~ # netstat | awk /STREAM/
+unix  3      [ ]         STREAM     CONNECTED     2383540 @/tmp/gdm-session-bbErrtFs
+unix  3      [ ]         STREAM     CONNECTED     2384090 
+unix  3      [ ]         STREAM     CONNECTED     2384088 /var/run/dbus/system_bus_socket
+unix  3      [ ]         STREAM     CONNECTED     2383539 
+unix  3      [ ]         STREAM     CONNECTED     15217  /var/run/dbus/system_bus_socket
+unix  3      [ ]         STREAM     CONNECTED     15216  
+unix  3      [ ]         STREAM     CONNECTED     13725  @/tmp/dbus-PKZYiwWjts
+</code></pre><h3 id="高级用法"><a href="#高级用法" class="headerlink" title="高级用法"></a>高级用法</h3><p>拆分文件<br>统计<br>脚本  </p>
 
       
     </div>
@@ -338,26 +568,20 @@
 
     <footer class="post-footer">
       
-        <div class="post-tags">
-          
-            <a href="/tags/todo/" rel="tag">#todo</a>
-          
-        </div>
-      
 
       
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/06/04/期待的生活/" rel="next" title="期待的生活">
-                <i class="fa fa-chevron-left"></i> 期待的生活
+              <a href="/2016/06/06/dom4j快速入门/" rel="next" title="">
+                <i class="fa fa-chevron-left"></i> 
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2016/06/06/jersy的使用2/" rel="prev" title="">
+              <a href="/2016/06/06/ibatis/" rel="prev" title="">
                  <i class="fa fa-chevron-right"></i>
               </a>
             
@@ -385,8 +609,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/06/06/Todo-List/"
-           data-title="Todo List" data-url="http://yoursite.com/2016/06/06/Todo-List/">
+      <div class="ds-thread" data-thread-key="2016/06/06/awk的使用/"
+           data-title="" data-url="http://yoursite.com/2016/06/06/awk的使用/">
       </div>
     
   </div>
@@ -477,7 +701,7 @@
               
             
             
-              <p class="post-toc-empty">此文章未包含目录</p>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#awk的使用"><span class="nav-number">1.</span> <span class="nav-text">awk的使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#内置变量"><span class="nav-number">1.1.</span> <span class="nav-text">内置变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#常见用法"><span class="nav-number">1.2.</span> <span class="nav-text">常见用法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#指定内置变量"><span class="nav-number">1.3.</span> <span class="nav-text">指定内置变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#正则匹配"><span class="nav-number">1.4.</span> <span class="nav-text">正则匹配</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#高级用法"><span class="nav-number">1.5.</span> <span class="nav-text">高级用法</span></a></li></ol></li></ol></div>
             
           </div>
         </section>

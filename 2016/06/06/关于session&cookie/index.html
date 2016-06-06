@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="todo," />
+  <meta name="keywords" content="Hexo, NexT" />
 
 
 
@@ -84,22 +84,19 @@
 
 
 
-<meta name="description" content="博客迁移
-日常提醒app
-看下netty">
+<meta name="description" content="###什么是SessionHTTP协议是无状态的,但通过session机制,就能把无状态的变成有状态的。Session的功能就是 保存HTTP请求之间的状态数据。有了session的支持,就很容易实现诸如用户登录、购物车等网 站功能。在Servlet API中,有一个HttpSession的接口。你可以这样使用它:在一个请求中,保存session的状态
+HttpSession session =">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Todo List">
-<meta property="og:url" content="http://yoursite.com/2016/06/06/Todo-List/index.html">
+<meta property="og:title" content="yunsheng's blog">
+<meta property="og:url" content="http://yoursite.com/2016/06/06/关于session&cookie/index.html">
 <meta property="og:site_name" content="yunsheng's blog">
-<meta property="og:description" content="博客迁移
-日常提醒app
-看下netty">
-<meta property="og:updated_time" content="2016-06-06T09:43:51.000Z">
+<meta property="og:description" content="###什么是SessionHTTP协议是无状态的,但通过session机制,就能把无状态的变成有状态的。Session的功能就是 保存HTTP请求之间的状态数据。有了session的支持,就很容易实现诸如用户登录、购物车等网 站功能。在Servlet API中,有一个HttpSession的接口。你可以这样使用它:在一个请求中,保存session的状态
+HttpSession session =">
+<meta property="og:updated_time" content="2016-06-06T12:57:27.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Todo List">
-<meta name="twitter:description" content="博客迁移
-日常提醒app
-看下netty">
+<meta name="twitter:title" content="yunsheng's blog">
+<meta name="twitter:description" content="###什么是SessionHTTP协议是无状态的,但通过session机制,就能把无状态的变成有状态的。Session的功能就是 保存HTTP请求之间的状态数据。有了session的支持,就很容易实现诸如用户登录、购物车等网 站功能。在Servlet API中,有一个HttpSession的接口。你可以这样使用它:在一个请求中,保存session的状态
+HttpSession session =">
 
 
 
@@ -117,7 +114,7 @@
   };
 </script>
 
-  <title> Todo List | yunsheng's blog </title>
+  <title>  | yunsheng's blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -267,7 +264,7 @@
             
             
               
-                Todo List
+                
               
             
           </h1>
@@ -279,7 +276,7 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-06-06T16:44:34+08:00" content="2016-06-06">
+            <time itemprop="dateCreated" datetime="2016-06-06T20:57:27+08:00" content="2016-06-06">
               2016-06-06
             </time>
           </span>
@@ -290,8 +287,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/06/06/Todo-List/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/06/06/Todo-List/" itemprop="commentsCount"></span>
+                <a href="/2016/06/06/关于session&cookie/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/06/06/关于session&cookie/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -314,11 +311,21 @@
       
 
       
-        <ul>
-<li>博客迁移</li>
-<li>日常提醒app</li>
-<li>看下netty</li>
-</ul>
+        <p>###什么是Session<br>HTTP协议是无状态的,但通过session机制,就能把无状态的变成有状态的。Session的功能就是 保存HTTP请求之间的状态数据。<br>有了session的支持,就很容易实现诸如用户登录、购物车等网 站功能。<br>在Servlet API中,有一个HttpSession的接口。你可以这样使用它:<br>在一个请求中,保存session的状态</p>
+<pre><code>HttpSession session = request.getSession();
+session.setAttribute(&quot;loginId&quot;, &quot;myName&quot;);
+</code></pre><p>在另一个请求中,取出session的状态:  </p>
+<pre><code>String myName = (String) session.getAttribute(&quot;loginId&quot;);
+</code></pre><p>###Session数据存在哪?</p>
+<p>####1,保存在应用服务器的内存中<br>一般的做法,是将session对象保存在内存里。<br>同一时间,会有很多session被保存在服务器的内 存里。<br>由于内存是有限的,较好的服务器会把session对象的数据交换到文件中,以确保内存中 的session数目保持在一个合理的范围内。<br>为了提高系统扩展性和可用性,我们会使用集群技术 —— 就是一组独立的机器共同运行同一个 应用。对用户来讲,集群相当于一台“大型服务器”。而实际上,同一用户的两次请求可能被分 配到两台不同的服务器上来处理。这样一来,怎样保证两次请求中存取的session值一致呢?<br>一种方法是使用session复制:当session的值被改变时,将它复制到其它机器上。这个方案又有 两种具体的实现,一种是广播的方式。这种方式下,任何一台服务器都保存着所有服务器所接受 到的session对象。服务器之间随时保持着同步,因而所有服务器都是等同的。可想而知,当访 问量增大的时候,这种方式花费在广播session上的带宽有多大,而且随着机器增加,网络负担 成指数级上升,不具备高度可扩展性。<br>另一种方法是TCP-Ring的方式,也就是把集群中所有的服务器看成一个环,A→B→C→D→A, 首尾相接。把A的session复制到B,B的session复制到C,……,以此类推,最后一台服务器的 session复制到A。这样,万一A宕机,还有B可以顶上来,用户的session数据不会轻易丢失。但 这种方案也有缺点:一是配置复杂;二是每增添/减少一台机器时,ring都需要重新调整,这将 成为性能瓶颈;<br>三是要求前端的Load Balancer具有相当强的智能,才能将用户请求分发到正 确的机器上。</p>
+<p>####2,保存在单一数据源中<br>也可以将session保存在单一的数据源中,这个数据源可被集群中所有的机器所共享。这样一 来,就不存在复制的问题了。<br>然而单一数据源的性能成了问题。每个用户请求,都需要访问后端的数据源(很可能是数据库)来存取用户的数据。<br>这种方案的第二个问题是:缺少应用服务厂商的支持 —— 很少有应用服务器直接支持这种 方案。更不用说数据源有很多种(MySQL、Oracle、Hsqldb等各种数据库、专用的session server等)了。<br>     第三个问题是:数据源成了系统的瓶颈,一但这个数据源崩溃,所有的应用都不可能正常运行了。  </p>
+<p>####3,保存在客户端<br>把session保存在客户端。这样一来,由于不需要在服务器上保存数据,每台服务器就变得独 立,能够做到线性可扩展和极高的可用性。<br>具体怎么做呢?目前可用的方法,恐怕就是保存在cookie中了。但需要提醒的是,cookie具有 有以下限制,因此不可无节制使用该方案:  </p>
+<p>1.Cookie数量和长度的限制。每个domain最多只能有20条cookie,每个cookie长度不能超过 4KB,否则会被截掉。  </p>
+<p>2.安全性问题。如果cookie被人拦截了,那人就可以取得所有的session信息。即使加密也与事 无补,因为拦截者并不需要知道cookie的意义,他只要原样转发cookie就可以达到目的了。  </p>
+<p>3.有些状态不可能保存在客户端。例如,为了防止重复提交表单,我们需要在服务器端保存一个 计数器。如果我们把这个计数器保存在客户端,那么它起不到任何作用。  </p>
+<p>虽然有上述缺点,但是对于其优点(极高的扩展性和可用性)来说,就显得微不足道。我们可以用下面的方法来回避上述的缺点:<br>• 通过良好的编程,控制保存在cookie中的session对象的大小。<br>• 通过加密和安全传输技术(SSL),减少cookie被破解的可能性。<br>• 只在cookie中存放不敏感数据,即使被盗也不会有重大损失。<br>• 控制cookie的生命期,使之不会永远有效。偷盗者很可能拿到一个过期的cookie。  </p>
+<p>####4, 将客户端、服务器端组合的方案<br>任何一种session方案都有其优缺点。最好的方法是把它们结合起来。这样就可以弥补各自的缺 点。<br>将大部分session数据保存在cookie中,将小部分关键和涉及安全的数据保存在服务器上。由于 我们只把少量关键的信息保存在服务端,因而服务器的压力不会非常大。<br>在服务器上,单一的数据源比复制session的方案,更简单可靠。我们可以使用数据库来保存这 部分session,也可以使用更廉价、更简单的存储,例如Berkeley DB就是一种不错的服务器存储 方案。将session数据保存在cookie和Berkeley DB(或其它类似存储技术)中,就可以解决我 们的绝大部分问题。   </p>
+<h3 id="创建通用的session框架"><a href="#创建通用的session框架" class="headerlink" title="创建通用的session框架"></a>创建通用的session框架</h3><p>多数应用服务器并没有留出足够的余地,来让你自定义session的存储方案。<br>纵使某个应用服务 器提供了对外扩展的接口,可以自定义session的方案,我们也不大可能使用它。为什么呢?<br>因 为我们希望保留选择应用服务器软件的自由。<br>因此,最好的方案,不是在应用服务器上增加什么新功能,而是在WEB应用框架上做手术。<br>一 但我们在WEB应用框架中实现了这种灵活的session框架,那么我们的应用可以跑在任何标准的 JavaEE应用服务器上。<br>除此之外,一个好的session框架还应该做到对应用程序透明。具体表现在:<br>• 使用标准的HttpSession接口,而不是增加新的API。这样任何WEB应用,都可以轻易在两种 不同的session机制之间切换。<br>• 应用程序不需要知道session中的对象是被保存到了cookie中还是别的什么地方。<br>• Session框架可以把同一个session中的不同的对象分别保存到不同的地方去,应用程序同样不 需要关心这些。例如,把一般信息放到cookie中,关键信息放到Berkeley DB中。甚至同是 cookie,也有持久和临时之分,有生命期长短之分。  </p>
 
       
     </div>
@@ -338,26 +345,20 @@
 
     <footer class="post-footer">
       
-        <div class="post-tags">
-          
-            <a href="/tags/todo/" rel="tag">#todo</a>
-          
-        </div>
-      
 
       
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/06/04/期待的生活/" rel="next" title="期待的生活">
-                <i class="fa fa-chevron-left"></i> 期待的生活
+              <a href="/2016/06/06/性能测试/" rel="next" title="">
+                <i class="fa fa-chevron-left"></i> 
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2016/06/06/jersy的使用2/" rel="prev" title="">
+              <a href="/2016/06/06/top命令/" rel="prev" title="">
                  <i class="fa fa-chevron-right"></i>
               </a>
             
@@ -385,8 +386,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/06/06/Todo-List/"
-           data-title="Todo List" data-url="http://yoursite.com/2016/06/06/Todo-List/">
+      <div class="ds-thread" data-thread-key="2016/06/06/关于session&cookie/"
+           data-title="" data-url="http://yoursite.com/2016/06/06/关于session&cookie/">
       </div>
     
   </div>
@@ -477,7 +478,7 @@
               
             
             
-              <p class="post-toc-empty">此文章未包含目录</p>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#创建通用的session框架"><span class="nav-number">1.</span> <span class="nav-text">创建通用的session框架</span></a></li></ol></div>
             
           </div>
         </section>

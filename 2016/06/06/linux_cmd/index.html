@@ -1,0 +1,886 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="Linux 常用命令mv既可以用于移动。又可以改名。注意如果目标位置已经存在相同名字的文件，将会覆盖。
+
+mv logtool1.sh opensmb.sh 
+
+修改系统日期和时间
+date：显示当前时间date –s：按字符串方式修改时间
+
+可以只修改日期,不修改时间,输入: date -s 2007-08-03
+只修改时间,输入:date -s 14:15:00
+同时修改日期时间,注意要加双引">
+<meta property="og:type" content="article">
+<meta property="og:title" content="yunsheng's blog">
+<meta property="og:url" content="http://yoursite.com/2016/06/06/linux_cmd/index.html">
+<meta property="og:site_name" content="yunsheng's blog">
+<meta property="og:description" content="Linux 常用命令mv既可以用于移动。又可以改名。注意如果目标位置已经存在相同名字的文件，将会覆盖。
+
+mv logtool1.sh opensmb.sh 
+
+修改系统日期和时间
+date：显示当前时间date –s：按字符串方式修改时间
+
+可以只修改日期,不修改时间,输入: date -s 2007-08-03
+只修改时间,输入:date -s 14:15:00
+同时修改日期时间,注意要加双引">
+<meta property="og:updated_time" content="2016-06-06T12:57:26.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="yunsheng's blog">
+<meta name="twitter:description" content="Linux 常用命令mv既可以用于移动。又可以改名。注意如果目标位置已经存在相同名字的文件，将会覆盖。
+
+mv logtool1.sh opensmb.sh 
+
+修改系统日期和时间
+date：显示当前时间date –s：按字符串方式修改时间
+
+可以只修改日期,不修改时间,输入: date -s 2007-08-03
+只修改时间,输入:date -s 14:15:00
+同时修改日期时间,注意要加双引">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title>  | yunsheng's blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?05a33c79ef299df2c5289fb197aecddf";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">yunsheng's blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-06-06T20:57:26+08:00" content="2016-06-06">
+              2016-06-06
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/06/06/linux_cmd/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/06/06/linux_cmd/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="Linux-常用命令"><a href="#Linux-常用命令" class="headerlink" title="Linux 常用命令"></a>Linux 常用命令</h2><h3 id="mv"><a href="#mv" class="headerlink" title="mv"></a>mv</h3><p>既可以用于移动。又可以改名。注意如果目标位置已经存在相同名字的文件，将会覆盖。</p>
+<blockquote>
+<p>mv logtool1.sh opensmb.sh </p>
+</blockquote>
+<h3 id="修改系统日期和时间"><a href="#修改系统日期和时间" class="headerlink" title="修改系统日期和时间"></a>修改系统日期和时间</h3><ul>
+<li><p>date：显示当前时间<br><br>date –s：按字符串方式修改时间<br></p>
+<ol>
+<li>可以只修改日期,不修改时间,输入: date -s 2007-08-03</li>
+<li>只修改时间,输入:date -s 14:15:00</li>
+<li>同时修改日期时间,注意要加双引号,日期与时间之间有一空格，输入:<br>date -s “2007-08-03 14:15:00”</li>
+</ol>
+</li>
+<li><p>hwclock:查看硬件时间<br><br>设置硬件时间:<br>hwclock -set -date=”07/07/06 10:19” （月/日/年 时:分:秒）</p>
+</li>
+<li><p>硬件时间和系统时间的同步<br><br>重新启动系统，硬件时间会读取系统时间，实现同步，但是在不重新启动的时候，需要用hwclock命令实现同步。</p>
+<ol>
+<li>硬件时钟与系统时钟同步：大家都同步到硬件时间<br><br>hwclock –hctosys（hc代表硬件时间，sys代表系统时间）</li>
+<li>系统时钟和硬件时钟同步：大家都同步到系统时间<br><br>hwclock –systohc</li>
+</ol>
+</li>
+</ul>
+<h3 id="tar"><a href="#tar" class="headerlink" title="tar"></a>tar</h3><ul>
+<li>tar 其实是打包命令，只是加上压缩的可选参数，使他具备了压缩解压缩的能力。他没有压缩能力，只是调用压缩功能。  </li>
+<li><p>参数，很多，备查。</p>
+<p>  命令参数：<br>  必要参数有如下：  </p>
+<pre><code>-A 新增压缩文件到已存在的压缩    
+-B 设置区块大小  
+-c 建立新的压缩文件  
+-d 记录文件的差别  
+-r 添加文件到已经压缩的文件  
+-u 添加改变了和现有的文件到已经存在的压缩文件  
+**-x 从压缩的文件中提取文件**  
+-t 显示压缩文件的内容  
+**-z 支持gzip解压文件**  
+-j 支持bzip2解压文件  
+-Z 支持compress解压文件  
+**-v 显示操作过程**  
+-l 文件系统边界设置  
+-k 保留原有文件不覆盖  
+-m 保留文件不被覆盖  
+-W 确认压缩文件的正确性  
+</code></pre><p>  可选参数如下：  </p>
+<pre><code>-b 设置区块数目  
+-C 切换到指定目录  
+**-f 指定压缩文件**  
+--help 显示帮助信息  
+--version 显示版本信息  
+</code></pre></li>
+<li><p>常用命令<br>  tar<br>  解包：tar xvf FileName.tar<br>  打包：tar cvf FileName.tar DirName<br>  （注：tar是打包，不是压缩！）  </p>
+<p>  .gz<br>  解压1：gunzip FileName.gz<br>  解压2：gzip -d FileName.gz<br>  压缩：gzip FileName  </p>
+<p>  <strong>.tar.gz 和 .tgz</strong><br>  <strong>解压：tar zxvf FileName.tar.gz</strong><br>  <strong>压缩：tar zcvf FileName.tar.gz DirName</strong>  </p>
+<p>  .bz2<br>  解压1：bzip2 -d FileName.bz2<br>  解压2：bunzip2 FileName.bz2<br>  压缩： bzip2 -z FileName  </p>
+<p>  .tar.bz2<br>  解压：tar jxvf FileName.tar.bz2<br>  压缩：tar jcvf FileName.tar.bz2 DirName  </p>
+<p>  .bz<br>  解压1：bzip2 -d FileName.bz<br>  解压2：bunzip2 FileName.bz<br>  压缩：未知  </p>
+<p>  .tar.bz<br>  解压：tar jxvf FileName.tar.bz<br>  压缩：未知  </p>
+<p>  .Z<br>  解压：uncompress FileName.Z<br>  压缩：compress FileName  </p>
+<p>  .tar.Z<br>  解压：tar Zxvf FileName.tar.Z<br>  压缩：tar Zcvf FileName.tar.Z DirName  </p>
+<p>  .zip<br>  解压：unzip FileName.zip<br>  压缩：zip FileName.zip DirName  </p>
+<p>  .rar<br>  解压：rar x FileName.rar<br>  压缩：rar a FileName.rar DirName </p>
+</li>
+</ul>
+<h3 id="重启网络服务"><a href="#重启网络服务" class="headerlink" title="重启网络服务"></a>重启网络服务</h3><p>suse ：  service network restart<br>ubuntu ：  /etc/init.d/networking restart</p>
+<h3 id="chmod修改文件权限"><a href="#chmod修改文件权限" class="headerlink" title="chmod修改文件权限"></a>chmod修改文件权限</h3><p>chmod命令用于改变linux系统文件或目录的访问权限。用它控制文件或目录的访问权限。该命令有两种用法。一种是包含字母和操作符表达式的文字设定法；另一种是包含数字的数字设定法。</p>
+<p>Linux系统中的每个文件和目录都有访问许可权限，用它来确定谁可以通过何种方式对文件和目录进行访问和操作。<br>　　文件或目录的访问权限分为只读，只写和可执行三种。以文件为例，只读权限表示只允许读其内容，而禁止对其做任何的更改操作。可执行权限表示允许将该文件作为一个程序执行。文件被创建时，文件所有者自动拥有对该文件的读、写和可执行权限，以便于对文件的阅读和修改。用户也可根据需要把访问权限设置为需要的任何组合。<br>　　有三种不同类型的用户可对文件或目录进行访问：文件所有者，同组用户、其他用户。所有者一般是文件的创建者。所有者可以允许同组用户有权访问文件，还可以将文件的访问权限赋予系统中的其他用户。在这种情况下，系统中每一位用户都能访问该用户拥有的文件或目录。<br>　　每一文件或目录的访问权限都有三组，每组用三位表示，分别为文件属主的读、写和执行权限；与属主同组的用户的读、写和执行权限；系统中其他用户的读、写和执行权限。当用ls -l命令显示文件或目录的详细信息时，最左边的一列为文件的访问权限。 例如：</p>
+<p>命令： </p>
+<p>ls -al</p>
+<p>输出：</p>
+<p>[root@localhost test]# ll -al</p>
+<p>总计 316lrwxrwxrwx 1 root root     11 11-22 06:58 linklog.log -&gt; log2012.log</p>
+<p>-rw-r–r– 1 root root 302108 11-13 06:03 log2012.log</p>
+<p>-rw-r–r– 1 root root     61 11-13 06:03 log2013.log</p>
+<p>-rw-r–r– 1 root root      0 11-13 06:03 log2014.log</p>
+<p>-rw-r–r– 1 root root      0 11-13 06:06 log2015.log</p>
+<p>-rw-r–r– 1 root root      0 11-16 14:41 log2016.log</p>
+<p>-rw-r–r– 1 root root      0 11-16 14:43 log2017.log</p>
+<p>我们以log2012.log为例：</p>
+<p>-rw-r–r– 1 root root 296K 11-13 06:03 log2012.log</p>
+<p>第一列共有10个位置，第一个字符指定了文件类型。在通常意义上，一个目录也是一个文件。如果第一个字符是横线，表示是一个非目录的文件。如果是d，表示是一个目录。从第二个字符开始到第十个共9个字符，3个字符一组，分别表示了3组用户对文件或者目录的权限。权限字符用横线代表空许可，r代表只读，w代表写，x代表可执行。</p>
+<p>例如：<br>　　- rw- r– r–<br>　　表示log2012.log是一个普通文件；log2012.log的属主有读写权限；与log2012.log属主同组的用户只有读权限；其他用户也只有读权限。</p>
+<p>　　确定了一个文件的访问权限后，用户可以利用Linux系统提供的chmod命令来重新设定不同的访问权限。也可以利用chown命令来更改某个文件或目录的所有者。利用chgrp命令来更改某个文件或目录的用户组。 </p>
+<p>chmod命令是非常重要的，用于改变文件或目录的访问权限。用户用它控制文件或目录的访问权限。chmod命令详细情况如下。</p>
+<ol>
+<li>命令格式:</li>
+</ol>
+<p>chmod [-cfvR] [–help] [–version] mode file   </p>
+<ol>
+<li>命令功能：</li>
+</ol>
+<p>用于改变文件或目录的访问权限，用它控制文件或目录的访问权限。</p>
+<ol>
+<li>命令参数：</li>
+</ol>
+<p>必要参数：<br>-c 当发生改变时，报告处理信息<br>-f 错误信息不输出<br>-R 处理指定目录以及其子目录下的所有文件<br>-v 运行时显示详细处理信息</p>
+<p>选择参数：<br>–reference=&lt;目录或者文件&gt; 设置成具有指定目录或者文件具有相同的权限<br>–version 显示版本信息<br>&lt;权限范围&gt;+&lt;权限设置&gt; 使权限范围内的目录或者文件具有指定的权限<br>&lt;权限范围&gt;-&lt;权限设置&gt; 删除权限范围的目录或者文件的指定权限<br>&lt;权限范围&gt;=&lt;权限设置&gt; 设置权限范围内的目录或者文件的权限为指定的值</p>
+<p>权限范围：<br>u ：目录或者文件的当前的用户<br>g ：目录或者文件的当前的群组<br>o ：除了目录或者文件的当前用户或群组之外的用户或者群组<br>a ：所有的用户及群组</p>
+<p>权限代号：<br>r ：读权限，用数字4表示<br>w ：写权限，用数字2表示<br>x ：执行权限，用数字1表示</p>
+<ul>
+<li>：删除权限，用数字0表示<br>s ：特殊权限 </li>
+</ul>
+<p>该命令有两种用法。一种是包含字母和操作符表达式的文字设定法；另一种是包含数字的数字设定法。<br>　　1）. 文字设定法:<br>　　    chmod ［who］ ［+ | - | =］ ［mode］ 文件名<br>　　2）. 数字设定法<br>　　我们必须首先了解用数字表示的属性的含义：0表示没有权限，1表示可执行权限，2表示可写权限，4表示可读权限，然后将其相加。所以数字属性的格式应为3个从0到7的八进制数，其顺序是（u）（g）（o）。<br>　　例如，如果想让某个文件的属主有“读/写”二种权限，需要把4（可读）+2（可写）＝6（读/写）。<br>　　数字设定法的一般形式为：<br>　　    chmod ［mode］ 文件名</p>
+<p>数字与字符对应关系如下：</p>
+<p>r=4，w=2，x=1<br>若要rwx属性则4+2+1=7<br>若要rw-属性则4+2=6；<br>若要r-x属性则4+1=7。 </p>
+<ol>
+<li>使用实例：<br>实例1：增加文件所有用户组可执行权限</li>
+</ol>
+<p>命令：</p>
+<p>chmod a+x log2012.log</p>
+<p>输出：</p>
+<p>[root@localhost test]# ls -al log2012.log </p>
+<p>-rw-r–r– 1 root root 302108 11-13 06:03 log2012.log</p>
+<p>[root@localhost test]# chmod a+x log2012.log </p>
+<p>[root@localhost test]# ls -al log2012.log </p>
+<p>-rwxr-xr-x 1 root root 302108 11-13 06:03 log2012.log</p>
+<p>[root@localhost test]#</p>
+<p>说明：<br>　　即设定文件log2012.log的属性为：文件属主（u） 增加执行权限；与文件属主同组用户（g） 增加执行权限；其他用户（o） 增加执行权限。
+　</p>
+<p>实例2：同时修改不同用户权限</p>
+<p>命令：</p>
+<p>chmod ug+w,o-x log2012.log</p>
+<p>输出：</p>
+<p>[root@localhost test]# ls -al log2012.log </p>
+<p>-rwxr-xr-x 1 root root 302108 11-13 06:03 log2012.log</p>
+<p>[root@localhost test]# chmod ug+w,o-x log2012.log </p>
+<p>[root@localhost test]# ls -al log2012.log </p>
+<p>-rwxrwxr– 1 root root 302108 11-13 06:03 log2012.log</p>
+<p>说明：<br>　　即设定文件text的属性为：文件属主（u） 增加写权限;与文件属主同组用户（g） 增加写权限;其他用户（o） 删除执行权限</p>
+<p>实例3：删除文件权限</p>
+<p>命令：</p>
+<p>chmod a-x log2012.log</p>
+<p>输出：</p>
+<p>[root@localhost test]# ls -al log2012.log </p>
+<p>-rwxrwxr– 1 root root 302108 11-13 06:03 log2012.log</p>
+<p>[root@localhost test]# chmod a-x log2012.log </p>
+<p>[root@localhost test]# ls -al log2012.log </p>
+<p>-rw-rw-r– 1 root root 302108 11-13 06:03 log2012.log</p>
+<p>说明：<br>　    删除所有用户的可执行权限 
+　    </p>
+<p>实例4：使用“=”设置权限 </p>
+<p>命令：</p>
+<p>chmod u=x log2012.log</p>
+<p>输出：</p>
+<p>[root@localhost test]# ls -al log2012.log </p>
+<p>-rw-rw-r– 1 root root 302108 11-13 06:03 log2012.log</p>
+<p>[root@localhost test]# chmod u=x log2012.log </p>
+<p>[root@localhost test]# ls -al log2012.log </p>
+<p>—xrw-r– 1 root root 302108 11-13 06:03 log2012.log</p>
+<p>说明：</p>
+<p>撤销原来所有的权限，然后使拥有者具有可读权限 </p>
+<p>实例5：对一个目录及其子目录所有文件添加权限 </p>
+<p>命令：</p>
+<p>chmod -R u+x test4</p>
+<p>输出：</p>
+<p>[root@localhost test]# cd test4</p>
+<p>[root@localhost test4]# ls -al</p>
+<p>总计 312drwxrwxr-x 2 root root   4096 11-13 05:50 .</p>
+<p>drwxr-xr-x 5 root root   4096 11-22 06:58 ..</p>
+<p>-rw-r–r– 1 root root 302108 11-12 22:54 log2012.log</p>
+<p>-rw-r–r– 1 root root     61 11-12 22:54 log2013.log</p>
+<p>-rw-r–r– 1 root root      0 11-12 22:54 log2014.log</p>
+<p>[root@localhost test4]# cd ..</p>
+<p>[root@localhost test]# chmod -R u+x test4</p>
+<p>[root@localhost test]# cd test4</p>
+<p>[root@localhost test4]# ls -al</p>
+<p>总计 312drwxrwxr-x 2 root root   4096 11-13 05:50 .</p>
+<p>drwxr-xr-x 5 root root   4096 11-22 06:58 ..</p>
+<p>-rwxr–r– 1 root root 302108 11-12 22:54 log2012.log</p>
+<p>-rwxr–r– 1 root root     61 11-12 22:54 log2013.log</p>
+<p>-rwxr–r– 1 root root      0 11-12 22:54 log2014.log</p>
+<p>说明：</p>
+<p>递归地给test4目录下所有文件和子目录的属主分配权限 </p>
+<p>其他一些实例：</p>
+<p>1）. </p>
+<p>命令：</p>
+<p>chmod 751 file   </p>
+<p>说明：</p>
+<p>给file的属主分配读、写、执行(7)的权限，给file的所在组分配读、执行(5)的权限，给其他用户分配执行(1)的权限</p>
+<p>2）. </p>
+<p>命令：</p>
+<p>chmod u=rwx,g=rx,o=x file </p>
+<p>说明：</p>
+<p>上例的另一种形式</p>
+<p>3）. </p>
+<p>命令</p>
+<p>chmod =r file </p>
+<p>说明：                　　　　</p>
+<p>为所有用户分配读权限</p>
+<p>3）. </p>
+<p>命令：</p>
+<p>chmod 444 file </p>
+<p>说明： </p>
+<pre><code>同上例
+</code></pre><p>4）. </p>
+<p>命令：</p>
+<p>chmod a-wx,a+r   file</p>
+<p>说明：</p>
+<p>同上例</p>
+<h3 id="开smb文件共享服务"><a href="#开smb文件共享服务" class="headerlink" title="开smb文件共享服务"></a>开smb文件共享服务</h3><p>将下面的代码保存为shell脚本，执行即可</p>
+<pre><code>#!/bin/bash
+#check where the smb exist
+smbFilePath=&quot;/etc/samba/smb.conf&quot;
+if [ ! -e ${smbFilePath} ]
+then 
+    echo &quot;&apos;$smbFilePath&apos; not exist,please check!&quot;
+    exit 1
+fi
+guestAccount=&quot;       guest account = root&quot;
+sed -i &quot;/global/a\ $guestAccount&quot; $smbFilePath
+path_dir=&quot;[root]
+        comment = root
+        inherit acls = Yes
+        path = /root
+        guest ok=yes
+        writable = yes&quot;
+echo &quot;$path_dir&quot; &gt;&gt;$smbFilePath
+rcsmb restart
+</code></pre><h3 id="新增用户相关操作"><a href="#新增用户相关操作" class="headerlink" title="新增用户相关操作"></a>新增用户相关操作</h3><p>环境：suse11<br>新增一个用户：<code>mongo:~ # useradd yunsheng</code><br>测试还不能登陆，要设置密码：<code>mongo:/ # passwd yunsheng</code><br>此时可以登陆，但是发现suse11并没有如其他人所讲的，自动创建/home/yunsheng目录，登陆yunsheng，直接进入根目录。<br>而且对home目录没有写权限，<br><code>drwxr-xr-x   3 root root     4096 Sep 21 21:12 home/</code><br>这样yunsheng也不能给自己在home下建文件夹，只能用root给yunsheng建，然后切换文件所有人chwod。  </p>
+<pre><code>mongo:/ # chown yunsheng:users /home/yunsheng/
+mongo:/ # ll home/
+total 8
+drwxr-xr-x 5 test     users 4096 Sep 21 21:12 test
+drwxr-xr-x 2 yunsheng users 4096 Oct 10 11:52 yunsheng
+</code></pre><p>不太方便。  </p>
+<p>新增的时候最好直接指定目录。  </p>
+<pre><code>mongo:/ # useradd -d /home/yunsheng5 -m yunsheng5
+mongo:/ # ll home/
+total 12
+drwxr-xr-x 5 test      users 4096 Sep 21 21:12 test
+drwxr-xr-x 2 yunsheng  users 4096 Oct 10 11:52 yunsheng
+drwxr-xr-x 5 yunsheng5 users 4096 Oct 10 14:28 yunsheng5
+</code></pre><ul>
+<li>删除用户 <code>mongo:/ # userdel yunsheng2</code>  </li>
+<li><p>查看所有用户  </p>
+<pre><code>mongo:/ # users
+root yunsheng yunsheng5
+</code></pre></li>
+<li><p>查看所属的用户组，不加参数默认当前用户    </p>
+<pre><code>mongo:/ # groups yunsheng5
+yunsheng5 : users dialout video
+</code></pre></li>
+</ul>
+<h3 id="文件权限"><a href="#文件权限" class="headerlink" title="文件权限"></a>文件权限</h3><pre><code>mongo:/ # ll home/
+total 12
+drwxr-xr-x 5 test      users 4096 Sep 21 21:12 test
+drwxr-xr-x 2 yunsheng  users 4096 Oct 10 11:52 yunsheng
+drwxr-xr-x 5 yunsheng5 users 4096 Oct 10 14:28 yunsheng5
+</code></pre><p>10位的标记： drwxr-xr-x<br>第一个d表示文件夹，-表示文件，l表示软连接文件，还有四种不常见。<br>剩下9位，每三位一组表示权限，r：读权限，w：写权限，x：执行权限<br>第一个三位是文件所有人u的权限，第二个是所属组g的权限，第三个是其他用户o的权限<br>注意一个问题：如果用户对一个文件由写权限，但是对文件所属的目录没有写权限，那么他是没有权限删除这个文件的，能修改。<br>文件夹的x权限，就是可以cd进去。  </p>
+<p>权限的数字表示，r：4，w：2，x：1<br>如文件夹和可执行文件常用权限755，普通文件常用的644<br>还有一些奇葩的，777,577等等不要用。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/06/06/MongoDB讲解/" rel="next" title="">
+                <i class="fa fa-chevron-left"></i> 
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/06/06/Maven讲解/" rel="prev" title="">
+                 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/06/06/linux_cmd/"
+           data-title="" data-url="http://yoursite.com/2016/06/06/linux_cmd/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/me.jpg"
+               alt="yunsheng" />
+          <p class="site-author-name" itemprop="name">yunsheng</p>
+          <p class="site-description motion-element" itemprop="description">云胜的笔记</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">29</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Linux-常用命令"><span class="nav-number">1.</span> <span class="nav-text">Linux 常用命令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#mv"><span class="nav-number">1.1.</span> <span class="nav-text">mv</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#修改系统日期和时间"><span class="nav-number">1.2.</span> <span class="nav-text">修改系统日期和时间</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#tar"><span class="nav-number">1.3.</span> <span class="nav-text">tar</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#重启网络服务"><span class="nav-number">1.4.</span> <span class="nav-text">重启网络服务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#chmod修改文件权限"><span class="nav-number">1.5.</span> <span class="nav-text">chmod修改文件权限</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#开smb文件共享服务"><span class="nav-number">1.6.</span> <span class="nav-text">开smb文件共享服务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#新增用户相关操作"><span class="nav-number">1.7.</span> <span class="nav-text">新增用户相关操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#文件权限"><span class="nav-number">1.8.</span> <span class="nav-text">文件权限</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">yunsheng</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"yunsheng-notes"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+  
+
+
+
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>
