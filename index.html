@@ -263,785 +263,6 @@
             
               
                 
-                <a class="post-title-link" href="/2016/06/06/sysstat工具使用说明/" itemprop="url">
-                  未命名
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-06-06T20:57:27+08:00" content="2016-06-06">
-              2016-06-06
-            </time>
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/06/06/sysstat工具使用说明/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/06/06/sysstat工具使用说明/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="sysstat工具使用"><a href="#sysstat工具使用" class="headerlink" title="sysstat工具使用"></a>sysstat工具使用</h2><p>统计系统的各种资源占用</p>
-<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3>
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/06/06/使用jersy提供rest服务1/" itemprop="url">
-                  未命名
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-06-06T20:57:27+08:00" content="2016-06-06">
-              2016-06-06
-            </time>
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/06/06/使用jersy提供rest服务1/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/06/06/使用jersy提供rest服务1/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="java模拟http请求"><a href="#java模拟http请求" class="headerlink" title="java模拟http请求"></a>java模拟http请求</h2><h3 id="下载jersy相关的jar包"><a href="#下载jersy相关的jar包" class="headerlink" title="下载jersy相关的jar包"></a>下载jersy相关的jar包</h3><p><a href="http://www.java2s.com/Code/Jar/j/Downloadjerseyserver117jar.htm" target="_blank" rel="external">http://www.java2s.com/Code/Jar/j/Downloadjerseyserver117jar.htm</a><br>或者<a href="mvnrepository.com/artifact/com.sun.jersey">mvnrepository.com/artifact/com.sun.jersey</a><br>我这边下载了：<br>jersey-client-1.17.jar<br>jersey-server-1.17.jar<br>jersey-servlet-1.17.jar<br>jersey-json-1.17.jar<br>jersey-core-1.17.jar<br>asm-3.3.1.jar</p>
-<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><ol>
-<li>将jar加入classpath</li>
-<li><p>web.xml  </p>
-<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
-&lt;web-app xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns=&quot;http://java.sun.com/xml/ns/javaee&quot; xmlns:web=&quot;http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd&quot; xsi:schemaLocation=&quot;http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd&quot; id=&quot;WebApp_ID&quot; version=&quot;2.5&quot;&gt;
-  &lt;display-name&gt;sample&lt;/display-name&gt;
-  &lt;servlet&gt;
-    &lt;servlet-name&gt;Jersey REST Service&lt;/servlet-name&gt;
-    &lt;servlet-class&gt;com.sun.jersey.spi.container.servlet.ServletContainer&lt;/servlet-class&gt;
-    &lt;init-param&gt;
-      &lt;param-name&gt;com.sun.jersey.config.property.packages&lt;/param-name&gt;
-        &lt;!-- 响应代码所在的包 --&gt;
-      &lt;param-value&gt;sample&lt;/param-value&gt;
-    &lt;/init-param&gt;
-    &lt;load-on-startup&gt;1&lt;/load-on-startup&gt;
-  &lt;/servlet&gt;
-  &lt;servlet-mapping&gt;
-    &lt;servlet-name&gt;Jersey REST Service&lt;/servlet-name&gt;
-     &lt;!-- url:http://ip:port/RestfulDemo(项目名) + 下面的参数 --&gt;
-    &lt;url-pattern&gt;/rest/*&lt;/url-pattern&gt;
-  &lt;/servlet-mapping&gt;
-&lt;/web-app&gt; 
-</code></pre></li>
-<li><p>响应代码  </p>
-<pre><code>package sample;
-
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
-
-//Sets the path to base URL + /hello
-@Path(&quot;/hello&quot;)
-public class Hello {
-
-// This method is called if TEXT_PLAIN is request
-@GET
-@Produces(MediaType.TEXT_PLAIN)
-public String sayPlainTextHello() {
-    return &quot;Hello Jersey&quot;;
-}
-
-// This method is called if XML is request
-@GET
-@Produces(MediaType.TEXT_XML)
-public String sayXMLHello() {
-    return &quot;&lt;?xml version=\&quot;1.0\&quot;?&gt;&quot; + &quot;&lt;hello&gt; Hello Jersey&quot; + &quot;&lt;/hello&gt;&quot;;
-}
-
-// This method is called if HTML is request
-@GET
-@Produces(MediaType.TEXT_HTML)
-public String sayHtmlHello() {
-    return &quot;&lt;html&gt; &quot; + &quot;&lt;title&gt;&quot; + &quot;Hello Jersey&quot; + &quot;&lt;/title&gt;&quot;
-            + &quot;&lt;body&gt;&lt;h1&gt;&quot; + &quot;Hello Jersey&quot; + &quot;&lt;/body&gt;&lt;/h1&gt;&quot; + &quot;&lt;/html&gt; &quot;;
-}
-
-}
-</code></pre></li>
-<li><p>测试代码  </p>
-<pre><code>package sample;
-
-import java.net.URI;
-
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.UriBuilder;
-
-import com.sun.jersey.api.client.Client;
-import com.sun.jersey.api.client.ClientResponse;
-import com.sun.jersey.api.client.WebResource;
-import com.sun.jersey.api.client.config.ClientConfig;
-import com.sun.jersey.api.client.config.DefaultClientConfig;
-
-public class Test {
-    public static void main(String[] args) {
-        ClientConfig config = new DefaultClientConfig();
-        Client client = Client.create(config);
-        WebResource service = client.resource(getBaseURI());
-        // Fluent interfaces
-        System.out.println(service.path(&quot;rest&quot;).path(&quot;hello&quot;)
-                .accept(MediaType.TEXT_PLAIN).get(ClientResponse.class)
-                .toString());
-        // Get plain text
-        System.out.println(service.path(&quot;rest&quot;).path(&quot;hello&quot;)
-                .accept(MediaType.TEXT_PLAIN).get(String.class));
-        // Get XML
-        System.out.println(service.path(&quot;rest&quot;).path(&quot;hello&quot;)
-                .accept(MediaType.TEXT_XML).get(String.class));
-        // The HTML
-        System.out.println(service.path(&quot;rest&quot;).path(&quot;hello&quot;)
-                .accept(MediaType.TEXT_HTML).get(String.class));
-
-}
-
-/*
-public static void main(String[] args)
-{
-    Client client = Client.create();
-    //
-    String url = &quot;http://localhost:8080/RestfulDemo/rest/hello&quot;;
-    WebResource webResource = client.resource(url);
-
-    ClientResponse response = webResource.type(&quot;application/json&quot;).get(
-            ClientResponse.class);
-
-    //如果调用查询不成功
-    if (200 != response.getStatus())
-    {
-        System.out.println(&quot;query failed:&quot;
-                + response.getEntity(String.class));
-    }
-    System.out.println(response.getEntity(String.class));
-}
-*/
-
-private static URI getBaseURI() {
-    return UriBuilder.fromUri(&quot;http://localhost:8080/RestfulDemo&quot;).build();
-}
-
-}
-</code></pre></li>
-<li><p>发布服务</p>
-</li>
-</ol>
-<p>tomcat</p>
-<h3 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h3><ol>
-<li>java.lang.ClassNotFoundException: com.sun.jersey.spi.container.servlet.ServletContainer<br>解决：要将jar包，放到WEB-INF的lib下，然后project -&gt; properties -&gt; development assembly -&gt; add -&gt; java build path entries.关联发布</li>
-</ol>
-<ol>
-<li><p>asm缺包<br>报错：  </p>
-<pre><code>java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor
-    com.sun.jersey.api.core.ScanningResourceConfig.init(ScanningResourceConfig.java:79)
-    com.sun.jersey.api.core.servlet.WebAppResourceConfig.init(WebAppResourceConfig.java:102)
-    com.sun.jersey.api.core.servlet.WebAppResourceConfig.&lt;init&gt;(WebAppResourceConfig.java:89)
-    com.sun.jersey.api.core.servlet.WebAppResourceConfig.&lt;init&gt;(WebAppResourceConfig.java:74)
-    com.sun.jersey.spi.container.servlet.WebComponent.getWebAppResourceConfig(WebComponent.java:672)
-    com.sun.jersey.spi.container.servlet.ServletContainer.getDefaultResourceConfig(ServletContainer.java:415)
-    com.sun.jersey.spi.container.servlet.ServletContainer.getDefaultResourceConfig(ServletContainer.java:582)
-    com.sun.jersey.spi.container.servlet.WebServletConfig.getDefaultResourceConfig(WebServletConfig.java:87)
-    com.sun.jersey.spi.container.servlet.WebComponent.createResourceConfig(WebComponent.java:703)
-    com.sun.jersey.spi.container.servlet.WebComponent.createResourceConfig(WebComponent.java:678)
-    com.sun.jersey.spi.container.servlet.WebComponent.init(WebComponent.java:203)
-    com.sun.jersey.spi.container.servlet.ServletContainer.init(ServletContainer.java:374)
-    com.sun.jersey.spi.container.servlet.ServletContainer.init(ServletCont
-</code></pre><p>原因：<br>   缺包，<a href="www.java2s.com/Code/Jar/a/Downloadasm331jar.htm">asm-3.3.1</a></p>
-</li>
-</ol>
-<ol>
-<li>发布服务后，登陆不了<br>将”Deploy Path”的默认值”wtpwebapps”改为”webapps”,也就是tomcat中发布项目所在的文件夹名字。<br><a href="http://bbs.itbookstudy.com/t/41011/1/1" target="_blank" rel="external">解决</a></li>
-</ol>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/06/06/README/" itemprop="url">
-                  未命名
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-06-06T20:57:27+08:00" content="2016-06-06">
-              2016-06-06
-            </time>
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/06/06/README/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/06/06/README/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="DayDayUp"><a href="#DayDayUp" class="headerlink" title="DayDayUp"></a>DayDayUp</h1><p>云胜的学习笔记</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/06/06/高效实用Eclipse/" itemprop="url">
-                  未命名
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-06-06T20:57:27+08:00" content="2016-06-06">
-              2016-06-06
-            </time>
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/06/06/高效实用Eclipse/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/06/06/高效实用Eclipse/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="Eclipse的高效实用"><a href="#Eclipse的高效实用" class="headerlink" title="Eclipse的高效实用"></a>Eclipse的高效实用</h2><ol>
-<li><p>神迹，根据方法返回值自动生成局部变量，CTRL+2 再加L</p>
-</li>
-<li><p>Ctrl + Shift + x ： 选中的字符变大写</p>
-</li>
-<li><p>Ctrl + Shift + y ： 选中的字符变小写</p>
-</li>
-</ol>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/06/06/ZooKeeper开发/" itemprop="url">
-                  未命名
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-06-06T20:57:27+08:00" content="2016-06-06">
-              2016-06-06
-            </time>
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/06/06/ZooKeeper开发/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/06/06/ZooKeeper开发/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/06/06/osgi/" itemprop="url">
-                  未命名
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-06-06T20:57:27+08:00" content="2016-06-06">
-              2016-06-06
-            </time>
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/06/06/osgi/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/06/06/osgi/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="osgi学习笔记"><a href="#osgi学习笔记" class="headerlink" title="osgi学习笔记"></a>osgi学习笔记</h2><ol>
-<li><p>bundle依赖解析规则：<br>当多个bundle的导出包满足该bundle的import-package依赖时，优先级如下：</p>
-<ol>
-<li>已解析的（resolved）bundle优先级高，未解析的（installed）bundle优先级低。</li>
-<li>bundle状态一样，版本高者优先，版本也相同，择选最先安装的bundle。</li>
-</ol>
-</li>
-<li><p>一般bundle都会是resolved状态，这样如果bundleA导入了bundleB导出的版本为1的包，然后bundleC又导出了同名的版本为2的包，<br>这样如果BundleA的代码中有显式import或者继承bundleB的代码，需要用uses限制export-package<br><a href="http://course.tianmaying.com/osgi-toturial/lesson/osgi-module-layer#22" target="_blank" rel="external">uses具体链接</a></p>
-</li>
-<li><p>bundle的生命周期<br><img src="http://tmy-course.oss-cn-beijing.aliyuncs.com/osgi-toturial%2F03%2F00005.jpg" alt="bundle状态"><br>生命周期层的基础实施：</p>
-<pre><code>public interface BundleActivator {
-  public void start(BundleContext context) throws Exception;
-  public void stop(BundleContext context) throws Exception;
-}
-</code></pre><p>当bundle的状态属于active时，BundleContext才有意义。<br>为了bundle的安全和资源分配，不能随意传到bundlecontext。<br>Bundle定义了一系列api，用于管理bundle的生命周期。  </p>
-</li>
-</ol>
-<p>4.bundleId越大，bundle的启动顺序越靠后。只有系统bundle（system bundle）的bundleId可以为0。</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
                 <a class="post-title-link" href="/2016/06/06/suse11安装mysql/" itemprop="url">
                   未命名
                 </a>
@@ -1353,6 +574,215 @@ mysql&gt; show tables;
             
               
                 
+                <a class="post-title-link" href="/2016/06/06/高效实用Eclipse/" itemprop="url">
+                  未命名
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-06-06T20:57:27+08:00" content="2016-06-06">
+              2016-06-06
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/06/06/高效实用Eclipse/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/06/06/高效实用Eclipse/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="Eclipse的高效实用"><a href="#Eclipse的高效实用" class="headerlink" title="Eclipse的高效实用"></a>Eclipse的高效实用</h2><ol>
+<li><p>神迹，根据方法返回值自动生成局部变量，CTRL+2 再加L</p>
+</li>
+<li><p>Ctrl + Shift + x ： 选中的字符变大写</p>
+</li>
+<li><p>Ctrl + Shift + y ： 选中的字符变小写</p>
+</li>
+</ol>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/06/06/README/" itemprop="url">
+                  未命名
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-06-06T20:57:27+08:00" content="2016-06-06">
+              2016-06-06
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/06/06/README/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/06/06/README/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="DayDayUp"><a href="#DayDayUp" class="headerlink" title="DayDayUp"></a>DayDayUp</h1><p>云胜的学习笔记</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/06/06/ZooKeeper学习/" itemprop="url">
                   未命名
                 </a>
@@ -1595,7 +1025,7 @@ Starting zookeeper ... STARTED
             
               
                 
-                <a class="post-title-link" href="/2016/06/06/vim_tutor/" itemprop="url">
+                <a class="post-title-link" href="/2016/06/06/ZooKeeper开发/" itemprop="url">
                   未命名
                 </a>
               
@@ -1620,8 +1050,8 @@ Starting zookeeper ... STARTED
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/06/06/vim_tutor/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/06/06/vim_tutor/" itemprop="commentsCount"></span>
+                <a href="/2016/06/06/ZooKeeper开发/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/06/06/ZooKeeper开发/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -1646,107 +1076,470 @@ Starting zookeeper ... STARTED
       
         
           
-            <h2 id="vim-使用"><a href="#vim-使用" class="headerlink" title="vim 使用"></a>vim 使用</h2><ul>
-<li>vim 文件名  ： 打开或新建一个文件，默认进入命令模式</li>
-</ul>
-<h3 id="在命令模式下"><a href="#在命令模式下" class="headerlink" title="在命令模式下"></a>在命令模式下</h3><ul>
-<li>a/i     ：进入insert模式。准确来讲有细微区别，a是append，是在当前光标后插入。i会在当前光标处插入。</li>
-<li>x    : 删除当前字符</li>
-<li>dw   : 删除当前单词，准确来说是会删除从当前到下一个单词的开始，也就是说会把单词后面的空格也干掉。</li>
-<li>de : 这个是删除到本单词结束。</li>
-<li>d$ : 删除从光标处到本行结束。</li>
-</ul>
-<blockquote>
-<p>d 称为操作符operator,w/e/$ 称为motion意图。组合起来达到不同的操作效果。</p>
-</blockquote>
-<ul>
-<li>w : 可以跳到下一个单词的开始</li>
-<li>e : 可以跳到单词的结束，如果光标已经在本单词的结束，那就跳到下一个单词的结束。</li>
-<li>$ : 可以调到本行的结束</li>
-<li>0 : 可以跳到本行的开始<blockquote>
-<p>可以在这些motion前面加上次数，跳到第几个单词。如2w：跳到本行第二个单词的开始</p>
-</blockquote>
+            
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/06/06/使用jersy提供rest服务1/" itemprop="url">
+                  未命名
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-06-06T20:57:27+08:00" content="2016-06-06">
+              2016-06-06
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/06/06/使用jersy提供rest服务1/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/06/06/使用jersy提供rest服务1/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="java模拟http请求"><a href="#java模拟http请求" class="headerlink" title="java模拟http请求"></a>java模拟http请求</h2><h3 id="下载jersy相关的jar包"><a href="#下载jersy相关的jar包" class="headerlink" title="下载jersy相关的jar包"></a>下载jersy相关的jar包</h3><p><a href="http://www.java2s.com/Code/Jar/j/Downloadjerseyserver117jar.htm" target="_blank" rel="external">http://www.java2s.com/Code/Jar/j/Downloadjerseyserver117jar.htm</a><br>或者<a href="mvnrepository.com/artifact/com.sun.jersey">mvnrepository.com/artifact/com.sun.jersey</a><br>我这边下载了：<br>jersey-client-1.17.jar<br>jersey-server-1.17.jar<br>jersey-servlet-1.17.jar<br>jersey-json-1.17.jar<br>jersey-core-1.17.jar<br>asm-3.3.1.jar</p>
+<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><ol>
+<li>将jar加入classpath</li>
+<li><p>web.xml  </p>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;web-app xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns=&quot;http://java.sun.com/xml/ns/javaee&quot; xmlns:web=&quot;http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd&quot; xsi:schemaLocation=&quot;http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd&quot; id=&quot;WebApp_ID&quot; version=&quot;2.5&quot;&gt;
+  &lt;display-name&gt;sample&lt;/display-name&gt;
+  &lt;servlet&gt;
+    &lt;servlet-name&gt;Jersey REST Service&lt;/servlet-name&gt;
+    &lt;servlet-class&gt;com.sun.jersey.spi.container.servlet.ServletContainer&lt;/servlet-class&gt;
+    &lt;init-param&gt;
+      &lt;param-name&gt;com.sun.jersey.config.property.packages&lt;/param-name&gt;
+        &lt;!-- 响应代码所在的包 --&gt;
+      &lt;param-value&gt;sample&lt;/param-value&gt;
+    &lt;/init-param&gt;
+    &lt;load-on-startup&gt;1&lt;/load-on-startup&gt;
+  &lt;/servlet&gt;
+  &lt;servlet-mapping&gt;
+    &lt;servlet-name&gt;Jersey REST Service&lt;/servlet-name&gt;
+     &lt;!-- url:http://ip:port/RestfulDemo(项目名) + 下面的参数 --&gt;
+    &lt;url-pattern&gt;/rest/*&lt;/url-pattern&gt;
+  &lt;/servlet-mapping&gt;
+&lt;/web-app&gt; 
+</code></pre></li>
+<li><p>响应代码  </p>
+<pre><code>package sample;
+
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+
+//Sets the path to base URL + /hello
+@Path(&quot;/hello&quot;)
+public class Hello {
+
+// This method is called if TEXT_PLAIN is request
+@GET
+@Produces(MediaType.TEXT_PLAIN)
+public String sayPlainTextHello() {
+    return &quot;Hello Jersey&quot;;
+}
+
+// This method is called if XML is request
+@GET
+@Produces(MediaType.TEXT_XML)
+public String sayXMLHello() {
+    return &quot;&lt;?xml version=\&quot;1.0\&quot;?&gt;&quot; + &quot;&lt;hello&gt; Hello Jersey&quot; + &quot;&lt;/hello&gt;&quot;;
+}
+
+// This method is called if HTML is request
+@GET
+@Produces(MediaType.TEXT_HTML)
+public String sayHtmlHello() {
+    return &quot;&lt;html&gt; &quot; + &quot;&lt;title&gt;&quot; + &quot;Hello Jersey&quot; + &quot;&lt;/title&gt;&quot;
+            + &quot;&lt;body&gt;&lt;h1&gt;&quot; + &quot;Hello Jersey&quot; + &quot;&lt;/body&gt;&lt;/h1&gt;&quot; + &quot;&lt;/html&gt; &quot;;
+}
+
+}
+</code></pre></li>
+<li><p>测试代码  </p>
+<pre><code>package sample;
+
+import java.net.URI;
+
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.UriBuilder;
+
+import com.sun.jersey.api.client.Client;
+import com.sun.jersey.api.client.ClientResponse;
+import com.sun.jersey.api.client.WebResource;
+import com.sun.jersey.api.client.config.ClientConfig;
+import com.sun.jersey.api.client.config.DefaultClientConfig;
+
+public class Test {
+    public static void main(String[] args) {
+        ClientConfig config = new DefaultClientConfig();
+        Client client = Client.create(config);
+        WebResource service = client.resource(getBaseURI());
+        // Fluent interfaces
+        System.out.println(service.path(&quot;rest&quot;).path(&quot;hello&quot;)
+                .accept(MediaType.TEXT_PLAIN).get(ClientResponse.class)
+                .toString());
+        // Get plain text
+        System.out.println(service.path(&quot;rest&quot;).path(&quot;hello&quot;)
+                .accept(MediaType.TEXT_PLAIN).get(String.class));
+        // Get XML
+        System.out.println(service.path(&quot;rest&quot;).path(&quot;hello&quot;)
+                .accept(MediaType.TEXT_XML).get(String.class));
+        // The HTML
+        System.out.println(service.path(&quot;rest&quot;).path(&quot;hello&quot;)
+                .accept(MediaType.TEXT_HTML).get(String.class));
+
+}
+
+/*
+public static void main(String[] args)
+{
+    Client client = Client.create();
+    //
+    String url = &quot;http://localhost:8080/RestfulDemo/rest/hello&quot;;
+    WebResource webResource = client.resource(url);
+
+    ClientResponse response = webResource.type(&quot;application/json&quot;).get(
+            ClientResponse.class);
+
+    //如果调用查询不成功
+    if (200 != response.getStatus())
+    {
+        System.out.println(&quot;query failed:&quot;
+                + response.getEntity(String.class));
+    }
+    System.out.println(response.getEntity(String.class));
+}
+*/
+
+private static URI getBaseURI() {
+    return UriBuilder.fromUri(&quot;http://localhost:8080/RestfulDemo&quot;).build();
+}
+
+}
+</code></pre></li>
+<li><p>发布服务</p>
 </li>
-</ul>
-<blockquote>
-<p>也可以在operatoer的后面加上次数。如d2w，删除后面的2个单词。</p>
-<p>所以说vim的关键在于熟练，在于融会贯通。</p>
-</blockquote>
-<ul>
-<li>dd ： 删除本行</li>
-<li>2dd ： 删除2行</li>
-<li>u   : undo</li>
-<li>U（大写）   : undo 整行</li>
-<li>ctrl+r   ： undo the undo</li>
-<li>p : 粘贴。vim会将之前删除的内容放在自己的寄存器中，现在可以粘贴了。</li>
-<li>r : replace,在想要修改的字符上，先按r，然后替换正确的字符，r + x</li>
-<li>ce: 删除至单词结束，同时进入insert模式。有点像de/dw + i，但是de/dw删除后还是在命令模式。<blockquote>
-<p>c是change，和d一样是operator，用法也和d一样，如ce改变至单词结束，c$:改变至行结束。</p>
-</blockquote>
+</ol>
+<p>tomcat</p>
+<h3 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h3><ol>
+<li>java.lang.ClassNotFoundException: com.sun.jersey.spi.container.servlet.ServletContainer<br>解决：要将jar包，放到WEB-INF的lib下，然后project -&gt; properties -&gt; development assembly -&gt; add -&gt; java build path entries.关联发布</li>
+</ol>
+<ol>
+<li><p>asm缺包<br>报错：  </p>
+<pre><code>java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor
+    com.sun.jersey.api.core.ScanningResourceConfig.init(ScanningResourceConfig.java:79)
+    com.sun.jersey.api.core.servlet.WebAppResourceConfig.init(WebAppResourceConfig.java:102)
+    com.sun.jersey.api.core.servlet.WebAppResourceConfig.&lt;init&gt;(WebAppResourceConfig.java:89)
+    com.sun.jersey.api.core.servlet.WebAppResourceConfig.&lt;init&gt;(WebAppResourceConfig.java:74)
+    com.sun.jersey.spi.container.servlet.WebComponent.getWebAppResourceConfig(WebComponent.java:672)
+    com.sun.jersey.spi.container.servlet.ServletContainer.getDefaultResourceConfig(ServletContainer.java:415)
+    com.sun.jersey.spi.container.servlet.ServletContainer.getDefaultResourceConfig(ServletContainer.java:582)
+    com.sun.jersey.spi.container.servlet.WebServletConfig.getDefaultResourceConfig(WebServletConfig.java:87)
+    com.sun.jersey.spi.container.servlet.WebComponent.createResourceConfig(WebComponent.java:703)
+    com.sun.jersey.spi.container.servlet.WebComponent.createResourceConfig(WebComponent.java:678)
+    com.sun.jersey.spi.container.servlet.WebComponent.init(WebComponent.java:203)
+    com.sun.jersey.spi.container.servlet.ServletContainer.init(ServletContainer.java:374)
+    com.sun.jersey.spi.container.servlet.ServletContainer.init(ServletCont
+</code></pre><p>原因：<br>   缺包，<a href="www.java2s.com/Code/Jar/a/Downloadasm331jar.htm">asm-3.3.1</a></p>
 </li>
-</ul>
-<h4 id="位置操作"><a href="#位置操作" class="headerlink" title="位置操作"></a>位置操作</h4><pre><code>ctrl + g ：显示当前行号
-G ： 跳到文件结束
-gg ： 跳到文件开始
-行号 然后 + G ： 跳到指定行。
-</code></pre><h4 id="搜索"><a href="#搜索" class="headerlink" title="搜索"></a>搜索</h4><ul>
-<li>/ 然后加要搜索的内容。从头开始搜索。</li>
-<li>？ 从尾开始搜索。</li>
-<li>n 下一个</li>
-<li>N 相反方向的下一个</li>
-<li>ctrl + o : 回到上一次光标在的位置</li>
-<li><p>ctrl + i ： 和ctrl+o相反</p>
-<blockquote>
-<p>ctrl + o和i不要一直用太多次，会乱。</p>
-</blockquote>
+</ol>
+<ol>
+<li>发布服务后，登陆不了<br>将”Deploy Path”的默认值”wtpwebapps”改为”webapps”,也就是tomcat中发布项目所在的文件夹名字。<br><a href="http://bbs.itbookstudy.com/t/41011/1/1" target="_blank" rel="external">解决</a></li>
+</ol>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/06/06/sysstat工具使用说明/" itemprop="url">
+                  未命名
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-06-06T20:57:27+08:00" content="2016-06-06">
+              2016-06-06
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/06/06/sysstat工具使用说明/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/06/06/sysstat工具使用说明/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="sysstat工具使用"><a href="#sysstat工具使用" class="headerlink" title="sysstat工具使用"></a>sysstat工具使用</h2><p>统计系统的各种资源占用</p>
+<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/06/06/windows定位cpu占用过高/" itemprop="url">
+                  未命名
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-06-06T20:57:27+08:00" content="2016-06-06">
+              2016-06-06
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/06/06/windows定位cpu占用过高/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/06/06/windows定位cpu占用过高/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="windows定位java程序cpu占用过高"><a href="#windows定位java程序cpu占用过高" class="headerlink" title="windows定位java程序cpu占用过高"></a>windows定位java程序cpu占用过高</h2><ol>
+<li><p>任务管理器中找到cpu占用过高的程序A</p>
 </li>
-<li><p>用%查看[ { (另一半的匹配</p>
+<li><p>运用微软的Process Explorer查看占用cpu高的进程的具体信息。<br>在A上右键properties，得到程序的进程ID，打开Threads标签，看到线程占用cpu的情况。</p>
 </li>
-</ul>
-<h4 id="替换命令"><a href="#替换命令" class="headerlink" title="替换命令"></a>替换命令</h4><ul>
-<li>:s/要替换的/用什么替换 ： 替换本行的第一个。</li>
-<li>:s/要替换的/用什么替换/g : 替换全行。</li>
-<li>:行号,行号s/要替换的/用什么替换/g ： 替换这些行之间的全部。</li>
-<li>:%s/要替换的/用什么替换/g ： 替换文件全部。</li>
-<li>:%s/要替换的/用什么替换/gc ： 替换文件全部的时候加上确认。</li>
-</ul>
-<h4 id="外部命令"><a href="#外部命令" class="headerlink" title="外部命令"></a>外部命令</h4><ul>
-<li>:! + 要执行的命令。  执行外部命令。</li>
-<li>:w + 可加文件名。   写到这个文件里。</li>
-</ul>
-<h4 id="视图模式下"><a href="#视图模式下" class="headerlink" title="视图模式下"></a>视图模式下</h4><ul>
-<li><p>v 开启试图选择模式，可以选中多行内容，然后：加w 文件名，可以将选中的部分内容写到文件中。</p>
-<blockquote>
-<p> v开启视图模式后，选中的内容。可以加operator，如d，进行删除。等等。</p>
-</blockquote>
+<li><p>用jdk的jstack工具打印threaddump信息。<br>cmd下执行，jstack.exe -l A的进程ID &gt; 目标文件XX.txt</p>
 </li>
-<li><p>:r  读入。可在后面加文件名，将文件中的内容读入。也可以加类似!ls的外部命令，将命令的结果写入。</p>
+<li><p>到XX.txt根据线程ID搜索具体的代码行。<br>注意，在Threads标签中看到的tid要转换成16进制的在txt中搜</p>
 </li>
-<li>o（小写）：在光标的下一行，开启一行，进入insert模式</li>
-<li>O（大写）：在光标的上一行，开启一行，进入insert模式</li>
-<li>R（大写）：进入replace模式，方便的更新。</li>
-<li>y ：复制。是一个operator，所以可以yw。</li>
-<li><p>复制粘贴就是v进入视图，选中，y复制，退出视图，p</p>
+<li><p>最后反编译class文件，看提示的代码是否有问题。</p>
 </li>
-<li><p>:set +操作,可对搜索做高级设置。</p>
-<blockquote>
-<p>操作有：<br>set nu! :  显示行号<br>ic：或ignorecase,忽略大小写<br><br>is:或incsearch，立即显示部分匹配上的<br><br>hls：或hlsearch，高亮显示所有匹配的。<br><br>要取消设置，：set +no某个操作<br>如果只是想使用一次忽略大小写查询可以用/xxxxx\c  </p>
-</blockquote>
-</li>
-</ul>
-<h4 id="帮助系统"><a href="#帮助系统" class="headerlink" title="帮助系统"></a>帮助系统</h4><ul>
-<li>：help 或者f1键，会打开一个帮助的窗口，按两下ctrl+w可以在帮助窗口和原窗口之间切换。</li>
-<li>：help 可以加参数</li>
-</ul>
-<h4 id="自定义vim高级特性"><a href="#自定义vim高级特性" class="headerlink" title="自定义vim高级特性"></a>自定义vim高级特性</h4><ul>
-<li>:e ~/.vimrc</li>
-<li>:r $VIMRUNTIME/vimrc_example.vim  这是一个自带的示例，可在这个基础上改。</li>
-<li>:w  </li>
-</ul>
-<h4 id="自动补全"><a href="#自动补全" class="headerlink" title="自动补全"></a>自动补全</h4><ul>
-<li>ctrl + D（大写）可以显示所有匹配的命令</li>
-<li>tab键自动补全</li>
-</ul>
+</ol>
 
           
         
@@ -1965,6 +1758,124 @@ Swap:     2053M total,       15M used,     2038M free,     3664M cached
 
 
     
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/06/06/osgi/" itemprop="url">
+                  未命名
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-06-06T20:57:27+08:00" content="2016-06-06">
+              2016-06-06
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/06/06/osgi/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/06/06/osgi/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="osgi学习笔记"><a href="#osgi学习笔记" class="headerlink" title="osgi学习笔记"></a>osgi学习笔记</h2><ol>
+<li><p>bundle依赖解析规则：<br>当多个bundle的导出包满足该bundle的import-package依赖时，优先级如下：</p>
+<ol>
+<li>已解析的（resolved）bundle优先级高，未解析的（installed）bundle优先级低。</li>
+<li>bundle状态一样，版本高者优先，版本也相同，择选最先安装的bundle。</li>
+</ol>
+</li>
+<li><p>一般bundle都会是resolved状态，这样如果bundleA导入了bundleB导出的版本为1的包，然后bundleC又导出了同名的版本为2的包，<br>这样如果BundleA的代码中有显式import或者继承bundleB的代码，需要用uses限制export-package<br><a href="http://course.tianmaying.com/osgi-toturial/lesson/osgi-module-layer#22" target="_blank" rel="external">uses具体链接</a></p>
+</li>
+<li><p>bundle的生命周期<br><img src="http://tmy-course.oss-cn-beijing.aliyuncs.com/osgi-toturial%2F03%2F00005.jpg" alt="bundle状态"><br>生命周期层的基础实施：</p>
+<pre><code>public interface BundleActivator {
+  public void start(BundleContext context) throws Exception;
+  public void stop(BundleContext context) throws Exception;
+}
+</code></pre><p>当bundle的状态属于active时，BundleContext才有意义。<br>为了bundle的安全和资源分配，不能随意传到bundlecontext。<br>Bundle定义了一系列api，用于管理bundle的生命周期。  </p>
+</li>
+</ol>
+<p>4.bundleId越大，bundle的启动顺序越靠后。只有系统bundle（system bundle）的bundleId可以为0。</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
   </section>
 
   
@@ -2010,7 +1921,7 @@ Swap:     2053M total,       15M used,     2038M free,     3664M cached
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">29</span>
+              <span class="site-state-item-count">30</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -2018,7 +1929,7 @@ Swap:     2053M total,       15M used,     2038M free,     3664M cached
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-count">3</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -2027,7 +1938,7 @@ Swap:     2053M total,       15M used,     2038M free,     3664M cached
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-count">2</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
