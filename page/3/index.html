@@ -263,167 +263,6 @@
             
               
                 
-                <a class="post-title-link" href="/2016/06/06/ibatis/" itemprop="url">
-                  未命名
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-06-06T20:57:26+08:00" content="2016-06-06">
-              2016-06-06
-            </time>
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/06/06/ibatis/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/06/06/ibatis/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>##mybatis</p>
-<h3 id="ibatis"><a href="#ibatis" class="headerlink" title="ibatis"></a>ibatis</h3><ol>
-<li>目前项目中用的是ibatis</li>
-<li>isNotNull 和 isNotEmpty的区别：<br> 在iBATIS中isNull用于判断参数是否为Null，isNotNull相反。<br>isEmpty判断参数是否为Null或者空，满足其中一个条件则其true<br>isNotEmpty相反，当参数既不为Null也不为空是其为true<br>判断之后做相对应的表达式操作</li>
-</ol>
-<p>如下代码：</p>
-<pre><code>&lt;select id=&quot;getCustomerRegNum&quot; resultClass=&quot;int&quot; parameterClass=&quot;QueryCustomerCondition&quot;&gt;  
-                  select count(cus_id) from cus_customer_tbl   
-                  &lt;dynamic prepend=&quot;WHERE&quot;&gt;  
-                    &lt;isNotEmpty prepend=&quot;AND&quot; property=&quot;cusWebFrom&quot;&gt;  
-                        ( CUS_CUSTOMER_TBL.CUS_WEB_FROM LIKE &apos;%$cusWebFrom$%&apos;)  
-                    &lt;/isNotEmpty&gt;  
-                    &lt;isNotEmpty prepend=&quot;AND&quot; property=&quot;cusWebAgent&quot;&gt;  
-                        ( CUS_CUSTOMER_TBL.CUS_WEB_AGENT LIKE &apos;%$cusWebAgent$%&apos;)  
-                    &lt;/isNotEmpty&gt;  
-                  &lt;/dynamic&gt;  
-           &lt;/select&gt;  
-</code></pre><p>当之传入参数 cusWebForm 而不传入 cusWebAgent 时，产生的SQL语句为：</p>
-<pre><code>select count(cus_id) from cus_customer_tbl    WHERE      ( CUS_CUSTOMER_TBL.CUS_WEB_FROM LIKE &apos;%baidu%&apos;)
-</code></pre><p>而当XML代码用<isnotnull> 配置时（注意他们的区别），</isnotnull></p>
-<pre><code>&lt;select id=&quot;getCustomerRegNum&quot; resultClass=&quot;int&quot; parameterClass=&quot;QueryCustomerCondition&quot;&gt;  
-      select count(cus_id) from cus_customer_tbl   
-      &lt;dynamic prepend=&quot;WHERE&quot;&gt;  
-        &lt;isNotNull prepend=&quot;AND&quot; property=&quot;cusWebFrom&quot;&gt;  
-            ( CUS_CUSTOMER_TBL.CUS_WEB_FROM LIKE &apos;%$cusWebFrom$%&apos;)  
-        &lt;/isNotNull&gt;  
-        &lt;isNotNull prepend=&quot;AND&quot; property=&quot;cusWebAgent&quot;&gt;  
-            ( CUS_CUSTOMER_TBL.CUS_WEB_AGENT LIKE &apos;%$cusWebAgent$%&apos;)  
-        &lt;/isNotNull&gt;  
-      &lt;/dynamic&gt;  
-&lt;/select&gt;  
-</code></pre><p>同样 ，当之传入参数 cusWebForm 而不传入 cusWebAgent 时，产生的SQL语句为：</p>
-<pre><code>select count(cus_id) from cus_customer_tbl     WHERE     ( CUS_CUSTOMER_TBL.CUS_WEB_FROM LIKE &apos;%baidu%&apos;)      AND        (CUS_CUSTOMER_TBL.CUS_WEB_AGENT LIKE &apos;%%&apos;)
-</code></pre><p>对于string的参数，用isnotempty  </p>
-<ol>
-<li>mybatis 和 ibatis的区别  </li>
-</ol>
-<ul>
-<li>以前用的parameterClass在mybatis中已经永不了了，mybatis里应该使用parameterType。另外resultMap里面也不能继续使用了改成了type  </li>
-<li>dynamic标签不能使用了  </li>
-<li>数据类型的声明和ibatis有了很大的差别，ibatis可以像下面这样写  </li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">insert into M_HEALTHSPECIALYTYPE(FCODE,FCHARGE,FTYPECONTENT,FID,FMARK)   </span><br><span class="line">values (#FCODE:VARCHAR2#,#FCHARGE:VARCHAR2#,#FTYPECONTENT:VARCHAR2#,#FID#,#FMARK:VARCHAR2#)</span><br></pre></td></tr></table></figure>
-<p>在mybatis的话一般是这样弄的</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">insert into M_HEALTHSPECIALYTYPE(FCODE,FCHARGE,FTYPECONTENT,FID,FMARK)   </span><br><span class="line">    values (#&#123;FCODE,jdbcType=VARCHAR&#125;,#&#123;FCHARGE,jdbcType=VARCHAR&#125;,#&#123;FTYPECONTENT,jdbcType=VARCHAR&#125;,#&#123;FID&#125;,#&#123;FMARK,jdbcType=VARCHAR&#125;)</span><br></pre></td></tr></table></figure>
-<ul>
-<li>加了一个叫映射器的新东西，只需要写出接口而不需要实现类就能够操作数据如  </li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">	 import java.util.List;</span><br><span class="line">	 import org.lxh.vo.HealthspecialytypeInfo;    </span><br><span class="line">	 public interface HealthMapper &#123;  </span><br><span class="line">    public List&lt;HealthspecialytypeInfo&gt; getRecordByList(HealthspecialytypeInfo info);  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>在映射文件里要记得namespace写成接口的类全名，sql语句的id写成接口里的方法名就可以了</p>
-<pre><code>&lt;select id=&quot;getRecordByList&quot; parameterType=&quot;org.lxh.vo.HealthspecialytypeInfo&quot; resultMap=&quot;resultMap&quot;&gt;   
-    select * from M_HEALTHSPECIALYTYPE where FCODE in  
-    &lt;foreach item=&quot;item&quot; index=&quot;index&quot; collection=&quot;list&quot;  
-      open=&quot;(&quot; separator=&quot;,&quot; close=&quot;)&quot;&gt;  
-      #{item}  
-    &lt;/foreach&gt;  
-&lt;/select&gt;  
-</code></pre><p>调用的时候就像下面</p>
-<pre><code>HealthMapper m=ses.getMapper(HealthMapper.class);  
-List&lt;HealthspecialytypeInfo&gt; record=m.getRecordByList(h);  
-</code></pre><p>就这样就可以直接进行数据的操作了</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
                 <a class="post-title-link" href="/2016/06/06/awk的使用/" itemprop="url">
                   未命名
                 </a>
@@ -657,7 +496,7 @@ unix  3      [ ]         STREAM     CONNECTED     13725  @/tmp/dbus-PKZYiwWjts
             
               
                 
-                <a class="post-title-link" href="/2016/06/06/dom4j快速入门/" itemprop="url">
+                <a class="post-title-link" href="/2016/06/06/linux2/" itemprop="url">
                   未命名
                 </a>
               
@@ -682,8 +521,8 @@ unix  3      [ ]         STREAM     CONNECTED     13725  @/tmp/dbus-PKZYiwWjts
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/06/06/dom4j快速入门/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/06/06/dom4j快速入门/" itemprop="commentsCount"></span>
+                <a href="/2016/06/06/linux2/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/06/06/linux2/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -708,172 +547,253 @@ unix  3      [ ]         STREAM     CONNECTED     13725  @/tmp/dbus-PKZYiwWjts
       
         
           
-            <h2 id="dom4j快速入门"><a href="#dom4j快速入门" class="headerlink" title="dom4j快速入门"></a>dom4j快速入门</h2><p><a href="http://dom4j.sourceforge.net/dom4j-1.6.1/guide.html" target="_blank" rel="external">参考自此处</a></p>
-<h3 id="解析XMl"><a href="#解析XMl" class="headerlink" title="解析XMl"></a>解析XMl</h3><p>用dom4j解析某种xml文件很简单，示例代码：</p>
-<pre><code>import java.net.URL;
+            <h3 id="如何正确关机"><a href="#如何正确关机" class="headerlink" title="如何正确关机"></a>如何正确关机</h3><p>其实，在linux领域内大多用在服务器上，很少遇到关机的操作。毕竟服务器上跑一个服务是永无止境的，除非特殊情况下，不得已才会关机。</p>
+<p>linux和windows不同，在 Linux 底下，由于每个程序（或者说是服务）都是在在背景下执行的，因此，在你看不到的屏幕背后其实可能有相当多人同时在你的主机上面工作，例如浏览网页啦、传送信件啦以 FTP 传送档案啦等等的，如果你直接按下电源开关来关机时，则其它人的数据可能就此中断！那可就伤脑筋了！此外，最大的问题是，若不正常关机，则可能造成文件系统的毁损（因为来不及将数据回写到档案中，所以有些服务的档案会有问题！）。</p>
+<p>如果你要关机，必须要保证当前系统中没有其他用户在线。可以下达 who 这个指令，而如果要看网络的联机状态，可以下达 netstat -a 这个指令，而要看背景执行的程序可以执行 ps -aux 这个指令。使用这些指令可以让你稍微了解主机目前的使用状态！（这些命令在以后的章节中会提及，现在只要了解即可！）</p>
+<p>正确的关机流程为：sysnc ? shutdown ? reboot ? halt</p>
+<p>sync 将数据由内存同步到硬盘中。</p>
+<p>shutdown 关机指令，你可以man shutdown 来看一下帮助文档。例如你可以运行如下命令关机：</p>
+<p>shutdown –h 10 ‘This server will shutdown after 10 mins’ 这个命令告诉大家，计算机将在10分钟后关机，并且会显示在登陆用户的当前屏幕中。</p>
+<p>Shutdown –h now 立马关机</p>
+<p>Shutdown –h 20:25 系统会在今天20:25关机</p>
+<p>Shutdown –h +10 十分钟后关机</p>
+<p>Shutdown –r now 系统立马重启</p>
+<p>Shutdown –r +10 系统十分钟后重启</p>
+<p>reboot 就是重启，等同于 shutdown –r now</p>
+<p>halt 关闭系统，等同于shutdown –h now 和 poweroff</p>
+<p>最后总结一下，不管是重启系统还是关闭系统，首先要运行sync命令，把内存中的数据写到磁盘中。关机的命令有 shutdown –h now halt poweroff 和 init 0 , 重启系统的命令有 shutdown –r now reboot init 6.</p>
 
-import org.dom4j.Document;
-import org.dom4j.DocumentException;
-import org.dom4j.io.SAXReader;
+          
+        
+      
+    </div>
 
-public class Foo {
+    <div>
+      
+    </div>
 
-    public Document parse(URL url) throws DocumentException {
-        SAXReader reader = new SAXReader();
-        Document document = reader.read(url);
-        return document;
-    }
-}
-</code></pre><p>reader.read有很多重载方法。都是读取xml文件，转为document。</p>
-<h3 id="使用迭代器"><a href="#使用迭代器" class="headerlink" title="使用迭代器"></a>使用迭代器</h3><p>document使用标准的java迭代器返回子元素，然后进行各种操作。</p>
-<pre><code>public void bar(Document document) throws DocumentException {
+    <div>
+      
+    </div>
 
-        Element root = document.getRootElement();
+    <footer class="post-footer">
+      
 
-        // iterate through child elements of root
-        for ( Iterator i = root.elementIterator(); i.hasNext(); ) {
-            Element element = (Element) i.next();
-            // do something
-        }
+      
 
-        // iterate through child elements of root with element name &quot;foo&quot;
-        for ( Iterator i = root.elementIterator( &quot;foo&quot; ); i.hasNext(); ) {
-            Element foo = (Element) i.next();
-            // do something
-        }
-
-        // iterate through attributes of root 
-        for ( Iterator i = root.attributeIterator(); i.hasNext(); ) {
-            Attribute attribute = (Attribute) i.next();
-            // do something
-        }
-     }
-</code></pre><h3 id="使用xpath进行强大的定位"><a href="#使用xpath进行强大的定位" class="headerlink" title="使用xpath进行强大的定位"></a>使用xpath进行强大的定位</h3><p>xpath表达式可以在dom4j的document及其任何节点中执行，这样可以进行复杂的节点定位。</p>
-<pre><code>public void bar(Document document) {
-        // 直接找到foo下的bar节点list，而不需要一层层的迭代器循环
-        List list = document.selectNodes( &quot;//foo/bar&quot; );
-
-        // 直接找到某个节点
-        Node node = document.selectSingleNode( &quot;//foo/bar/author&quot; );
-
-        String name = node.valueOf( &quot;@name&quot; );
-    }
-</code></pre><p>如想在XHTML文档中找出所有的超链接，可以这样做：</p>
-<pre><code>public void findLinks(Document document) throws DocumentException {
-
-    List list = document.selectNodes( &quot;//a/@href&quot; );
-
-    for (Iterator iter = list.iterator(); iter.hasNext(); ) {
-        Attribute attribute = (Attribute) iter.next();
-        String url = attribute.getValue();
-    }
-}
-</code></pre><p>对于xpath的用法，请参考<a href="http://www.zvon.org/xxl/XPathTutorial/General/examples.html" target="_blank" rel="external">此处</a></p>
-<h3 id="快速循环"><a href="#快速循环" class="headerlink" title="快速循环"></a>快速循环</h3><p>如果循环一个非常大的文档有性能问题，建议使用下面这种快速循环，已避免创建迭代器的消耗。  </p>
-<pre><code>public void treeWalk(Document document) {
-    treeWalk( document.getRootElement() );
-}
-
-public void treeWalk(Element element) {
-    for ( int i = 0, size = element.nodeCount(); i &lt; size; i++ ) {
-        Node node = element.node(i);
-        if ( node instanceof Element ) {
-            treeWalk( (Element) node );
-        }
-        else {
-            // do something....
-        }
-    }
-}
-</code></pre><p>其实是使用递归，以空间换时间。</p>
-<h3 id="创建document"><a href="#创建document" class="headerlink" title="创建document"></a>创建document</h3><p>有时可能需要创建一个document，以保存抓出来的数据。</p>
-<p>import org.dom4j.Document;<br>import org.dom4j.DocumentHelper;<br>import org.dom4j.Element;</p>
-<pre><code>public class Foo {
-
-    public Document createDocument() {
-        Document document = DocumentHelper.createDocument();
-        Element root = document.addElement( &quot;root&quot; );
-
-        Element author1 = root.addElement( &quot;author&quot; )
-            .addAttribute( &quot;name&quot;, &quot;James&quot; )
-            .addAttribute( &quot;location&quot;, &quot;UK&quot; )
-            .addText( &quot;James Strachan&quot; );
-
-        Element author2 = root.addElement( &quot;author&quot; )
-            .addAttribute( &quot;name&quot;, &quot;Bob&quot; )
-            .addAttribute( &quot;location&quot;, &quot;US&quot; )
-            .addText( &quot;Bob McWhirter&quot; );
-
-        return document;
-    }
-}
-</code></pre><h3 id="将document写入文件"><a href="#将document写入文件" class="headerlink" title="将document写入文件"></a>将document写入文件</h3><p>你创建了一个document，然后想持久化保存。<br>最简单快捷的方法是使用document(或者节点)的write()方法。</p>
-<pre><code>FileWriter out = new FileWriter( &quot;foo.xml&quot; );
-document.write( out );
-</code></pre><p>但是如果你想要控制输出的格式，或者想用Writer/OutputStream作为目标而不是文件，你可以使用XMLWriter类。</p>
-<pre><code>import org.dom4j.Document;
-import org.dom4j.io.OutputFormat;
-import org.dom4j.io.XMLWriter;
-
-public class Foo {
-
-    public void write(Document document) throws IOException {
-
-        // lets write to a file
-        XMLWriter writer = new XMLWriter(
-            new FileWriter( &quot;output.xml&quot; )
-        );
-        writer.write( document );
-        writer.close();
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
 
 
-        // Pretty print the document to System.out
-        OutputFormat format = OutputFormat.createPrettyPrint();
-        writer = new XMLWriter( System.out, format );
-        writer.write( document );
+    
+      
 
-        // Compact format to System.out
-        format = OutputFormat.createCompactFormat();
-        writer = new XMLWriter( System.out, format );
-        writer.write( document );
-    }
-}
-</code></pre><h3 id="和字符创的转换"><a href="#和字符创的转换" class="headerlink" title="和字符创的转换"></a>和字符创的转换</h3><p>document/element转成string</p>
-<pre><code>Document document = ...;
-String text = document.asXML();
-</code></pre><p>xml格式的string转成document</p>
-<pre><code>String text = &quot;&lt;person&gt; &lt;name&gt;James&lt;/name&gt; &lt;/person&gt;&quot;;
-Document document = DocumentHelper.parseText(text);
-</code></pre><h3 id="使用XSLT对document进行格式转换"><a href="#使用XSLT对document进行格式转换" class="headerlink" title="使用XSLT对document进行格式转换"></a>使用XSLT对document进行格式转换</h3><p>XSLT即将XML格式的文档转为其他格式，如XHTML。比较直接的方式是使用JAXP的api。然后你可以使用XSLT转换引擎，如Xalan或SAXON。下面的例子是使用JAXP去创建一个转换器，然后转换document。</p>
-<pre><code>import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerFactory;
+  
+  
 
-import org.dom4j.Document;
-import org.dom4j.io.DocumentResult;
-import org.dom4j.io.DocumentSource;
+  
+  
+  
 
-public class Foo {
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
 
-    public Document styleDocument(Document document, String styleshee) throws Exception 
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/06/06/java_network_programme/" itemprop="url">
+                  未命名
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-06-06T20:57:26+08:00" content="2016-06-06">
+              2016-06-06
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/06/06/java_network_programme/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/06/06/java_network_programme/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="网络基础"><a href="#网络基础" class="headerlink" title="网络基础"></a>网络基础</h2><ul>
+<li><p>所有现代计算机网络都是包交换网络。</p>
+</li>
+<li><p>icmp：traceroute，ping<br>tcp：ftp，http，smtp<br>udp：dns，nfs<br>http：soap，xml-rpc, rest apis</p>
+</li>
+<li><p>java不支持ICMP，java支持的协议只有tcp和udp，以及建立在tcp和udp之上的应用层协议。其他的协议在java中只能通过链接到原生代码来实现。</p>
+</li>
+<li><p>1-1023的端口号保留给已知的服务。</p>
+</li>
+</ul>
+<h2 id="流"><a href="#流" class="headerlink" title="流"></a>流</h2><ul>
+<li><p>基本的流是阻塞的。<br>流操作的是字节。<br>reader和writer操作的是字符。、</p>
+</li>
+<li><p>不管有没有必要，对输出流总是记得flush()一下，总是好的。</p>
+</li>
+<li><p>java7引入的带资源的try，以代替try-finally释放资源的固有模式。但是有一个要求是，被释放的对象必须实现了closeable接口。</p>
+</li>
+<li><p>inputStream类还有三个不太常用的方法，允许程序备份和重新读取已经读取的数据。用mark()标记位置，在以后的某个时刻，可以reset()回这个位置，再重新进行读取。但是注意不能随意的向前重置，mark有个参数limit。如果超出了这个limit去reset()会抛出IO异常。<br>另外，一个流任何时候只能有一个标记，新标记的位置会清楚前一个标记。<br>还有，不是所有的流都支持这个，要先用markSupported()方法检查一下。这个设计不好。实际上支持标记的流只有BufferedInputStream和ByteArrayInputStream。</p>
+</li>
+<li><p>BufferedInputStream默认缓冲区大小是2048个字节，BufferedOutputStream默认缓冲区大小是512个字节。<br>BufferedReader和BufferedWriter的默认缓冲区大小是8192个字符</p>
+</li>
+</ul>
+<h2 id="线程"><a href="#线程" class="headerlink" title="线程"></a>线程</h2><ul>
+<li><p>单线程程序是在main()方法返回时退出。多线程程序在main()方法以及所有非守护线程都返回时退出。（守护线程完成后台任务，并不会阻止虚拟机退出）。</p>
+</li>
+<li><p>避免在构造函数中启动线程，尤其是线程还会回调该对象的情况。</p>
+</li>
+<li><p>Excutors，callable，future组合使用隐藏多线程回调的诸多细节。future的get()会阻塞，知道结果可获取。  </p>
+</li>
+<li><p>Collections里有几个对集合包装的方法，得到集合的线程安全视图。</p>
+<pre><code>List&lt;String&gt; srcList = new ArrayList&lt;String&gt;();
+srcList.add(&quot;a&quot;);
+List&lt;String&gt; synchronizedList = Collections.synchronizedList(srcList);
+</code></pre><p>不过以后对srcList的访问，都必须通过syn版本。</p>
+</li>
+<li><p>线程调度。为了能让其他线程有机会运行，一个线程有10种方式暂停或者指示它准备暂停。包括：  </p>
+<ol>
+<li>可以对IO阻塞。 </li>
+<li>可以对同步对象阻塞。<br>不过不管对于io阻塞还是锁阻塞，线程都不会释放线程锁持有的锁。  </li>
+<li>可以放弃。<br>Thread.yield()显式让步。不会释放锁。因此在让步时不应该做任何同步。其他线程获取不到锁也执行不了，随后还是回到让步的这个线程，这就没意义了。</li>
+<li>可以休眠。<br>Thread.sleep(),更强力的一种放弃。yield是线程表示我愿意暂停，咱们来一起抢。sleep是不管有没有其他线程在等待执行，sleep都会导致线程暂停。记住sleep也不会释放锁。要使线程从sleep状态中醒来，调用该线程的interrupt方法。</li>
+<li>可以连接另一个线程。<br>join()允许一个线程在继续执行前等待另一个线程结束。即将另一个线程的执行插入进来。当前join基本可以使用executor+future来代替了。</li>
+<li>可以等待一个对象。<br>object.wait会释放对象锁。所以在wait之前，希望暂停的线程应该已经获得了对象锁。线程会释放这个object的对象锁，不会释放该线程拥有的其他对象锁。唤醒wait的三种方式：时间到期，线程被中断，对象得到通知。注意醒来要重新获得锁。通知notify和notifyall也是object的方法，所以notify和notifyall之前也要得到object的锁。notify基本上是随机选择一个等待这个对象的线程，notifyall是通知所有等待这个对象的线程。一定要将wait放在检测状态的代码中，不能假定线程醒来之后，对象的状态就是可用的。</li>
+<li>可以结束。</li>
+<li>可以被更高优先级线程抢占。</li>
+<li>可以被挂起。</li>
+<li>可以停止。<br>最后这两种已经废弃不用，可能会让对象处于不一致状态。</li>
+</ol>
+</li>
+</ul>
+<h3 id="线程池"><a href="#线程池" class="headerlink" title="线程池"></a>线程池</h3><pre><code>ExecutorService pool = Executors.newFixedThreadPool(4);
+
+// 完成所有等待的任务后结束
+pool.shutdown();
+
+// 立即停止，返回未执行的任务
+pool.shutdownNow();
+</code></pre><h2 id="IP地址"><a href="#IP地址" class="headerlink" title="IP地址"></a>IP地址</h2><ul>
+<li>ipv4。4个字节的无符号数。点分十进制。</li>
+<li>ipv6。16字节长。冒号分隔8个区块。每块2个字节，作为4个16进制数。<br>0的简写形式。  </li>
+</ul>
+<h3 id="InetAddress类"><a href="#InetAddress类" class="headerlink" title="InetAddress类"></a>InetAddress类</h3><p>java.net.InetAddress是java对ip地址(包括ipv4和ipv6)的高层表示。</p>
+<pre><code>    try
     {
-
-        // load the transformer using JAXP
-        TransformerFactory factory = TransformerFactory.newInstance();
-        Transformer transformer = factory.newTransformer( 
-            new StreamSource( stylesheet ) 
-        );
-
-        // now lets style the given document
-        DocumentSource source = new DocumentSource( document );
-        DocumentResult result = new DocumentResult();
-        transformer.transform( source, result );
-
-        // return the transformed document
-        Document transformedDoc = result.getDocument();
-        return transformedDoc;
+        InetAddress address = InetAddress.getByName(&quot;www.baidu.com&quot;);
+        System.out.println(address);
     }
-}
-</code></pre>
+    catch (UnknownHostException e)
+    {
+        // TODO Auto-generated catch block
+        System.out.println(&quot;can&apos;t find ...&quot;);
+    }
+
+
+www.baidu.com/112.80.248.74
+</code></pre><p>这个方法第一次调用时，会和本地的DNS服务器建立连接，来查名字和地址。然后会缓存起来，下一次查就不会建立网络连接了，直接查缓存。</p>
+<pre><code>InetAddress[] allByName = InetAddress.getAllByName(&quot;www.baidu.com&quot;);
+</code></pre><p>使用<code>getAllByName</code>返回所有服务器的地址。  </p>
+<p>使用<code>InetAddress.getLocalHost()</code>返回本机地址。  </p>
+<p>使用<code>getByAddress(byte[] paramArrayOfByte)</code>或者<code>getByAddress(String paramString,byte[] paramArrayOfByte)</code>直接设定地址，不与DNS连接查询。  </p>
+<pre><code>InetAddress local = InetAddress.getByAddress(new byte[] {(byte) 192, (byte) 168, 0,
+        (byte) 243});
+</code></pre><p>java对不成功的DNS查询只缓存10秒。</p>
+<pre><code>java.security.Security.setProperty(&quot;networkaddress.cache.ttl&quot;, &quot;-1&quot;);
+System.out.println(java.security.Security.getProperty(&quot;networkaddress.cache.ttl&quot;));
+
+java.security.Security.setProperty(&quot;networkaddress.negative.ttl&quot;, &quot;10&quot;);
+System.out.println(java.security.Security.getProperty(&quot;networkaddress.negative.ttl&quot;));
+</code></pre><p>可以通过对系统参数的设置来控制缓存的时间。</p>
+<p>当使用<code>getByName</code>然后以ip传为参数时，不会查DNS，所以也可以使用实际不存在的ip创建inetaddress对象。域名相对ip地址来说要稳定的多，优先选用域名。  </p>
+<pre><code>InetAddress localHost = InetAddress.getLocalHost();
+// 知道主机名，不查DNS
+localHost.getHostName();
+
+// 知道主机名，也要去查DNS
+localHost.getCanonicalHostName();
+</code></pre><p><code>getAddress</code>方法返回的是byte[]，因为java中没有无符号字节，所以大于127的会被当做负数，要做一下转换：<code>b &gt;= 0 ? b : b + 256</code>  </p>
+<ul>
+<li><p>使用<code>isReachable(int timeout)</code>或者<code>isReachable(NetworkInterface interface, int ttl , int timeout)</code>来判断ip是否可达。</p>
+</li>
+<li><p>InetAddress类重写的equals和hashcode方法都是只根据ip地址来处理，即ip地址相同的两个InetAddress对象就是相等的，不管主机名是啥。  </p>
+</li>
+<li><p>Inet4Address和Inet6Address是InetAddress的子类，一般不用。判断getAddress()返回的字节数组的大小就可以了。  </p>
+</li>
+</ul>
+<h3 id="NetworkInterface类"><a href="#NetworkInterface类" class="headerlink" title="NetworkInterface类"></a>NetworkInterface类</h3><p>NetworkInterface代表网卡，不能随便构造。提供了很多静态方法。  </p>
+<h2 id="URL"><a href="#URL" class="headerlink" title="URL"></a>URL</h2><ul>
+<li><p>URL由ASCII字母数字组成[a-zA-Z0-9]。还可以使用-_.!~。定界符/？&amp;=有特殊意义。希望所谓普通字符需要%转义。非ASCII字符用%转义后面跟该字符的UTF-8编码的十六进制码。</p>
+</li>
+<li><p>URI会告诉你这个资源是什么，但是不能告诉你资源的地址和获取方式，这是URI和URL的区别。</p>
+</li>
+<li><p>URL中访问的资源如果是映射到服务器的文件系统。那么资源的路径是相对于服务器指定的可访问资源的文档根目录，而不是服务器的系统根目录。  </p>
+</li>
+<li><p>java.net.URL类是不可变的。构造一个URL对象后，其字段就是不变的，是线程安全的。  </p>
+</li>
+</ul>
+<h3 id="从url获取数据"><a href="#从url获取数据" class="headerlink" title="从url获取数据"></a>从url获取数据</h3><p>几个关键方法：<code>openStream</code>,<code>openConnection</code>,<code>getContent</code></p>
+<h3 id="分解url"><a href="#分解url" class="headerlink" title="分解url"></a>分解url</h3><p>URL提供了几个分解url获取各部分的方法。见api。<br>其中getPath和getFile容易混淆，这两个方法都会返回完整的路径加文件名，区别是getFile连查询部分都会返回。  </p>
+<h3 id="比较URL"><a href="#比较URL" class="headerlink" title="比较URL"></a>比较URL</h3><p>URL的equals方法，会调用DNS去解析主机是否相等。这说明URL的equals的方法是阻塞的！！也不会比较URL标示的资源是否是一样的。他只是字面上去比较。  </p>
+<p>在编码时首先URI类，他的equals方法不是阻塞的。URL主要用于从服务器下载内容。有toURL方法。</p>
+<h3 id="URL编码"><a href="#URL编码" class="headerlink" title="URL编码"></a>URL编码</h3><p><code>System.out.println(URLEncoder.encode(&quot;to encode*to+to%to汉字&quot;, &quot;utf-8&quot;));</code><br>输出：<code>to+encode*to%2Bto%25to%E6%B1%89%E5%AD%97</code><br>一般选择转成utf-8.适用性更好。<br>问题在于，encode盲目的进行编码。对特殊字符/&amp;=:也直接编码了，所以通常的用法不是直接对整个url编码，而是分段编码。</p>
+<h3 id="代理"><a href="#代理" class="headerlink" title="代理"></a>代理</h3><p>基于URl的java程序可以使用大多数常见的代理服务器和协议，出于这个原因，应该使用URL类。</p>
+<h2 id="URI"><a href="#URI" class="headerlink" title="URI"></a>URI</h2><p>和URL类相比，URI类的相关规范更一致，URI类没有网络获取功能，主要用于解析和处理字符串。  </p>
+<ul>
+<li><p>URI使用的字符不限于ASCII，还可以使用unicode字符。</p>
+</li>
+<li><p>URI实现了Comparable接口，因此可以排序。</p>
+</li>
+<li><p>URL的equals不区分大小写，和URL不同的是，URI不是单纯的字符串比较。另外转义在比较之前不解码。</p>
+</li>
+</ul>
+
           
         
       
@@ -1052,6 +972,305 @@ public class Foo {
 　　temp.append(a).append(b).append(c); 
 　　String s = temp.toString(); 
 </code></pre><h3 id="12-String的intern（）"><a href="#12-String的intern（）" class="headerlink" title="12,String的intern（）"></a>12,String的intern（）</h3><p>存在于.class文件中的常量池，在运行期被JVM装载，并且可以扩充。String的 intern()方法就是扩充常量池的 一个方法；当一个String实例str调用intern()方法时，Java 查找常量池中 是否有相同Unicode的字符串常量，如果有，则返回其的引用，如果没有，则在常 量池中增加一个Unicode等于str的字符串并返回它的引用；</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/06/06/Maven讲解/" itemprop="url">
+                  未命名
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-06-06T20:57:26+08:00" content="2016-06-06">
+              2016-06-06
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/06/06/Maven讲解/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/06/06/Maven讲解/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Maven"><a href="#Maven" class="headerlink" title="Maven"></a>Maven</h1><p>场景：公司要进行一个web项目的开发，决定使用structs2+spring+mybatis框架。那我们<br>做的第一件事应该就是去各个项目的官网下载jar包了，这样可能项目还没开始，jar包已经下了一堆了，jar之间可能存在依赖，冲突，等等乱七八糟。这个时候我们就可以利用maven管理这个jar包。</p>
+<h2 id="Maven基础"><a href="#Maven基础" class="headerlink" title="Maven基础"></a>Maven基础</h2><ul>
+<li><p>Maven是什么？<br>Maven是一个项目管理工具，通过项目对象模型即POM文件，描述项目的组织，依赖，构建和打包信息等。  </p>
+</li>
+<li><p>maven安装  </p>
+</li>
+</ul>
+<p>下载，项目主页：<a href="https://maven.apache.org/" target="_blank" rel="external">https://maven.apache.org/</a>  </p>
+<p>添加环境变量：<br><img src="http://i3.tietuku.com/df9168d4f0225593.jpg" alt=""><br><img src="http://i3.tietuku.com/b9371f852065a455.jpg" alt=""><br>查看是否生效：<br><img src="http://i3.tietuku.com/4a20430c986f1dba.jpg" alt=""></p>
+<ul>
+<li><p>maven工程的结构<br><img src="http://i3.tietuku.com/21ff9f758fe8e30b.jpg" alt="">  </p>
+</li>
+<li><p>基础名词：  </p>
+<ul>
+<li>构件  </li>
+<li>坐标  </li>
+<li><p>仓库：  </p>
+<ul>
+<li>本地仓库： 修改本地仓库地址conf下的settings.xml   <localrepository>/path/to/local/repo</localrepository></li>
+<li><p>远程仓库：<br>   maven默认提供了一个全球远程中央仓库的地址，打开这个jar。如我的        <code>D:\apache-maven-3.3.3\lib\maven-model-builder-3.3.3.jar\</code><br>  找到里面的pom-4.0.0.xml文件，这是maven的超级pom，所有的pom均继承这个pom。打开</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;repositories&gt; </span><br><span class="line">	-&lt;repository&gt; </span><br><span class="line">		&lt;id&gt;central&lt;/id&gt; </span><br><span class="line">		&lt;name&gt;Central Repository&lt;/name&gt; </span><br><span class="line">		&lt;url&gt;https://repo.maven.apache.org/maven2&lt;/url&gt; &lt;layout&gt;default&lt;/layout&gt; </span><br><span class="line">		-&lt;snapshots&gt; </span><br><span class="line">			&lt;enabled&gt;false&lt;/enabled&gt; </span><br><span class="line">		&lt;/snapshots&gt; </span><br><span class="line">	&lt;/repository&gt; </span><br><span class="line">&lt;/repositories&gt;</span><br></pre></td></tr></table></figure>
+<p>  可以看到中央仓库的url。<br>  可以复制到浏览器打开，这个地址存放了我们开发可用到的绝大部分资源。</p>
+</li>
+<li><p>镜像仓库：国外的仓库可能比较慢，国内有提供镜像仓库。<br>  修改镜像仓库地址：conf下的settings.xml</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"> &lt;mirrors&gt;</span><br><span class="line">&lt;mirror&gt;</span><br><span class="line">     &lt;id&gt;maven.oschina.net&lt;/id&gt;</span><br><span class="line">     &lt;mirrorOf&gt;central&lt;/mirrorOf&gt;</span><br><span class="line">     &lt;name&gt;cnResponsitory&lt;/name&gt;</span><br><span class="line">     &lt;url&gt;http://maven.oschina.net/content/groups/public&lt;/url&gt;</span><br><span class="line">   &lt;/mirror&gt;    </span><br><span class="line"> &lt;/mirrors&gt;</span><br></pre></td></tr></table></figure>
+<p>  就是使用配置的url镜像掉central(就是上面超级pom中的中央仓库id)仓库，也可以只用*通配符。</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="pom文件讲解"><a href="#pom文件讲解" class="headerlink" title="pom文件讲解"></a>pom文件讲解</h2><p> 在Maven世界中，project可以什么都没有，甚至没有代码，但是必须包含pom.xml文件。</p>
+<pre><code>&lt;!-- 根元素 --&gt;
+&lt;project xmlns=&quot;http://maven.apache.org/POM/4.0.0&quot;
+     xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+     xsi:schemaLocation=&quot;http://maven.apache.org/POM/4.0.0
+     http://maven.apache.org/xsd/maven-4.0.0.xsd&quot;&gt;
+&lt;!-- 4.0.0是当前仅有的可以被Maven2&amp;3同时支持的POM版本，它是必须的。--&gt;
+&lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
+
+&lt;!-- 基本设置 坐标信息 --&gt;
+&lt;!-- 项目包名，常用公司网址反写加项目名--&gt;
+&lt;!-- 模块化 --&gt;
+&lt;groupId&gt;...&lt;/groupId&gt;
+&lt;!-- 模块名 --&gt;
+&lt;artifactId&gt;...&lt;/artifactId&gt;
+&lt;!-- 版本 一般大版本号+分支版本号+小版本号+snapshot(alpha/bata)/release/GA如1.0.1SNAOSHOT--&gt;
+&lt;version&gt;...&lt;/version&gt;
+&lt;!-- 打包方式，默认jar，还可用war,zip等 --&gt;
+&lt;packaging&gt;...&lt;/packaging&gt;
+
+&lt;!-- 依赖列表 --&gt;
+&lt;dependencies&gt;
+    &lt;dependency&gt;
+    ..依赖坐标..
+        &lt;scope&gt;依赖范围，如test&lt;/scope&gt;
+        &lt;!-- 设置依赖是否可选，默认false--&gt;
+        &lt;optional&gt;false/true&lt;/option&gt;
+        &lt;!-- 排除依赖传递列表 --&gt;
+        &lt;exclusions&gt;
+            &lt;exclusion&gt;
+                ...可加多个排除的依赖...
+            &lt;/exclision&gt;
+        &lt;/exclusions&gt;
+    &lt;/dependency&gt;
+    ...
+&lt;/dependencies&gt;
+
+&lt;!-- 继承父pom --&gt;
+&lt;parent&gt;...&lt;/parent&gt;
+
+&lt;!-- 依赖的管理 --&gt;
+&lt;!-- 不会真正的运行，作用是用于父pom中，供子类引用 --&gt;
+&lt;dependencyManagement&gt;
+    &lt;dependencies&gt;
+        ...
+    &lt;/dependencies&gt;
+&lt;/dependencyManagement&gt;
+
+&lt;!-- 聚合 可以一下子编译多个模块--&gt;
+&lt;modules&gt;...&lt;/modules&gt;
+
+&lt;properties&gt;...&lt;/properties&gt;
+
+&lt;!-- 构建过程的设置 --&gt;
+&lt;build&gt;...&lt;/build&gt;
+
+&lt;reporting&gt;...&lt;/reporting&gt;
+
+&lt;!-- 项目信息设置 --&gt;
+&lt;name&gt;.项目描述名..&lt;/name&gt;
+&lt;description&gt;..项目描述.&lt;/description&gt;
+&lt;url&gt;..项目地址.&lt;/url&gt;
+&lt;inceptionYear&gt;...&lt;/inceptionYear&gt;
+&lt;licenses&gt;...&lt;/licenses&gt;
+&lt;organization&gt;...&lt;/organization&gt;
+&lt;developers&gt;...&lt;/developers&gt;
+&lt;contributors&gt;...&lt;/contributors&gt;
+
+&lt;!-- 环境设置 --&gt;
+&lt;issueManagement&gt;...&lt;/issueManagement&gt;
+&lt;ciManagement&gt;...&lt;/ciManagement&gt;
+&lt;mailingLists&gt;...&lt;/mailingLists&gt;
+&lt;scm&gt;...&lt;/scm&gt;
+&lt;prerequisites&gt;...&lt;/prerequisites&gt;
+&lt;repositories&gt;...&lt;/repositories&gt;
+&lt;pluginRepositories&gt;...&lt;/pluginRepositories&gt;
+&lt;distributionManagement&gt;...&lt;/distributionManagement&gt;
+&lt;profiles&gt;...&lt;/profiles&gt;
+&lt;/project&gt;
+</code></pre><h3 id="parent标签"><a href="#parent标签" class="headerlink" title="parent标签"></a>parent标签</h3><p>parent标签中指定坐标，默认定位的是在文件体系上有继承关系的父pom，但是如果父pom并不是当前pom文件体系上的父级，如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">|-- my-module</span><br><span class="line">|   `-- pom.xml</span><br><span class="line">`-- parent</span><br><span class="line">    `-- pom.xml</span><br></pre></td></tr></table></figure></p>
+<p>这种情况可以使用<code>&lt;relativePath&gt;</code>属性解决，例子：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;project&gt;</span><br><span class="line">  &lt;parent&gt;</span><br><span class="line">    &lt;groupId&gt;com.mycompany.app&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;my-app&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;1&lt;/version&gt;</span><br><span class="line">    &lt;relativePath&gt;../parent/pom.xml&lt;/relativePath&gt;</span><br><span class="line">  &lt;/parent&gt;</span><br><span class="line">  &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;</span><br><span class="line">  &lt;artifactId&gt;my-module&lt;/artifactId&gt;</span><br><span class="line">&lt;/project&gt;</span><br></pre></td></tr></table></figure></p>
+<h2 id="maven命令"><a href="#maven命令" class="headerlink" title="maven命令"></a>maven命令</h2><ul>
+<li>mvn -v：查看maven版本</li>
+<li>mvn compile ：编译，在项目根目录下生产target目录，里面有编译生产的class文件  </li>
+<li>mvn test   ： 运行测试用例</li>
+<li>mvn package：打包。在target下生成，名为artifactId加version的包。</li>
+<li>mvn clean：删除target目录</li>
+<li>mvn install：安装生产的jar到本地仓库中，这样其他依赖该jar的模块就可以使用了。</li>
+</ul>
+<p>maven编译流程： 编译代码—&gt;发现需要依赖—&gt;去pom中找依赖的坐标—&gt;根据坐标去本地仓库找,找到将路径加到项目的classpath中—&gt;没找到再去中央仓库找，找打放到本地仓库里,再加classpath</p>
+<h2 id="eclipse中使用maven"><a href="#eclipse中使用maven" class="headerlink" title="eclipse中使用maven"></a>eclipse中使用maven</h2><ul>
+<li>eclipse4.x已经默认集成maven，直接使用即可。低版本安装插件。简单略过。</li>
+<li>创建一个maven工程。</li>
+<li>run as maven build..   对话框中Goals可以填compile编译，package打包等，clean，install直接执行run as mvn install即可</li>
+</ul>
+<h2 id="maven的生命周期"><a href="#maven的生命周期" class="headerlink" title="maven的生命周期"></a>maven的生命周期</h2><ul>
+<li>maven有三套独立的生命周期<ul>
+<li>clean 清理项目。又包含三个阶段<ul>
+<li>pre clean 执行清理前的工作</li>
+<li>clean 清理上一次构建生产的所有文件</li>
+<li>post clean 清理后的工作</li>
+</ul>
+</li>
+<li>default 核心 构建项目，常用的compile–&gt;test–&gt;package–&gt;install</li>
+<li>site 生成站点 可以根据pom中的信息自动生产站点。包含以下几个阶段。<ul>
+<li>pre site</li>
+<li>site</li>
+<li>post site</li>
+<li>site deploy 是发布站点到服务器上</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="maven的插件"><a href="#maven的插件" class="headerlink" title="maven的插件"></a>maven的插件</h2><p>我们使用的compile，install等等都是maven的插件，只是这些是基本的核心插件，所以自动下载。maven还有很多其他的插件。可以去<a href="http://maven.apache.org/plugins/index.html" target="_blank" rel="external">http://maven.apache.org/plugins/index.html</a>查看，只是没有vpn的时候慢的要死。<br>使用方法举例：</p>
+<pre><code>&lt;build&gt;
+    &lt;!-- 使用插件 --&gt;
+    &lt;plugins&gt;
+        &lt;plugin&gt;
+            &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+            &lt;artifactId&gt;maven-source-plugin&lt;/artifactId&gt;
+            &lt;version&gt;2.4&lt;/version&gt;
+            &lt;!-- 指定使用该插件的时机 --&gt;
+            &lt;executions&gt;
+                &lt;execution&gt;
+                    &lt;phase&gt;package&lt;/phase&gt;
+                    &lt;goals&gt;
+                        &lt;goal&gt;jar-no-fork&lt;/goal&gt;    
+                    &lt;/goals&gt;
+                &lt;/execution&gt;
+            &lt;/executions&gt;
+        &lt;/plugin&gt;
+    &lt;/plugins&gt;
+&lt;/build&gt;
+</code></pre><p>在package阶段使用该插件将工程打成jar-no-fork的jar包。可查看<a href="http://maven.apache.org/plugins/index.html" target="_blank" rel="external">http://maven.apache.org/plugins/index.html</a>得到更详细的说明。</p>
+<h2 id="依赖范围"><a href="#依赖范围" class="headerlink" title="依赖范围"></a>依赖范围</h2><p>重点看一下pom中的<code>&lt;scope&gt;</code>标签<br>具体请参见<a href="http://maven.apache.org/guides/introduction/introduction-to-dependency-mechanism.html" target="_blank" rel="external">http://maven.apache.org/guides/introduction/introduction-to-dependency-mechanism.html</a><br>maven提供了三种classpath，分别是编译，测试，运行。<br>这三种classpath又可以组合，maven提供了6中scope的值。分别是：</p>
+<pre><code>- compile。 默认的，对编译，测试，运行时都有效。
+- provided。对编译和测试时有效。例子是servlet的api，因为真正运行时会使用容器的servertlet api。
+- runtime。 测试和运行时有效。如JDBC
+- test。 测试时有效。如junit
+- system。编译和测试时有效。但是这个会和系统强关联，不具有可移植性。
+- import。 只用于&lt;dependencyManagement&gt;标签中，表示这是引入的依赖。
+</code></pre><h2 id="依赖传递"><a href="#依赖传递" class="headerlink" title="依赖传递"></a>依赖传递</h2><p>比如A依赖于B，B依赖于C，那么A就间接依赖于C。会把C的jar也引入进来。<br>然而A可能并不需要C，就可以使用<code>&lt;exclusions&gt;</code>标签排除依赖。</p>
+<h2 id="maven默认jdk版本"><a href="#maven默认jdk版本" class="headerlink" title="maven默认jdk版本"></a>maven默认jdk版本</h2><p>maven默认的jdk版本是1.5，所以我们引入或者新建的maven项目，都会显示使用jdk1.5<br>但实际上我们一般都会使用1.6以上，所以需要手动修改项目的jdk版本。但是一个个项目改起来又比较麻烦。<br>这里有一个方法：修改settings.xml。<br>在<profiles>标签下加入</profiles></p>
+<pre><code>&lt;profile&gt;
+    &lt;id&gt;jdk-1.7&lt;/id&gt;
+    &lt;activation&gt;
+        &lt;activeByDefault&gt;true&lt;/activeByDefault&gt;
+        &lt;jdk&gt;1.7&lt;/jdk&gt;
+    &lt;/activation&gt;
+
+    &lt;properties&gt;
+        &lt;maven.compiler.source&gt;1.7&lt;/maven.compiler.source&gt;
+        &lt;maven.compiler.target&gt;1.7&lt;/maven.compiler.target&gt;
+        &lt;maven.compiler.compilerVersion&gt;1.7&lt;/maven.compiler.compilerVersion&gt;
+    &lt;/properties&gt;
+&lt;/profile&gt;
+</code></pre><h2 id="聚合Aggregation"><a href="#聚合Aggregation" class="headerlink" title="聚合Aggregation"></a>聚合Aggregation</h2><p>在父pom中将子项目聚合起来，对父项目执行的命令，都会在子项目上执行。<br>使用聚合：</p>
+<pre><code>1. 必须将父pom的packaging方式改为pom
+2. 定义`&lt;modules&gt;`标签，加入子项目
+</code></pre><p>例子：<br>    <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;project&gt;</span><br><span class="line">  &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;</span><br><span class="line">  &lt;groupId&gt;com.mycompany.app&lt;/groupId&gt;</span><br><span class="line">  &lt;artifactId&gt;my-app&lt;/artifactId&gt;</span><br><span class="line">  &lt;version&gt;1&lt;/version&gt;</span><br><span class="line">  &lt;packaging&gt;pom&lt;/packaging&gt;</span><br><span class="line"> </span><br><span class="line">  &lt;modules&gt;</span><br><span class="line">    &lt;module&gt;my-module&lt;/module&gt;</span><br><span class="line">  &lt;/modules&gt;</span><br><span class="line">&lt;/project&gt;</span><br></pre></td></tr></table></figure></p>
+<p>注意，<code>module</code>标签查找子项目依然使用相对路径，也就是说上例中的文件关系(使用artifactId作为文件夹名)应该是</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">-- my-module</span><br><span class="line"> |   `-- pom.xml</span><br><span class="line"> `-- pom.xml</span><br></pre></td></tr></table></figure>
+<p>所以如果是</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">.</span><br><span class="line"> |-- my-module</span><br><span class="line"> |   `-- pom.xml</span><br><span class="line"> `-- parent</span><br><span class="line">     `-- pom.xml</span><br></pre></td></tr></table></figure>
+<p>应该相应的使用<code>&lt;module&gt;../my-module&lt;/module&gt;</code></p>
+<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><h3 id="dependencyManagement"><a href="#dependencyManagement" class="headerlink" title="dependencyManagement"></a>dependencyManagement</h3><p>把所依赖jar包的版本定义在<code>&lt;dependencyManagement&gt;</code>中,而不是<code>&lt;dependencies&gt;</code>中。 因为前者可影响间接依赖,后者只能影响直接依赖。<br>如果你的项目指定了parent pom,那么建议把<code>&lt;dependencyManagement&gt;</code>放在parent pom中,以便多个子项目共享配置。</p>
 
           
         
@@ -1477,7 +1696,7 @@ private static class ThreadTask implements Callable&lt;Void&gt;
             
               
                 
-                <a class="post-title-link" href="/2016/06/06/linux2/" itemprop="url">
+                <a class="post-title-link" href="/2016/06/06/MongoDB进阶/" itemprop="url">
                   未命名
                 </a>
               
@@ -1502,8 +1721,8 @@ private static class ThreadTask implements Callable&lt;Void&gt;
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/06/06/linux2/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/06/06/linux2/" itemprop="commentsCount"></span>
+                <a href="/2016/06/06/MongoDB进阶/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/06/06/MongoDB进阶/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -1528,122 +1747,138 @@ private static class ThreadTask implements Callable&lt;Void&gt;
       
         
           
-            <h3 id="如何正确关机"><a href="#如何正确关机" class="headerlink" title="如何正确关机"></a>如何正确关机</h3><p>其实，在linux领域内大多用在服务器上，很少遇到关机的操作。毕竟服务器上跑一个服务是永无止境的，除非特殊情况下，不得已才会关机。</p>
-<p>linux和windows不同，在 Linux 底下，由于每个程序（或者说是服务）都是在在背景下执行的，因此，在你看不到的屏幕背后其实可能有相当多人同时在你的主机上面工作，例如浏览网页啦、传送信件啦以 FTP 传送档案啦等等的，如果你直接按下电源开关来关机时，则其它人的数据可能就此中断！那可就伤脑筋了！此外，最大的问题是，若不正常关机，则可能造成文件系统的毁损（因为来不及将数据回写到档案中，所以有些服务的档案会有问题！）。</p>
-<p>如果你要关机，必须要保证当前系统中没有其他用户在线。可以下达 who 这个指令，而如果要看网络的联机状态，可以下达 netstat -a 这个指令，而要看背景执行的程序可以执行 ps -aux 这个指令。使用这些指令可以让你稍微了解主机目前的使用状态！（这些命令在以后的章节中会提及，现在只要了解即可！）</p>
-<p>正确的关机流程为：sysnc ? shutdown ? reboot ? halt</p>
-<p>sync 将数据由内存同步到硬盘中。</p>
-<p>shutdown 关机指令，你可以man shutdown 来看一下帮助文档。例如你可以运行如下命令关机：</p>
-<p>shutdown –h 10 ‘This server will shutdown after 10 mins’ 这个命令告诉大家，计算机将在10分钟后关机，并且会显示在登陆用户的当前屏幕中。</p>
-<p>Shutdown –h now 立马关机</p>
-<p>Shutdown –h 20:25 系统会在今天20:25关机</p>
-<p>Shutdown –h +10 十分钟后关机</p>
-<p>Shutdown –r now 系统立马重启</p>
-<p>Shutdown –r +10 系统十分钟后重启</p>
-<p>reboot 就是重启，等同于 shutdown –r now</p>
-<p>halt 关闭系统，等同于shutdown –h now 和 poweroff</p>
-<p>最后总结一下，不管是重启系统还是关闭系统，首先要运行sync命令，把内存中的数据写到磁盘中。关机的命令有 shutdown –h now halt poweroff 和 init 0 , 重启系统的命令有 shutdown –r now reboot init 6.</p>
+            <h3 id="固定集合"><a href="#固定集合" class="headerlink" title="固定集合"></a>固定集合</h3><p>mongo支持创建大小固定的集合，当向已满的集合中插入文档时，最早的文档会被删除。默认情况下，固定集合是没有索引的，即使_id也没有。<br>文档存储的顺序就是插入的顺序。这样固定集合的插入和按照插入顺序的查询速度都很快。<br>很适合存储日志的场景。  </p>
+<pre><code>&gt; db.createCollection(&quot;fixedCollection&quot;, {capped : true, size : 10000, max : 10})
+{ &quot;ok&quot; : 1 }
+</code></pre><p>size是集合大小，字节单位。 max是最大文档数，可以不指定。         </p>
+<h3 id="GridFS"><a href="#GridFS" class="headerlink" title="GridFS"></a>GridFS</h3><p>GridFS是mongo中存储大的二进制文件的机制。<br>使用，mongofiles  </p>
+<pre><code>mongo:~/mongodb/mongo/bin # echo &quot;hello yunsheng&quot; &gt; test.txt
+mongo:~/mongodb/mongo/bin # l
+total 282976
+drwxr-xr-x 2 root root     4096 Oct 15 10:40 ./
+drwxr-xr-x 3 root root     4096 Sep 29 11:36 ../
+-rwxr-xr-x 1 1046 1046 23520056 Aug  9  2014 bsondump*
+-rwxr-xr-x 1 1046 1046 11896064 Aug  9  2014 mongo*
+-rwxr-xr-x 1 1046 1046 23662856 Aug  9  2014 mongod*
+-rwxr-xr-x 1 1046 1046 23589784 Aug  9  2014 mongodump*
+-rwxr-xr-x 1 1046 1046 23536408 Aug  9  2014 mongoexport*
+-rwxr-xr-x 1 1046 1046 23582272 Aug  9  2014 mongofiles*
+-rwxr-xr-x 1 1046 1046 23561016 Aug  9  2014 mongoimport*
+-rwxr-xr-x 1 1046 1046 23528248 Aug  9  2014 mongooplog*
+-rwxr-xr-x 1 1046 1046 23339944 Aug  9  2014 mongoperf*
+-rwxr-xr-x 1 1046 1046 23626872 Aug  9  2014 mongorestore*
+-rwxr-xr-x 1 1046 1046 18412576 Aug  9  2014 mongos*
+-rwxr-xr-x 1 1046 1046 23578744 Aug  9  2014 mongostat*
+-rwxr-xr-x 1 1046 1046 23524120 Aug  9  2014 mongotop*
+-rw-r--r-- 1 root root       15 Oct 15 10:40 test.txt
 
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/06/06/jersy的使用2/" itemprop="url">
-                  未命名
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-06-06T20:57:26+08:00" content="2016-06-06">
-              2016-06-06
-            </time>
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/06/06/jersy的使用2/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/06/06/jersy的使用2/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="jersy"><a href="#jersy" class="headerlink" title="jersy"></a>jersy</h2><p><a href="https://jersey.java.net/documentation/1.19/getting-started.html" target="_blank" rel="external">看官方文档</a></p>
+mongo:~/mongodb/mongo/bin # ./mongofiles put test.txt 
+connected to: 127.0.0.1
+added file: { _id: ObjectId(&apos;561f127fcf61ae7dcc32f7b4&apos;), filename: &quot;test.txt&quot;, chunkSize: 261120, uploadDate: new Date(1444876927045), md5: &quot;ac7afa3f84478f5a583ba61c7ac986c4&quot;, length: 15 }
+done!
+mongo:~/mongodb/mongo/bin # ./mongofiles list
+connected to: 127.0.0.1
+test.txt    15
+mongo:~/mongodb/mongo/bin # rm test.txt 
+mongo:~/mongodb/mongo/bin # l
+total 282972
+drwxr-xr-x 2 root root     4096 Oct 15 10:42 ./
+drwxr-xr-x 3 root root     4096 Sep 29 11:36 ../
+-rwxr-xr-x 1 1046 1046 23520056 Aug  9  2014 bsondump*
+-rwxr-xr-x 1 1046 1046 11896064 Aug  9  2014 mongo*
+-rwxr-xr-x 1 1046 1046 23662856 Aug  9  2014 mongod*
+-rwxr-xr-x 1 1046 1046 23589784 Aug  9  2014 mongodump*
+-rwxr-xr-x 1 1046 1046 23536408 Aug  9  2014 mongoexport*
+-rwxr-xr-x 1 1046 1046 23582272 Aug  9  2014 mongofiles*
+-rwxr-xr-x 1 1046 1046 23561016 Aug  9  2014 mongoimport*
+-rwxr-xr-x 1 1046 1046 23528248 Aug  9  2014 mongooplog*
+-rwxr-xr-x 1 1046 1046 23339944 Aug  9  2014 mongoperf*
+-rwxr-xr-x 1 1046 1046 23626872 Aug  9  2014 mongorestore*
+-rwxr-xr-x 1 1046 1046 18412576 Aug  9  2014 mongos*
+-rwxr-xr-x 1 1046 1046 23578744 Aug  9  2014 mongostat*
+-rwxr-xr-x 1 1046 1046 23524120 Aug  9  2014 mongotop*
+mongo:~/mongodb/mongo/bin # ./mongofiles get test.txt
+connected to: 127.0.0.1
+done write to: test.txt
+mongo:~/mongodb/mongo/bin # l
+total 282976
+drwxr-xr-x 2 root root     4096 Oct 15 10:43 ./
+drwxr-xr-x 3 root root     4096 Sep 29 11:36 ../
+-rwxr-xr-x 1 1046 1046 23520056 Aug  9  2014 bsondump*
+-rwxr-xr-x 1 1046 1046 11896064 Aug  9  2014 mongo*
+-rwxr-xr-x 1 1046 1046 23662856 Aug  9  2014 mongod*
+-rwxr-xr-x 1 1046 1046 23589784 Aug  9  2014 mongodump*
+-rwxr-xr-x 1 1046 1046 23536408 Aug  9  2014 mongoexport*
+-rwxr-xr-x 1 1046 1046 23582272 Aug  9  2014 mongofiles*
+-rwxr-xr-x 1 1046 1046 23561016 Aug  9  2014 mongoimport*
+-rwxr-xr-x 1 1046 1046 23528248 Aug  9  2014 mongooplog*
+-rwxr-xr-x 1 1046 1046 23339944 Aug  9  2014 mongoperf*
+-rwxr-xr-x 1 1046 1046 23626872 Aug  9  2014 mongorestore*
+-rwxr-xr-x 1 1046 1046 18412576 Aug  9  2014 mongos*
+-rwxr-xr-x 1 1046 1046 23578744 Aug  9  2014 mongostat*
+-rwxr-xr-x 1 1046 1046 23524120 Aug  9  2014 mongotop*
+-rw-r--r-- 1 root root       15 Oct 15 10:43 test.txt
+mongo:~/mongodb/mongo/bin # cat test.txt 
+hello yunsheng
+</code></pre><p>上面使用了mongofiles的put，list，get方法，很容易使用。  </p>
+<p>还有search和delete</p>
+<pre><code>mongo:~/mongodb/mongo/bin # ./mongofiles search test
+connected to: 127.0.0.1
+test.txt    15
+mongo:~/mongodb/mongo/bin # ./mongofiles delete test
+connected to: 127.0.0.1
+done!
+mongo:~/mongodb/mongo/bin # ./mongofiles list
+connected to: 127.0.0.1
+test.txt    15
+mongo:~/mongodb/mongo/bin # ./mongofiles delete test.txt
+connected to: 127.0.0.1
+done!
+mongo:~/mongodb/mongo/bin # ./mongofiles list
+connected to: 127.0.0.1
+</code></pre><p>可以通过mongo各个版本的驱动来使用gridfs</p>
+<h3 id="服务器端脚本"><a href="#服务器端脚本" class="headerlink" title="服务器端脚本"></a>服务器端脚本</h3><p>db.eval来执行javascript脚本。  </p>
+<pre><code>&gt; db.eval(&quot;return 1&quot;)
+1
+&gt; db.eval(&quot;function(){return 1}&quot;)
+1
+&gt; 
+</code></pre><p>可以封装成函数，也可以不封装。等价的。但是如果需要传递参数，那就只能用函数形式了。参数所谓eval的第二个参数，写成数组的形式。 </p>
+<p>在mongo数据库中有一个特殊的集合system.js用来存储全局js变量或者脚本。用insert加入。</p>
+<h2 id="mongo的管理"><a href="#mongo的管理" class="headerlink" title="mongo的管理"></a>mongo的管理</h2><p>mongod<br>mongod –help查看所有参数，其中<br><code>--dbpath arg                directory for datafiles - defaults to /data/db</code><br>默认是/data/db，但是每个mongod进程都要求有各种独立的不同的存放数据目录，每个mongod启动时，会在自己的数据目录下创建一个mongod.lock文件，不让其他的mongod使用。比如启动了一个使用默认目录的mongod，再起一个会报<code>exception in initAndListen: 10310 Unable to lock file: /data/db/mongod.lock. Is a mongod instance already running?, terminating</code>。  </p>
+<p><code>--port arg                  specify port number - 27017 by default</code><br>和数据目录一样，每个mongod进程的端口不能一样。一样会报错。</p>
+<p><code>--fork                      fork server process</code><br>以守护进程的方式运行mongo  </p>
+<p><code>--logpath arg               log file to send write to instead of stdout - has to be a file, not directory</code><br>指定日志输出。arg需要是一个文件。如果对文件所在的文件夹有写权限的时候，文件不存在会自动创建。会对以前的日志覆盖掉。如果不想覆盖掉，还要指定<code>--logappend                 append to logpath instead of over-writing</code>选项。</p>
+<p><code>-f [ --config ] arg         configuration file specifying additional options</code><br>可以指定配置文件<br>如：</p>
+<pre><code># 以#注释行，键值对形式，区分大小写的。
+port = 1111
+# fork这种要指定true
+fork = true
+</code></pre><h3 id="停止mongo"><a href="#停止mongo" class="headerlink" title="停止mongo"></a>停止mongo</h3><ol>
+<li><p>可以终止mongod进程。  </p>
+<pre><code>mongo:~/mongodb # ps -ef | grep mongod
+root      6521     1  0 Oct05 ?        00:55:26 ./mongod --fork --logpath /root/mongodb/logs
+root     32054 31414  0 14:42 pts/0    00:00:00 grep mongod
+</code></pre></li>
+</ol>
+<p>然后kill 6521 或者kill -2 6521。<br>注意不要用kill -9 6521这种暴力形式，这回这就终止mongod。不会等到正在执行的操作结束，造成数据损毁。  </p>
+<ol>
+<li><p>用mongo提供的shutdown命令<br>必须切换到admin数据库  </p>
+<pre><code>&gt; use admin
+switched to db admin
+&gt; db.shutdownServer()
+</code></pre></li>
+</ol>
+<h2 id="分片"><a href="#分片" class="headerlink" title="分片"></a>分片</h2><p>将数据的存储分散到多台机器上。mongo支持自动分片，可以摆脱手动分片的管理困扰。<br>mongo将数据切成很多小块，这些块分布到不同的片里，应用程序不需要知道哪个片存了哪些数据，它只要连接上mongos。</p>
+<h3 id="mongos"><a href="#mongos" class="headerlink" title="mongos"></a>mongos</h3><p>mongos进程知道各个片的分布位置，通过它可以正确发送请求。<br>在不使用分片时，应用连接的是mongod。<br>使用分片了，应用连接的就是mongos。mongos再去连接各个mongod。    </p>
+<h3 id="合适分片"><a href="#合适分片" class="headerlink" title="合适分片"></a>合适分片</h3><ul>
+<li>机器的磁盘不够用了</li>
+<li>单个mongod不能满足写数据的性能要求了</li>
+<li>想将大量数据放到内存中提高性能</li>
+</ul>
+<h3 id="片键"><a href="#片键" class="headerlink" title="片键"></a>片键</h3><p>在设置分片时，需要从集合中选取一个键作为分片的依据，这个键就是片键（shard key）<br>如一个人员的集合，选择name作为片键，第一个片可能存A-P的人员，第二个存Q-Z的，在增加或者减少片时，mongoDb会重新平衡数据。  </p>
+<p>片键的选择很重要，直接决定了分片存储的数据。如果选了一个不断递增的键做片键，如时间戳，那么可能最后一个片会不断增加，而其他片可能固定不动了。这对查询比较快，但是大数据量时会有问题。选择分布均匀的片键可以是各片的数据比较均衡。<br>如果一个键最多只有三种值，那么以它为片键最多也就分三块了，限制了分片的数量，这时可以再加一个键做复合片键。  </p>
+<h3 id="建立分片"><a href="#建立分片" class="headerlink" title="建立分片"></a>建立分片</h3><p>片： 片可以是单个mongod（开发测试用环境），也可以是一个副本集（生产环境）。即使一个片内有多台服务器，也只能有一台主，其他作为存储相同数据的备份。<br>mongos ：路由所有请求，聚合结果。本身不会存储数据和配置信息。只会存储下配置服务器的信息。<br>配置服务器：存储集群的配置信息：数据和分片的对应关系。</p>
 
           
         

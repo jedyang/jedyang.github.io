@@ -263,7 +263,7 @@
             
               
                 
-                <a class="post-title-link" href="/2016/06/06/osgi/" itemprop="url">
+                <a class="post-title-link" href="/2016/06/06/sysstat工具使用说明/" itemprop="url">
                   未命名
                 </a>
               
@@ -288,8 +288,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/06/06/osgi/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/06/06/osgi/" itemprop="commentsCount"></span>
+                <a href="/2016/06/06/sysstat工具使用说明/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/06/06/sysstat工具使用说明/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -314,25 +314,8 @@
       
         
           
-            <h2 id="osgi学习笔记"><a href="#osgi学习笔记" class="headerlink" title="osgi学习笔记"></a>osgi学习笔记</h2><ol>
-<li><p>bundle依赖解析规则：<br>当多个bundle的导出包满足该bundle的import-package依赖时，优先级如下：</p>
-<ol>
-<li>已解析的（resolved）bundle优先级高，未解析的（installed）bundle优先级低。</li>
-<li>bundle状态一样，版本高者优先，版本也相同，择选最先安装的bundle。</li>
-</ol>
-</li>
-<li><p>一般bundle都会是resolved状态，这样如果bundleA导入了bundleB导出的版本为1的包，然后bundleC又导出了同名的版本为2的包，<br>这样如果BundleA的代码中有显式import或者继承bundleB的代码，需要用uses限制export-package<br><a href="http://course.tianmaying.com/osgi-toturial/lesson/osgi-module-layer#22" target="_blank" rel="external">uses具体链接</a></p>
-</li>
-<li><p>bundle的生命周期<br><img src="http://tmy-course.oss-cn-beijing.aliyuncs.com/osgi-toturial%2F03%2F00005.jpg" alt="bundle状态"><br>生命周期层的基础实施：</p>
-<pre><code>public interface BundleActivator {
-  public void start(BundleContext context) throws Exception;
-  public void stop(BundleContext context) throws Exception;
-}
-</code></pre><p>当bundle的状态属于active时，BundleContext才有意义。<br>为了bundle的安全和资源分配，不能随意传到bundlecontext。<br>Bundle定义了一系列api，用于管理bundle的生命周期。  </p>
-</li>
-</ol>
-<p>4.bundleId越大，bundle的启动顺序越靠后。只有系统bundle（system bundle）的bundleId可以为0。</p>
-
+            <h2 id="sysstat工具使用"><a href="#sysstat工具使用" class="headerlink" title="sysstat工具使用"></a>sysstat工具使用</h2><p>统计系统的各种资源占用</p>
+<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3>
           
         
       
@@ -632,6 +615,107 @@ private static URI getBaseURI() {
             
               
                 
+                <a class="post-title-link" href="/2016/06/06/README/" itemprop="url">
+                  未命名
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-06-06T20:57:27+08:00" content="2016-06-06">
+              2016-06-06
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/06/06/README/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/06/06/README/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="DayDayUp"><a href="#DayDayUp" class="headerlink" title="DayDayUp"></a>DayDayUp</h1><p>云胜的学习笔记</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/06/06/高效实用Eclipse/" itemprop="url">
                   未命名
                 </a>
@@ -840,7 +924,7 @@ private static URI getBaseURI() {
             
               
                 
-                <a class="post-title-link" href="/2016/06/06/ZooKeeper学习/" itemprop="url">
+                <a class="post-title-link" href="/2016/06/06/osgi/" itemprop="url">
                   未命名
                 </a>
               
@@ -865,8 +949,8 @@ private static URI getBaseURI() {
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/06/06/ZooKeeper学习/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/06/06/ZooKeeper学习/" itemprop="commentsCount"></span>
+                <a href="/2016/06/06/osgi/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/06/06/osgi/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -891,148 +975,24 @@ private static URI getBaseURI() {
       
         
           
-            <p>#Zookeeper</p>
-<p>###什么是zookeeper？<br>一句话描述：zookeeper是一个开源的高可靠的分布式系统<strong>协调器</strong>。<br>主要提供：配置管理，命名，分布式锁，组服务。这些服务如果在自己的分布式应用中实现和维护起来会有很大工作量。有了zookeeper，我们可以直接拿来用它的一致性，组管理，leader选举等功能，也可以在此基础上构建自己的应用。  </p>
-<h2 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h2><ul>
-<li>zookeeper提供的是分布式应用所需的分布式协同服务。它提供了一系列基本要件供分布式应用去构建自己的高级分布式服务。zookeeper被设计的容易对其进行编程，使用的是类似于目录树的一种数据模型。<br>众所周知，构建正确的分布式协同服务很难，很容易产生竞态条件和死锁，zookeeper的目标就是将我们从构建自己的分布式应用的协同器中解放出来。  </li>
-</ul>
-<h3 id="设计目标"><a href="#设计目标" class="headerlink" title="设计目标"></a>设计目标</h3><ol>
-<li>简单。 zookeeper允许各分布式进程间通过共享一个类似于文件目录树结构的有层级的命名空间来实现彼此间的协同，该命名空间是有一系列注册数据点组成，称为znode。和文件系统很像，所不同的是，znodes是保存在内存中，使zookeeper可以保持高性能低延迟。<br>zookeeper实现高性能，高可用性，严格的顺序访问，使它可以应用于大型分布式系统。</li>
-<li>备份。zookeeper服务本身也是由多台server组成的整体。各台server互相知道彼此，他们在自己的内存中放了各server的状态，只要server集群中一半以上的服务可用，整个zookeeper服务就是可用的。<br><img src="https://zookeeper.apache.org/doc/r3.4.6/images/zkservice.jpg" alt=""><br>client只会连到一台server，client和server间保持tcp连接，以发送请求，获取响应，发送心跳，得到watch事件，一旦tcp连接断掉，client会同另一台server建立tcp连接。</li>
-<li>有序。ZooKeeper会在每一个更新上打上数字标记，以表示这个ZooKeeper事务的顺序。这样以后的操作可以根据这个标记实现更高级的抽象，如同步原语。</li>
-<li>快速。尤其是在读操作占大多数的场景下。ZooKeeper的读写速度相差大约10:1。</li>
+            <h2 id="osgi学习笔记"><a href="#osgi学习笔记" class="headerlink" title="osgi学习笔记"></a>osgi学习笔记</h2><ol>
+<li><p>bundle依赖解析规则：<br>当多个bundle的导出包满足该bundle的import-package依赖时，优先级如下：</p>
+<ol>
+<li>已解析的（resolved）bundle优先级高，未解析的（installed）bundle优先级低。</li>
+<li>bundle状态一样，版本高者优先，版本也相同，择选最先安装的bundle。</li>
 </ol>
-<p>###数据模型<br>前面讲了，非常像文件模型。每一个node都以路径来唯一标识。<br><img src="https://zookeeper.apache.org/doc/r3.4.6/images/zknamespace.jpg" alt=""><br>ZooKeeper的Node可以有子Node，也可以存储数据，存储的数据用来处理协同，主要有状态信息，配置，位置信息等，通常很小。一般将node称为znode。<br>znode存储的数据中有个版本号，一旦数据有更新，这个版本号会自增。client在此获取数据时，会得到新的版本号。<br>znode中数据的读写都是原子的。每个node都有访问控制列表acl来严格控制谁可以做什么。<br>还有一种临时node（ephemeral nodes),这个临时node的生存周期是创建它的session的生存周期，一旦这个session断掉，这个临时node就会被删除，这是很有用的一个特性，可以用来实现分布式锁。  </p>
-<h3 id="状态更新和监视"><a href="#状态更新和监视" class="headerlink" title="状态更新和监视"></a>状态更新和监视</h3><p>client可以在znode上设置watch，当znode的状态变化时将触发watch。当client和server的连接断掉，client会收到本地提醒。  </p>
-<h3 id="保证"><a href="#保证" class="headerlink" title="保证"></a>保证</h3><ul>
-<li>一致性。按照client发送请求的顺序执行。</li>
-<li>原子性。</li>
-<li>单系统视图。不管client连到哪台server，它看到的服务视图都是一致的。</li>
-<li>可靠性。</li>
-<li>实时性。</li>
-</ul>
-<h3 id="api"><a href="#api" class="headerlink" title="api"></a>api</h3><p>ZooKeeper的设计目标有一个是简单性，所以它提供的api也设计的很简单。</p>
-<ul>
-<li>create。创建一个node  </li>
-<li>delete。</li>
-<li>exists。判断在这个location是否存在node</li>
-<li>get data。从node获取数据。</li>
-<li>set data。向node写数据。</li>
-<li>get children。获取该node的子列表。</li>
-<li>sync。等待数据传播完成。</li>
-</ul>
-<h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><p><img src="https://zookeeper.apache.org/doc/r3.4.6/images/zkcomponents.jpg" alt=""><br>上图为ZooKeeper服务的抽象组件。每个server都会有一份自己的组件。<br>replicated database是内存数据库，存放着整个service数据。也就是说每个server都有全部的信息。更新操作会记日志到硬盘中已备恢复。写操作是先序列化到硬盘中，再应用到内存数据库。<br>从上图可以看出，读操作是直接从该client连的server 执行。<br>写操作要通过一致性协议来执行。<br>所有的写操作都会被转发到leader，由leader进行转发。所以ZooKeeper的读能力比写强大很多。<br>信息转发这层称为messaging层，负责维持leader和同步follower与leader的信息。messaging层使用原子性的信息协议，messaging层是原子性的，所以他可以保证每一个本地的信息复制都是可靠地。当leader收到一个写请求，计算写请求提交时的系统状态，然后将其转为一个投票事务，再计算新的状态（后面详细讲解）。<br>原子化广播（atomic broadcast）保证了每一个进程按照相同的顺序投递同一个消息。  </p>
-<h2 id="安装小试"><a href="#安装小试" class="headerlink" title="安装小试"></a>安装小试</h2><ol>
-<li><a href="https://zookeeper.apache.org/" target="_blank" rel="external">下载一个稳定版</a>,我下面的操作以3.4.6为例</li>
-<li>解压，找到conf/zoo_simple.cfg,一般将其改个名字，如zoo.cfg。<br><a href="http://www.cnblogs.com/sunddenly/articles/4071730.html" target="_blank" rel="external">参数解释(转帖-感谢)</a>  </li>
-<li><p>启动ZooKeeper的Server：bin/zkServer.sh start；<br>关闭ZooKeeper的Server：bin/zkServer.sh stop</p>
 </li>
-<li><p>连接。sh zkCli.sh -server 127.0.0.1:2181<br>连接成功，会看到如</p>
-<blockquote>
-<p>[zk: 127.0.0.1:2181(CONNECTED) 0] </p>
-</blockquote>
+<li><p>一般bundle都会是resolved状态，这样如果bundleA导入了bundleB导出的版本为1的包，然后bundleC又导出了同名的版本为2的包，<br>这样如果BundleA的代码中有显式import或者继承bundleB的代码，需要用uses限制export-package<br><a href="http://course.tianmaying.com/osgi-toturial/lesson/osgi-module-layer#22" target="_blank" rel="external">uses具体链接</a></p>
+</li>
+<li><p>bundle的生命周期<br><img src="http://tmy-course.oss-cn-beijing.aliyuncs.com/osgi-toturial%2F03%2F00005.jpg" alt="bundle状态"><br>生命周期层的基础实施：</p>
+<pre><code>public interface BundleActivator {
+  public void start(BundleContext context) throws Exception;
+  public void stop(BundleContext context) throws Exception;
+}
+</code></pre><p>当bundle的状态属于active时，BundleContext才有意义。<br>为了bundle的安全和资源分配，不能随意传到bundlecontext。<br>Bundle定义了一系列api，用于管理bundle的生命周期。  </p>
 </li>
 </ol>
-<p>在这个视图下，可以输入zookeeper的命令了。<br>help：显示所有命令。<br>如：</p>
-<pre><code>[zk: 127.0.0.1:2181(CONNECTED) 2] ls /  
-[zookeeper]
-</code></pre><p>然后创建一个自己的znode，</p>
-<pre><code>[zk: 127.0.0.1:2181(CONNECTED) 3] create /my_node my_data
-Created /my_node
-[zk: 127.0.0.1:2181(CONNECTED) 4] ls /
-[zookeeper, my_node]
-</code></pre><p>获取一下my_node的信息，</p>
-<pre><code>[zk: 127.0.0.1:2181(CONNECTED) 5] get /my_node
-my_data
-cZxid = 0x6
-ctime = Thu Jan 21 15:53:08 CST 2016
-mZxid = 0x6
-mtime = Thu Jan 21 15:53:08 CST 2016
-pZxid = 0x6
-cversion = 0
-dataVersion = 0
-aclVersion = 0
-ephemeralOwner = 0x0
-dataLength = 7
-numChildren = 0
-</code></pre><p>我们也可以用set修改关联的data，</p>
-<pre><code>[zk: 127.0.0.1:2181(CONNECTED) 6] set /my_node yunsheng
-cZxid = 0x6
-ctime = Thu Jan 21 15:53:08 CST 2016
-mZxid = 0x7
-mtime = Thu Jan 21 15:56:32 CST 2016
-pZxid = 0x6
-cversion = 0
-dataVersion = 1
-aclVersion = 0
-ephemeralOwner = 0x0
-dataLength = 8
-numChildren = 0
-[zk: 127.0.0.1:2181(CONNECTED) 7] get /my_node
-yunsheng
-cZxid = 0x6
-ctime = Thu Jan 21 15:53:08 CST 2016
-mZxid = 0x7
-mtime = Thu Jan 21 15:56:32 CST 2016
-pZxid = 0x6
-cversion = 0
-dataVersion = 1
-aclVersion = 0
-ephemeralOwner = 0x0
-dataLength = 8
-numChildren = 0
-</code></pre><p>最后，删除，</p>
-<pre><code>[zk: 127.0.0.1:2181(CONNECTED) 8] delete /my_node
-[zk: 127.0.0.1:2181(CONNECTED) 9] ls /
-[zookeeper]
-</code></pre><p>5.集群  </p>
-<pre><code>tickTime=2000
-dataDir=/var/lib/zookeeper
-clientPort=2181
-initLimit=5//5个tickTime内，允许其他server连接并初始化数据，如果zooKeeper管理的数据较大，则应相应增大这个值。
-syncLimit=2//2个tickTime内，允许follower同步，如果follower落后太多，则会被丢弃。
-server.1=zoo1:2888:3888
-server.2=zoo2:2888:3888
-server.3=zoo3:2888:3888
-// server.x的x要写在myid文件中，决定当前机器的id
-// 第一个port用于连接leader
-// 第二个用于leader选举。
-// hostname也可以填ip
-</code></pre><p>比如配一个三台的集群，可以搞在一台机器上起三个zkServer做假集群，也可以找三台机器，起三个zkServer。我手头没有那么多机器，以假集群演示，其实真集群配起来更简单。<br>例子：<br>配置conf</p>
-<ul>
-<li><p>  mongo:~/zookeeper/zookeeper-3.4.6/conf # ll<br>  total 20<br>  -rw-rw-r– 1 test yunsheng  535 Feb 20  2014 configuration.xsl<br>  -rw-rw-r– 1 test yunsheng 2161 Feb 20  2014 log4j.properties<br>  -rw-rw-r– 1 test yunsheng 1073 Jan 21 17:21 zoo1.cfg<br>  -rw-r–r– 1 root root     1073 Jan 21 17:21 zoo2.cfg<br>  -rw-r–r– 1 root root     1073 Jan 21 17:22 zoo3.cfg<br>  mongo:~/zookeeper/zookeeper-3.4.6/conf # cat zoo1.cfg </p>
-<h1 id="The-number-of-milliseconds-of-each-tick"><a href="#The-number-of-milliseconds-of-each-tick" class="headerlink" title="The number of milliseconds of each tick"></a>The number of milliseconds of each tick</h1><p>  tickTime=2000</p>
-<h1 id="The-number-of-ticks-that-the-initial"><a href="#The-number-of-ticks-that-the-initial" class="headerlink" title="The number of ticks that the initial"></a>The number of ticks that the initial</h1><h1 id="synchronization-phase-can-take"><a href="#synchronization-phase-can-take" class="headerlink" title="synchronization phase can take"></a>synchronization phase can take</h1><p>  initLimit=10</p>
-<h1 id="The-number-of-ticks-that-can-pass-between"><a href="#The-number-of-ticks-that-can-pass-between" class="headerlink" title="The number of ticks that can pass between"></a>The number of ticks that can pass between</h1><h1 id="sending-a-request-and-getting-an-acknowledgement"><a href="#sending-a-request-and-getting-an-acknowledgement" class="headerlink" title="sending a request and getting an acknowledgement"></a>sending a request and getting an acknowledgement</h1><p>  syncLimit=5</p>
-<h1 id="the-directory-where-the-snapshot-is-stored"><a href="#the-directory-where-the-snapshot-is-stored" class="headerlink" title="the directory where the snapshot is stored."></a>the directory where the snapshot is stored.</h1><h1 id="do-not-use-tmp-for-storage-tmp-here-is-just"><a href="#do-not-use-tmp-for-storage-tmp-here-is-just" class="headerlink" title="do not use /tmp for storage, /tmp here is just"></a>do not use /tmp for storage, /tmp here is just</h1><h1 id="example-sakes"><a href="#example-sakes" class="headerlink" title="example sakes."></a>example sakes.</h1><p>  dataDir=/root/zookeeper/dataDir1</p>
-<p>  dataLogDir=/root/zookeeper/logs1</p>
-<h1 id="the-port-at-which-the-clients-will-connect"><a href="#the-port-at-which-the-clients-will-connect" class="headerlink" title="the port at which the clients will connect"></a>the port at which the clients will connect</h1><p>  clientPort=2181</p>
-<h1 id="the-maximum-number-of-client-connections"><a href="#the-maximum-number-of-client-connections" class="headerlink" title="the maximum number of client connections."></a>the maximum number of client connections.</h1><h1 id="increase-this-if-you-need-to-handle-more-clients"><a href="#increase-this-if-you-need-to-handle-more-clients" class="headerlink" title="increase this if you need to handle more clients"></a>increase this if you need to handle more clients</h1><p>  #maxClientCnxns=60<br>  #</p>
-<h1 id="Be-sure-to-read-the-maintenance-section-of-the"><a href="#Be-sure-to-read-the-maintenance-section-of-the" class="headerlink" title="Be sure to read the maintenance section of the"></a>Be sure to read the maintenance section of the</h1><h1 id="administrator-guide-before-turning-on-autopurge"><a href="#administrator-guide-before-turning-on-autopurge" class="headerlink" title="administrator guide before turning on autopurge."></a>administrator guide before turning on autopurge.</h1><p>  #</p>
-<h1 id="http-zookeeper-apache-org-doc-current-zookeeperAdmin-html-sc-maintenance"><a href="#http-zookeeper-apache-org-doc-current-zookeeperAdmin-html-sc-maintenance" class="headerlink" title="http://zookeeper.apache.org/doc/current/zookeeperAdmin.html#sc_maintenance"></a><a href="http://zookeeper.apache.org/doc/current/zookeeperAdmin.html#sc_maintenance" target="_blank" rel="external">http://zookeeper.apache.org/doc/current/zookeeperAdmin.html#sc_maintenance</a></h1><p>  #</p>
-<h1 id="The-number-of-snapshots-to-retain-in-dataDir"><a href="#The-number-of-snapshots-to-retain-in-dataDir" class="headerlink" title="The number of snapshots to retain in dataDir"></a>The number of snapshots to retain in dataDir</h1><p>  #autopurge.snapRetainCount=3</p>
-<h1 id="Purge-task-interval-in-hours"><a href="#Purge-task-interval-in-hours" class="headerlink" title="Purge task interval in hours"></a>Purge task interval in hours</h1><h1 id="Set-to-“0”-to-disable-auto-purge-feature"><a href="#Set-to-“0”-to-disable-auto-purge-feature" class="headerlink" title="Set to “0” to disable auto purge feature"></a>Set to “0” to disable auto purge feature</h1><p>  #autopurge.purgeInterval=1<br>  server.1=192.168.111.118:2881:3881<br>  server.2=192.168.111.118:2882:3882<br>  server.3=192.168.111.118:2883:3883</p>
-</li>
-</ul>
-<p>zoo2和zoo3的配置大同小异，注意分开各自的dataDir和dataLogDir<br>配myid<br>-<br>然后去各自的dataDir下创建myid，如：</p>
-<pre><code>mongo:~/zookeeper/dataDir1 # cat myid 
-1    
-</code></pre><p>创建一个名叫myid的文件，里面的内容就是server.x的x  </p>
-<p>启动server<br>-<br>分别启动三个</p>
-<pre><code>mongo:~/zookeeper/zookeeper-3.4.6/bin # sh zkServer.sh start zoo1.cfg
-JMX enabled by default
-Using config: /root/zookeeper/zookeeper-3.4.6/bin/../conf/zoo1.cfg
-Starting zookeeper ... STARTED
-mongo:~/zookeeper/zookeeper-3.4.6/bin # sh zkServer.sh start zoo2.cfg
-JMX enabled by default
-Using config: /root/zookeeper/zookeeper-3.4.6/bin/../conf/zoo2.cfg
-Starting zookeeper ... STARTED
-mongo:~/zookeeper/zookeeper-3.4.6/bin # sh zkServer.sh start zoo3.cfg
-JMX enabled by default
-Using config: /root/zookeeper/zookeeper-3.4.6/bin/../conf/zoo3.cfg
-Starting zookeeper ... STARTED
-</code></pre><p>查看状态<br>-<br>    mongo:~/zookeeper/zookeeper-3.4.6/bin # sh zkServer.sh status zoo3.cfg<br>    JMX enabled by default<br>    Using config: /root/zookeeper/zookeeper-3.4.6/bin/../conf/zoo3.cfg<br>    Mode: leader<br>    mongo:~/zookeeper/zookeeper-3.4.6/bin # sh zkServer.sh status zoo2.cfg<br>    JMX enabled by default<br>    Using config: /root/zookeeper/zookeeper-3.4.6/bin/../conf/zoo2.cfg<br>    Mode: follower<br>    mongo:~/zookeeper/zookeeper-3.4.6/bin # sh zkServer.sh status zoo1.cfg<br>    JMX enabled by default<br>    Using config: /root/zookeeper/zookeeper-3.4.6/bin/../conf/zoo1.cfg<br>    Mode: follower</p>
-<p>可以看到，选举zoo3为leader，zoo1和zoo2为follower。</p>
+<p>4.bundleId越大，bundle的启动顺序越靠后。只有系统bundle（system bundle）的bundleId可以为0。</p>
 
           
         
@@ -1393,7 +1353,7 @@ mysql&gt; show tables;
             
               
                 
-                <a class="post-title-link" href="/2016/06/06/sysstat工具使用说明/" itemprop="url">
+                <a class="post-title-link" href="/2016/06/06/ZooKeeper学习/" itemprop="url">
                   未命名
                 </a>
               
@@ -1418,8 +1378,8 @@ mysql&gt; show tables;
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/06/06/sysstat工具使用说明/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/06/06/sysstat工具使用说明/" itemprop="commentsCount"></span>
+                <a href="/2016/06/06/ZooKeeper学习/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/06/06/ZooKeeper学习/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -1444,108 +1404,148 @@ mysql&gt; show tables;
       
         
           
-            <h2 id="sysstat工具使用"><a href="#sysstat工具使用" class="headerlink" title="sysstat工具使用"></a>sysstat工具使用</h2><p>统计系统的各种资源占用</p>
-<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3>
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/06/06/README/" itemprop="url">
-                  未命名
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-06-06T20:57:27+08:00" content="2016-06-06">
-              2016-06-06
-            </time>
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/06/06/README/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/06/06/README/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="DayDayUp"><a href="#DayDayUp" class="headerlink" title="DayDayUp"></a>DayDayUp</h1><p>云胜的学习笔记</p>
+            <p>#Zookeeper</p>
+<p>###什么是zookeeper？<br>一句话描述：zookeeper是一个开源的高可靠的分布式系统<strong>协调器</strong>。<br>主要提供：配置管理，命名，分布式锁，组服务。这些服务如果在自己的分布式应用中实现和维护起来会有很大工作量。有了zookeeper，我们可以直接拿来用它的一致性，组管理，leader选举等功能，也可以在此基础上构建自己的应用。  </p>
+<h2 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h2><ul>
+<li>zookeeper提供的是分布式应用所需的分布式协同服务。它提供了一系列基本要件供分布式应用去构建自己的高级分布式服务。zookeeper被设计的容易对其进行编程，使用的是类似于目录树的一种数据模型。<br>众所周知，构建正确的分布式协同服务很难，很容易产生竞态条件和死锁，zookeeper的目标就是将我们从构建自己的分布式应用的协同器中解放出来。  </li>
+</ul>
+<h3 id="设计目标"><a href="#设计目标" class="headerlink" title="设计目标"></a>设计目标</h3><ol>
+<li>简单。 zookeeper允许各分布式进程间通过共享一个类似于文件目录树结构的有层级的命名空间来实现彼此间的协同，该命名空间是有一系列注册数据点组成，称为znode。和文件系统很像，所不同的是，znodes是保存在内存中，使zookeeper可以保持高性能低延迟。<br>zookeeper实现高性能，高可用性，严格的顺序访问，使它可以应用于大型分布式系统。</li>
+<li>备份。zookeeper服务本身也是由多台server组成的整体。各台server互相知道彼此，他们在自己的内存中放了各server的状态，只要server集群中一半以上的服务可用，整个zookeeper服务就是可用的。<br><img src="https://zookeeper.apache.org/doc/r3.4.6/images/zkservice.jpg" alt=""><br>client只会连到一台server，client和server间保持tcp连接，以发送请求，获取响应，发送心跳，得到watch事件，一旦tcp连接断掉，client会同另一台server建立tcp连接。</li>
+<li>有序。ZooKeeper会在每一个更新上打上数字标记，以表示这个ZooKeeper事务的顺序。这样以后的操作可以根据这个标记实现更高级的抽象，如同步原语。</li>
+<li>快速。尤其是在读操作占大多数的场景下。ZooKeeper的读写速度相差大约10:1。</li>
+</ol>
+<p>###数据模型<br>前面讲了，非常像文件模型。每一个node都以路径来唯一标识。<br><img src="https://zookeeper.apache.org/doc/r3.4.6/images/zknamespace.jpg" alt=""><br>ZooKeeper的Node可以有子Node，也可以存储数据，存储的数据用来处理协同，主要有状态信息，配置，位置信息等，通常很小。一般将node称为znode。<br>znode存储的数据中有个版本号，一旦数据有更新，这个版本号会自增。client在此获取数据时，会得到新的版本号。<br>znode中数据的读写都是原子的。每个node都有访问控制列表acl来严格控制谁可以做什么。<br>还有一种临时node（ephemeral nodes),这个临时node的生存周期是创建它的session的生存周期，一旦这个session断掉，这个临时node就会被删除，这是很有用的一个特性，可以用来实现分布式锁。  </p>
+<h3 id="状态更新和监视"><a href="#状态更新和监视" class="headerlink" title="状态更新和监视"></a>状态更新和监视</h3><p>client可以在znode上设置watch，当znode的状态变化时将触发watch。当client和server的连接断掉，client会收到本地提醒。  </p>
+<h3 id="保证"><a href="#保证" class="headerlink" title="保证"></a>保证</h3><ul>
+<li>一致性。按照client发送请求的顺序执行。</li>
+<li>原子性。</li>
+<li>单系统视图。不管client连到哪台server，它看到的服务视图都是一致的。</li>
+<li>可靠性。</li>
+<li>实时性。</li>
+</ul>
+<h3 id="api"><a href="#api" class="headerlink" title="api"></a>api</h3><p>ZooKeeper的设计目标有一个是简单性，所以它提供的api也设计的很简单。</p>
+<ul>
+<li>create。创建一个node  </li>
+<li>delete。</li>
+<li>exists。判断在这个location是否存在node</li>
+<li>get data。从node获取数据。</li>
+<li>set data。向node写数据。</li>
+<li>get children。获取该node的子列表。</li>
+<li>sync。等待数据传播完成。</li>
+</ul>
+<h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><p><img src="https://zookeeper.apache.org/doc/r3.4.6/images/zkcomponents.jpg" alt=""><br>上图为ZooKeeper服务的抽象组件。每个server都会有一份自己的组件。<br>replicated database是内存数据库，存放着整个service数据。也就是说每个server都有全部的信息。更新操作会记日志到硬盘中已备恢复。写操作是先序列化到硬盘中，再应用到内存数据库。<br>从上图可以看出，读操作是直接从该client连的server 执行。<br>写操作要通过一致性协议来执行。<br>所有的写操作都会被转发到leader，由leader进行转发。所以ZooKeeper的读能力比写强大很多。<br>信息转发这层称为messaging层，负责维持leader和同步follower与leader的信息。messaging层使用原子性的信息协议，messaging层是原子性的，所以他可以保证每一个本地的信息复制都是可靠地。当leader收到一个写请求，计算写请求提交时的系统状态，然后将其转为一个投票事务，再计算新的状态（后面详细讲解）。<br>原子化广播（atomic broadcast）保证了每一个进程按照相同的顺序投递同一个消息。  </p>
+<h2 id="安装小试"><a href="#安装小试" class="headerlink" title="安装小试"></a>安装小试</h2><ol>
+<li><a href="https://zookeeper.apache.org/" target="_blank" rel="external">下载一个稳定版</a>,我下面的操作以3.4.6为例</li>
+<li>解压，找到conf/zoo_simple.cfg,一般将其改个名字，如zoo.cfg。<br><a href="http://www.cnblogs.com/sunddenly/articles/4071730.html" target="_blank" rel="external">参数解释(转帖-感谢)</a>  </li>
+<li><p>启动ZooKeeper的Server：bin/zkServer.sh start；<br>关闭ZooKeeper的Server：bin/zkServer.sh stop</p>
+</li>
+<li><p>连接。sh zkCli.sh -server 127.0.0.1:2181<br>连接成功，会看到如</p>
+<blockquote>
+<p>[zk: 127.0.0.1:2181(CONNECTED) 0] </p>
+</blockquote>
+</li>
+</ol>
+<p>在这个视图下，可以输入zookeeper的命令了。<br>help：显示所有命令。<br>如：</p>
+<pre><code>[zk: 127.0.0.1:2181(CONNECTED) 2] ls /  
+[zookeeper]
+</code></pre><p>然后创建一个自己的znode，</p>
+<pre><code>[zk: 127.0.0.1:2181(CONNECTED) 3] create /my_node my_data
+Created /my_node
+[zk: 127.0.0.1:2181(CONNECTED) 4] ls /
+[zookeeper, my_node]
+</code></pre><p>获取一下my_node的信息，</p>
+<pre><code>[zk: 127.0.0.1:2181(CONNECTED) 5] get /my_node
+my_data
+cZxid = 0x6
+ctime = Thu Jan 21 15:53:08 CST 2016
+mZxid = 0x6
+mtime = Thu Jan 21 15:53:08 CST 2016
+pZxid = 0x6
+cversion = 0
+dataVersion = 0
+aclVersion = 0
+ephemeralOwner = 0x0
+dataLength = 7
+numChildren = 0
+</code></pre><p>我们也可以用set修改关联的data，</p>
+<pre><code>[zk: 127.0.0.1:2181(CONNECTED) 6] set /my_node yunsheng
+cZxid = 0x6
+ctime = Thu Jan 21 15:53:08 CST 2016
+mZxid = 0x7
+mtime = Thu Jan 21 15:56:32 CST 2016
+pZxid = 0x6
+cversion = 0
+dataVersion = 1
+aclVersion = 0
+ephemeralOwner = 0x0
+dataLength = 8
+numChildren = 0
+[zk: 127.0.0.1:2181(CONNECTED) 7] get /my_node
+yunsheng
+cZxid = 0x6
+ctime = Thu Jan 21 15:53:08 CST 2016
+mZxid = 0x7
+mtime = Thu Jan 21 15:56:32 CST 2016
+pZxid = 0x6
+cversion = 0
+dataVersion = 1
+aclVersion = 0
+ephemeralOwner = 0x0
+dataLength = 8
+numChildren = 0
+</code></pre><p>最后，删除，</p>
+<pre><code>[zk: 127.0.0.1:2181(CONNECTED) 8] delete /my_node
+[zk: 127.0.0.1:2181(CONNECTED) 9] ls /
+[zookeeper]
+</code></pre><p>5.集群  </p>
+<pre><code>tickTime=2000
+dataDir=/var/lib/zookeeper
+clientPort=2181
+initLimit=5//5个tickTime内，允许其他server连接并初始化数据，如果zooKeeper管理的数据较大，则应相应增大这个值。
+syncLimit=2//2个tickTime内，允许follower同步，如果follower落后太多，则会被丢弃。
+server.1=zoo1:2888:3888
+server.2=zoo2:2888:3888
+server.3=zoo3:2888:3888
+// server.x的x要写在myid文件中，决定当前机器的id
+// 第一个port用于连接leader
+// 第二个用于leader选举。
+// hostname也可以填ip
+</code></pre><p>比如配一个三台的集群，可以搞在一台机器上起三个zkServer做假集群，也可以找三台机器，起三个zkServer。我手头没有那么多机器，以假集群演示，其实真集群配起来更简单。<br>例子：<br>配置conf</p>
+<ul>
+<li><p>  mongo:~/zookeeper/zookeeper-3.4.6/conf # ll<br>  total 20<br>  -rw-rw-r– 1 test yunsheng  535 Feb 20  2014 configuration.xsl<br>  -rw-rw-r– 1 test yunsheng 2161 Feb 20  2014 log4j.properties<br>  -rw-rw-r– 1 test yunsheng 1073 Jan 21 17:21 zoo1.cfg<br>  -rw-r–r– 1 root root     1073 Jan 21 17:21 zoo2.cfg<br>  -rw-r–r– 1 root root     1073 Jan 21 17:22 zoo3.cfg<br>  mongo:~/zookeeper/zookeeper-3.4.6/conf # cat zoo1.cfg </p>
+<h1 id="The-number-of-milliseconds-of-each-tick"><a href="#The-number-of-milliseconds-of-each-tick" class="headerlink" title="The number of milliseconds of each tick"></a>The number of milliseconds of each tick</h1><p>  tickTime=2000</p>
+<h1 id="The-number-of-ticks-that-the-initial"><a href="#The-number-of-ticks-that-the-initial" class="headerlink" title="The number of ticks that the initial"></a>The number of ticks that the initial</h1><h1 id="synchronization-phase-can-take"><a href="#synchronization-phase-can-take" class="headerlink" title="synchronization phase can take"></a>synchronization phase can take</h1><p>  initLimit=10</p>
+<h1 id="The-number-of-ticks-that-can-pass-between"><a href="#The-number-of-ticks-that-can-pass-between" class="headerlink" title="The number of ticks that can pass between"></a>The number of ticks that can pass between</h1><h1 id="sending-a-request-and-getting-an-acknowledgement"><a href="#sending-a-request-and-getting-an-acknowledgement" class="headerlink" title="sending a request and getting an acknowledgement"></a>sending a request and getting an acknowledgement</h1><p>  syncLimit=5</p>
+<h1 id="the-directory-where-the-snapshot-is-stored"><a href="#the-directory-where-the-snapshot-is-stored" class="headerlink" title="the directory where the snapshot is stored."></a>the directory where the snapshot is stored.</h1><h1 id="do-not-use-tmp-for-storage-tmp-here-is-just"><a href="#do-not-use-tmp-for-storage-tmp-here-is-just" class="headerlink" title="do not use /tmp for storage, /tmp here is just"></a>do not use /tmp for storage, /tmp here is just</h1><h1 id="example-sakes"><a href="#example-sakes" class="headerlink" title="example sakes."></a>example sakes.</h1><p>  dataDir=/root/zookeeper/dataDir1</p>
+<p>  dataLogDir=/root/zookeeper/logs1</p>
+<h1 id="the-port-at-which-the-clients-will-connect"><a href="#the-port-at-which-the-clients-will-connect" class="headerlink" title="the port at which the clients will connect"></a>the port at which the clients will connect</h1><p>  clientPort=2181</p>
+<h1 id="the-maximum-number-of-client-connections"><a href="#the-maximum-number-of-client-connections" class="headerlink" title="the maximum number of client connections."></a>the maximum number of client connections.</h1><h1 id="increase-this-if-you-need-to-handle-more-clients"><a href="#increase-this-if-you-need-to-handle-more-clients" class="headerlink" title="increase this if you need to handle more clients"></a>increase this if you need to handle more clients</h1><p>  #maxClientCnxns=60<br>  #</p>
+<h1 id="Be-sure-to-read-the-maintenance-section-of-the"><a href="#Be-sure-to-read-the-maintenance-section-of-the" class="headerlink" title="Be sure to read the maintenance section of the"></a>Be sure to read the maintenance section of the</h1><h1 id="administrator-guide-before-turning-on-autopurge"><a href="#administrator-guide-before-turning-on-autopurge" class="headerlink" title="administrator guide before turning on autopurge."></a>administrator guide before turning on autopurge.</h1><p>  #</p>
+<h1 id="http-zookeeper-apache-org-doc-current-zookeeperAdmin-html-sc-maintenance"><a href="#http-zookeeper-apache-org-doc-current-zookeeperAdmin-html-sc-maintenance" class="headerlink" title="http://zookeeper.apache.org/doc/current/zookeeperAdmin.html#sc_maintenance"></a><a href="http://zookeeper.apache.org/doc/current/zookeeperAdmin.html#sc_maintenance" target="_blank" rel="external">http://zookeeper.apache.org/doc/current/zookeeperAdmin.html#sc_maintenance</a></h1><p>  #</p>
+<h1 id="The-number-of-snapshots-to-retain-in-dataDir"><a href="#The-number-of-snapshots-to-retain-in-dataDir" class="headerlink" title="The number of snapshots to retain in dataDir"></a>The number of snapshots to retain in dataDir</h1><p>  #autopurge.snapRetainCount=3</p>
+<h1 id="Purge-task-interval-in-hours"><a href="#Purge-task-interval-in-hours" class="headerlink" title="Purge task interval in hours"></a>Purge task interval in hours</h1><h1 id="Set-to-“0”-to-disable-auto-purge-feature"><a href="#Set-to-“0”-to-disable-auto-purge-feature" class="headerlink" title="Set to “0” to disable auto purge feature"></a>Set to “0” to disable auto purge feature</h1><p>  #autopurge.purgeInterval=1<br>  server.1=192.168.111.118:2881:3881<br>  server.2=192.168.111.118:2882:3882<br>  server.3=192.168.111.118:2883:3883</p>
+</li>
+</ul>
+<p>zoo2和zoo3的配置大同小异，注意分开各自的dataDir和dataLogDir<br>配myid<br>-<br>然后去各自的dataDir下创建myid，如：</p>
+<pre><code>mongo:~/zookeeper/dataDir1 # cat myid 
+1    
+</code></pre><p>创建一个名叫myid的文件，里面的内容就是server.x的x  </p>
+<p>启动server<br>-<br>分别启动三个</p>
+<pre><code>mongo:~/zookeeper/zookeeper-3.4.6/bin # sh zkServer.sh start zoo1.cfg
+JMX enabled by default
+Using config: /root/zookeeper/zookeeper-3.4.6/bin/../conf/zoo1.cfg
+Starting zookeeper ... STARTED
+mongo:~/zookeeper/zookeeper-3.4.6/bin # sh zkServer.sh start zoo2.cfg
+JMX enabled by default
+Using config: /root/zookeeper/zookeeper-3.4.6/bin/../conf/zoo2.cfg
+Starting zookeeper ... STARTED
+mongo:~/zookeeper/zookeeper-3.4.6/bin # sh zkServer.sh start zoo3.cfg
+JMX enabled by default
+Using config: /root/zookeeper/zookeeper-3.4.6/bin/../conf/zoo3.cfg
+Starting zookeeper ... STARTED
+</code></pre><p>查看状态<br>-<br>    mongo:~/zookeeper/zookeeper-3.4.6/bin # sh zkServer.sh status zoo3.cfg<br>    JMX enabled by default<br>    Using config: /root/zookeeper/zookeeper-3.4.6/bin/../conf/zoo3.cfg<br>    Mode: leader<br>    mongo:~/zookeeper/zookeeper-3.4.6/bin # sh zkServer.sh status zoo2.cfg<br>    JMX enabled by default<br>    Using config: /root/zookeeper/zookeeper-3.4.6/bin/../conf/zoo2.cfg<br>    Mode: follower<br>    mongo:~/zookeeper/zookeeper-3.4.6/bin # sh zkServer.sh status zoo1.cfg<br>    JMX enabled by default<br>    Using config: /root/zookeeper/zookeeper-3.4.6/bin/../conf/zoo1.cfg<br>    Mode: follower</p>
+<p>可以看到，选举zoo3为leader，zoo1和zoo2为follower。</p>
 
           
         
@@ -1796,7 +1796,7 @@ gg ： 跳到文件开始
             
               
                 
-                <a class="post-title-link" href="/2016/06/06/windows定位cpu占用过高/" itemprop="url">
+                <a class="post-title-link" href="/2016/06/06/top命令/" itemprop="url">
                   未命名
                 </a>
               
@@ -1821,8 +1821,8 @@ gg ： 跳到文件开始
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/06/06/windows定位cpu占用过高/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/06/06/windows定位cpu占用过高/" itemprop="commentsCount"></span>
+                <a href="/2016/06/06/top命令/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/06/06/top命令/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -1847,19 +1847,97 @@ gg ： 跳到文件开始
       
         
           
-            <h2 id="windows定位java程序cpu占用过高"><a href="#windows定位java程序cpu占用过高" class="headerlink" title="windows定位java程序cpu占用过高"></a>windows定位java程序cpu占用过高</h2><ol>
-<li><p>任务管理器中找到cpu占用过高的程序A</p>
-</li>
-<li><p>运用微软的Process Explorer查看占用cpu高的进程的具体信息。<br>在A上右键properties，得到程序的进程ID，打开Threads标签，看到线程占用cpu的情况。</p>
-</li>
-<li><p>用jdk的jstack工具打印threaddump信息。<br>cmd下执行，jstack.exe -l A的进程ID &gt; 目标文件XX.txt</p>
-</li>
-<li><p>到XX.txt根据线程ID搜索具体的代码行。<br>注意，在Threads标签中看到的tid要转换成16进制的在txt中搜</p>
-</li>
-<li><p>最后反编译class文件，看提示的代码是否有问题。</p>
-</li>
-</ol>
+            <h2 id="top命令"><a href="#top命令" class="headerlink" title="top命令"></a>top命令</h2><p>top命令是Linux下常用的性能分析工具，能够实时显示系统中各个进程的资源占用状况，类似于Windows的任务管理器。top是一个动态显示过程,自动刷新（默认3秒），也可以通过用户按键来不断刷新当前状态.如果在前台执行该命令,它将独占前台,直到用户终止该程序为止.比较准确的说,top命令提供了实时的对系统处理器的状态监视.它将显示系统中CPU最“敏感”的任务列表.该命令可以按CPU使用.内存使用和执行时间对任务进行排序。</p>
+<h3 id="top"><a href="#top" class="headerlink" title="top"></a>top</h3><p>输出：</p>
+<pre><code> top - 14:52:42 up 4 days, 21:28,  2 users,  load average: 0.91, 1.50, 2.13
+Tasks: 168 total,   1 running, 165 sleeping,   0 stopped,   2 zombie
+Cpu(s):  1.6%us,  2.1%sy,  0.0%ni, 96.3%id,  0.0%wa,  0.0%hi,  0.0%si,  0.0%st
+Mem:     15953M total,    10881M used,     5072M free,      546M buffers
+Swap:     2053M total,       15M used,     2038M free,     4756M cached
 
+  PID USER      PR  NI  VIRT  RES  SHR S   %CPU %MEM    TIME+  COMMAND                                                                                                                                                                     
+20074 controll  20   0 11.1g 3.6g  18m S      9 22.9  22:01.95 java                                                                                                                                                                         
+ 8131 omm       20   0 91476 8412 1628 S      1  0.1  14:53.10 ha.bin                                                                                                                                                                       
+11868 mongodb   20   0 12.9g  38m 7620 S      1  0.2  36:52.68 mongod                                                                                                                                                                       
+ 1352 root      20   0 19308 1116  832 S      0  0.0   0:33.45 syslog-ng                                                                                                                                                                    
+ 2900 root      20   0  130m  924  788 S      0  0.0   1:31.15 nscd                                                                                                                                                                         
+ 3098 root      20   0  187m  16m 3864 S      0  0.1  17:28.66 X                                                                                                                                                                            
+ 7273 controll  20   0 4443m 135m  10m S      0  0.8   3:16.95 java                                                                                                                                                                         
+ 9622 omm       20   0  671m 187m  11m S      0  1.2  11:13.91 java                                                                                                                                                                         
+ 9639 omm       20   0 4669m 227m  11m S      0  1.4  11:12.22 java                                                                                                                                                                         
+10354 omm       20   0 4754m 235m  11m S      0  1.5   5:38.90 java                                                                                                                                                                         
+11839 omm       20   0  103m  11m 3324 S      0  0.1  10:03.19 omm_agent.bin                                                                                                                                                                
+19262 mongodb   20   0  384m  56m  26m S      0  0.4  19:07.57 mongod                                                                                                                                                                       
+22360 mongodb   20   0  134m 9240 3808 S      0  0.1   9:02.65 mongos                                                                                                                                                                       
+28769 root      20   0     0    0    0 S      0  0.0   0:01.85 kworker/2:2                                                                                                                                                                  
+    1 root      20   0 10540  736  700 S      0  0.0   0:27.31 init                                                                                                                                                                         
+    2 root      20   0     0    0    0 S      0  0.0   0:02.48 kthreadd                                                                                                                                                                     
+    3 root      20   0     0    0    0 S      0  0.0   0:13.02 ksoftirqd/0                                                                                                                                                                  
+    6 root      RT   0     0    0    0 S      0  0.0   1:02.22 migration/0                                                                                                                                                                  
+    7 root      RT   0     0    0    0 S      0  0.0   1:04.67 watchdog/0                                                                                                                                                                   
+    8 root      RT   0     0    0    0 S      0  0.0   1:10.59 migration/1                                                                                                                                                                  
+   10 root      20   0     0    0    0 S      0  0.0   0:06.69 ksoftirqd/1                                                                                                                                                                  
+   12 root      RT   0     0    0    0 S      0  0.0   0:21.46 watchdog/1                                                                                                                                                                   
+   13 root      RT   0     0    0    0 S      0  0.0   1:21.14 migration/2                                                                                                                                                                  
+   15 root      20   0     0    0    0 S      0  0.0   0:05.63 ksoftirqd/2                                                                                                                                                                  
+   16 root      RT   0     0    0    0 S      0  0.0   0:24.26 watchdog/2                                                                                                                                                                   
+   17 root      RT   0     0    0    0 S      0  0.0   1:12.33 migration/3                                                                                                                                                                  
+   19 root      20   0     0    0    0 S      0  0.0   0:06.10 ksoftirqd/3                                                                                                                                                                  
+   20 root      RT   0     0    0    0 S      0  0.0   0:52.91 watchdog/3        
+</code></pre><p>参数说明：<br>第一行：<br>     14:52:42 ： 当前系统时间<br>     up 4 days, 21:28, ：系统持续运行4天21小时28分，没有重启过<br>     2 users,：当前有两个用户登录<br>     load average: 0.91, 1.50, 2.13   ：1分钟，5分钟，15分钟的负载情况。load average数据是每隔5秒钟检查一次活跃的进程数，然后按特定算法计算出的数值。如果这个数除以逻辑CPU的数量，<strong>结果高于5的时候就表明系统在超负荷运转了。</strong>     </p>
+<p>第二行：<br>当前有168个进程，及状态。（zambie是僵尸状态）  </p>
+<p>第三行：<br>cpu信息。<br>5.9%us — 用户空间占用CPU的百分比。</p>
+<p>3.4% sy — 内核空间占用CPU的百分比。</p>
+<p>0.0% ni — 改变过优先级的进程占用CPU的百分比</p>
+<p>90.4% id — 空闲CPU百分比</p>
+<p>0.0% wa — IO等待占用CPU的百分比</p>
+<p>0.0% hi — 硬中断（Hardware IRQ）占用CPU的百分比</p>
+<p>0.2% si — 软中断（Software Interrupts）占用CPU的百分比</p>
+<p>备注：在这里CPU的使用比率和windows概念不同，需要理解linux系统用户空间和内核空间的相关知识！</p>
+<p>第四行,内存状态，具体信息如下：</p>
+<p>32949016k total — 物理内存总量（32GB）</p>
+<p>14411180k used — 使用中的内存总量（14GB）</p>
+<p>18537836k free — 空闲内存总量（18GB）</p>
+<p>169884k buffers — 缓存的内存量 （169M）</p>
+<p>第五行，swap交换分区信息，具体信息说明如下：</p>
+<p>32764556k total — 交换区总量（32GB）</p>
+<p>0k used — 使用的交换区总量（0K）</p>
+<p>32764556k free — 空闲交换区总量（32GB）</p>
+<p>3612636k cached — 缓冲的交换区总量（3.6GB）</p>
+<p>备注：</p>
+<p><strong>第四行中使用中的内存总量（used）指的是现在系统内核控制的内存数，空闲内存总量（free）是内核还未纳入其管控范围的数量。纳入内核管理的内存不见得都在使用中，还包括过去使用过的现在可以被重复利用的内存，内核并不把这些可被重新使用的内存交还到free中去，因此在linux上free内存会越来越少，但不用为此担心。</strong></p>
+<p>如果出于习惯去计算可用内存数，这里有个近似的计算公式：第四行的free + 第四行的buffers + 第五行的cached，按这个公式此台服务器的可用内存：18537836k +169884k +3612636k = 22GB左右。</p>
+<p>对于内存监控，在top里我们要时刻监控第五行swap交换分区的used，如果这个数值在不断的变化，说明内核在不断进行内存和swap的数据交换，这是真正的内存不够用了。</p>
+<p>第六行，空行。</p>
+<p>第七行以下：各进程（任务）的状态监控，项目列信息说明如下：</p>
+<p>PID — 进程id</p>
+<p>USER — 进程所有者</p>
+<p>PR — 进程优先级</p>
+<p>NI — nice值。负值表示高优先级，正值表示低优先级</p>
+<p>VIRT — 进程使用的虚拟内存总量，单位kb。VIRT=SWAP+RES</p>
+<p>RES — 进程使用的、未被换出的物理内存大小，单位kb。RES=CODE+DATA</p>
+<p>SHR — 共享内存大小，单位kb</p>
+<p>S — 进程状态。D=不可中断的睡眠状态 R=运行 S=睡眠 T=跟踪/停止 Z=僵尸进程</p>
+<p>%CPU — 上次更新到现在的CPU时间占用百分比</p>
+<p>%MEM — 进程使用的物理内存百分比</p>
+<p>TIME+ — 进程使用的CPU时间总计，单位1/100秒</p>
+<p>COMMAND — 进程名称（命令名/命令行）        </p>
+<h3 id="在top基本视图中，按键盘数字“1”，可监控每个逻辑CPU的状况"><a href="#在top基本视图中，按键盘数字“1”，可监控每个逻辑CPU的状况" class="headerlink" title="在top基本视图中，按键盘数字“1”，可监控每个逻辑CPU的状况"></a>在top基本视图中，按键盘数字“1”，可监控每个逻辑CPU的状况</h3><pre><code>top - 15:04:23 up 4 days, 21:39,  2 users,  load average: 9.77, 7.73, 5.35
+Tasks: 173 total,   5 running, 166 sleeping,   0 stopped,   2 zombie
+Cpu0  :  4.7%us,  9.4%sy,  0.0%ni, 85.9%id,  0.0%wa,  0.0%hi,  0.0%si,  0.0%st
+Cpu1  :  1.3%us,  2.7%sy,  0.0%ni, 96.0%id,  0.0%wa,  0.0%hi,  0.0%si,  0.0%st
+Cpu2  :  0.4%us, 14.8%sy,  0.0%ni, 84.4%id,  0.0%wa,  0.0%hi,  0.4%si,  0.0%st
+Cpu3  :  0.0%us, 50.5%sy,  0.0%ni, 49.5%id,  0.0%wa,  0.0%hi,  0.0%si,  0.0%st
+Cpu4  :  3.1%us,  2.4%sy,  0.0%ni, 94.2%id,  0.0%wa,  0.0%hi,  0.3%si,  0.0%st
+Cpu5  :  2.4%us,  2.7%sy,  0.0%ni, 94.6%id,  0.0%wa,  0.0%hi,  0.3%si,  0.0%st
+Cpu6  :  2.0%us, 98.0%sy,  0.0%ni,  0.0%id,  0.0%wa,  0.0%hi,  0.0%si,  0.0%st
+Cpu7  :  0.3%us,  0.3%sy,  0.0%ni, 98.7%id,  0.0%wa,  0.0%hi,  0.7%si,  0.0%st
+Mem:     15953M total,    13559M used,     2394M free,      532M buffers
+Swap:     2053M total,       15M used,     2038M free,     3664M cached
+
+  PID USER      PR  NI  VIRT  RES  SHR S   %CPU %MEM    TIME+  COMMAND       
+</code></pre><p>如图，显示当前8个cpu的使用情况。<br>再按1回到基本视图。</p>
+<h3 id="基本视图下，按b高亮run状态的进程。其实和y有点重复，在高亮状态下，y是显示run的进程，按x，高亮当前排序的列，默认是按cpu使用率排序的。按shift-gt-或者-lt-改变排序列。"><a href="#基本视图下，按b高亮run状态的进程。其实和y有点重复，在高亮状态下，y是显示run的进程，按x，高亮当前排序的列，默认是按cpu使用率排序的。按shift-gt-或者-lt-改变排序列。" class="headerlink" title="基本视图下，按b高亮run状态的进程。其实和y有点重复，在高亮状态下，y是显示run的进程，按x，高亮当前排序的列，默认是按cpu使用率排序的。按shift+&gt;或者&lt;,改变排序列。"></a>基本视图下，按b高亮run状态的进程。其实和y有点重复，在高亮状态下，y是显示run的进程，按x，高亮当前排序的列，默认是按cpu使用率排序的。按shift+&gt;或者&lt;,改变排序列。</h3><h3 id="top-c-显示完整的command"><a href="#top-c-显示完整的command" class="headerlink" title="top -c 显示完整的command"></a>top -c 显示完整的command</h3><h3 id="top-b-批处理显示，不方便看，适合导出转存。"><a href="#top-b-批处理显示，不方便看，适合导出转存。" class="headerlink" title="top -b 批处理显示，不方便看，适合导出转存。"></a>top -b 批处理显示，不方便看，适合导出转存。</h3><h3 id="top-n-数字-：设置刷新次数"><a href="#top-n-数字-：设置刷新次数" class="headerlink" title="top -n 数字  ：设置刷新次数"></a>top -n 数字  ：设置刷新次数</h3><h3 id="top-d-数字-设置刷新周期"><a href="#top-d-数字-设置刷新周期" class="headerlink" title="top -d 数字  : 设置刷新周期"></a>top -d 数字  : 设置刷新周期</h3><h3 id="top-p-进程号-：-显示特定进程"><a href="#top-p-进程号-：-显示特定进程" class="headerlink" title="top -p 进程号 ： 显示特定进程"></a>top -p 进程号 ： 显示特定进程</h3>
           
         
       
