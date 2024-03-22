@@ -3,7 +3,7 @@ name: Deploy
 on:
   push:
     branches:
-      - docs-deploy # 监听的分支
+      - main # 监听的分支
 
 jobs:
   deploy:
