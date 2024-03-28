@@ -1,0 +1,12 @@
+import{_ as s,c as n,o as a,a2 as e}from"./chunks/framework.DukRYrIy.js";const u=JSON.parse('{"title":"","description":"","frontmatter":{},"headers":[],"relativePath":"blogs/k8s/ops/calico-node启动报错.md","filePath":"blogs/k8s/ops/calico-node启动报错.md","lastUpdated":1711611689000}'),p={name:"blogs/k8s/ops/calico-node启动报错.md"},l=e(`<p>calico-node启动报错</p><p>Readiness probe failed: calico/node is not ready: BIRD is not ready: BGP not established w</p><p>calicoctl node status不正常，全部是start。正常应该是up</p><div class="language- vp-adaptive-theme line-numbers-mode"><button title="Copy Code" class="copy"></button><span class="lang"></span><pre class="shiki shiki-themes github-light github-dark vp-code"><code><span class="line"><span># calicoctl node status</span></span>
+<span class="line"><span>Calico process is running.</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>IPv4 BGP status</span></span>
+<span class="line"><span>+----------------+-------------------+-------+----------+---------+</span></span>
+<span class="line"><span>|  PEER ADDRESS  |     PEER TYPE     | STATE |  SINCE   |  INFO   |</span></span>
+<span class="line"><span>+----------------+-------------------+-------+----------+---------+</span></span>
+<span class="line"><span>| 10.250.151.209 | node-to-node mesh | start | 09:36:41 | Passive |</span></span>
+<span class="line"><span>| 10.250.151.210 | node-to-node mesh | start | 09:36:41 | Passive |</span></span>
+<span class="line"><span>| 10.250.151.215 | node-to-node mesh | start | 09:36:41 | Passive |</span></span>
+<span class="line"><span>| 10.250.151.216 | node-to-node mesh | start | 09:36:41 | Passive |</span></span>
+<span class="line"><span>+----------------+-------------------+-------+----------+---------+</span></span></code></pre><div class="line-numbers-wrapper" aria-hidden="true"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br></div></div><p>179端口互相telnet有问题，猜测是防火墙的问题</p>`,5),t=[l];function i(c,o,r,d,b,_){return a(),n("div",null,t)}const h=s(p,[["render",i]]);export{u as __pageData,h as default};
